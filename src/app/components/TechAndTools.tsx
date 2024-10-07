@@ -106,7 +106,7 @@ export default function TechAndTools() {
     if (inView) {
       interval = setInterval(() => {
         setActiveIndex((prevIndex) => (prevIndex + 1) % techCategories.length);
-      }, 5000); // Switch cards every 5 seconds while in view
+      }, 5000); 
     } else {
       resetActiveIndex();
     }
@@ -116,14 +116,14 @@ export default function TechAndTools() {
     };
   }, [inView, resetActiveIndex]);
 
-  const renderTools = (category) => {
+  const renderTools = (category:any) => {
     if (
       category.name === "Full Stack Development" ||
       category.name === "Cloud & DevOps"
     ) {
       return (
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 h-[400px]">
-          {category.tools.map((tool) => (
+        <div className="grid grid-cols-2 bg-[#181815]  sm:grid-cols-3 gap-4 h-[400px]">
+          {category.tools.map((tool:any) => (
             <div
               key={tool.name}
               className="rounded-lg p-2 md:p-4 flex items-center space-x-3 border border-[#3C3C3C] bg-[#181815]"
@@ -143,7 +143,7 @@ export default function TechAndTools() {
     } else {
       return (
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          {category.tools.map((tool) => (
+          {category.tools.map((tool:any) => (
             <div
               key={tool.name}
               className="rounded-lg p-2 md:p-4 flex items-center space-x-3 border border-[#3C3C3C] bg-[#181815]"
@@ -164,9 +164,9 @@ export default function TechAndTools() {
   };
 
   return (
-    <div className="bg-[#181815] text-white p-4 md:p-8 mt-32">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-8 md:mb-16">
+    <div className="bg-[#181815] relative text-white p-4 md:p-8 mt-32">
+      <div className="max-w-7xl mx-auto bg-[#181815]">
+        <div className="text-center bg-[#181815] mb-8 md:mb-16">
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-medium mb-4 font-['Clash_Display'] bg-clip-text text-transparent bg-gradient-to-r from-white to-[#999]">
             Tech and Tools <span className="text-red-600">We Use</span>
           </h1>

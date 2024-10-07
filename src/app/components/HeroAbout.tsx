@@ -6,6 +6,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import ThreeFibreApp from "./Threejs";
 
 export default function Hero() {
   const canvasRef = useRef<HTMLDivElement | null>(null);
@@ -83,12 +84,11 @@ export default function Hero() {
   };
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8">
+    <div className=" relative px-4 sm:px-6 lg:px-8">
       <section className="relative flex flex-col items-center justify-center min-h-screen bg-[#181815] text-white overflow-hidden">
-        <div
-          ref={canvasRef}
-          className="absolute inset-0 z-0 w-full h-full"
-        ></div>
+      <div className=" absolute w-[100%] h-[500px] pt-6 ">
+        <ThreeFibreApp/>
+      </div>
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8">
           <h2 className="font-['Clash_Display'] font-light leading-custom-line text-center mb-4 text-xl sm:text-2xl md:text-3xl lg:text-4xl bg-clip-text text-[#FFFFFF]">
             Unleashing your

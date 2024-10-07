@@ -80,13 +80,13 @@ export default function CardStack() {
   return (
     <div
       id="card-component"
-      className="flex w-full h-full max-w-6xl mt-24 px-4 sm:px-6 lg:px-8 mx-auto overflow-x-hidden"
+      className={`flex w-full h-full max-w-6xl mt-28 px-4 sm:px-6 lg:px-8 mx-auto overflow-x-hidden `}
     >
       <div className="w-full">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium mb-8 text-white font-['Clash_Display'] px-2 ml-6 sm:px-0">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium mb-8  text-white font-['Clash_Display'] px-2 ml-6 sm:px-0">
           Our Proven <span className="text-red-600">Process</span>
         </h2>
-        <div className="relative h-[500px] sm:h-[200px] md:h-[500px] w-[90%]">
+        <div data-aos="fade-right" className="relative h-[450px] sm:h-[200px] md:h-[400px] w-[90%]">
           <AnimatePresence>
             {activeCards.map((card, index) => (
               <motion.div
