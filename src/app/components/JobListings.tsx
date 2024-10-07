@@ -35,6 +35,17 @@ export default function JobListings() {
 
   return (
     <div className="relative bg-[#181815] text-white overflow-hidden px-4 sm:px-6 lg:px-8 py-8 sm:py-12 mt-4">
+       
+       <div className="absolute inset-0 z-0 w-full h-full bg-cover bg-center opacity-50">
+            <Image
+              src="/x.png"
+              alt="Wave background"
+              fill
+              style={{ objectFit: "contain", objectPosition: "bottom" }}
+              className="bg-no-repeat"
+            />
+          </div>
+
       <div className="relative z-10 max-w-4xl mx-auto space-y-6 sm:space-y-8">
         {jobs.map((job, index) => (
           <div

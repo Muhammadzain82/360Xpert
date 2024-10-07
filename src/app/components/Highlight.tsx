@@ -1,9 +1,10 @@
 import React from "react";
+import Image from "next/image";
 
 const Highlight = () => {
   return (
-    <section className="relative flex flex-col md:flex-row items-center justify-between bg-[#181815] text-white px-6 py-12 md:px-12 lg:px-24 mb-8 mt-8">
-      <div className="max-w-lg md:max-w-xl lg:max-w-2xl gap-10 ml-12 flex-grow">
+    <section className="relative flex w-full justify-between    text-white px-6 py-12 md:px-12 lg:px-24 mb-8 mt-8">
+      <div className="max-w-lg md:max-w-xl lg:max-w-2xl w-[50%] g ml-12 flex-grow">
         <h1 className="text-3xl md:text-5xl lg:text-6xl font-medium leading-tight text-gray-400 font-['Clash_Display']">
           <span className="">
             <span className="text-red-600"> Crafting </span>
@@ -24,6 +25,15 @@ const Highlight = () => {
           future is limitless.
         </p>
       </div>
+        <div className="w-[50%] max-sm:hidden md:block  relative">
+          {/* <Image
+            src="/x-logo-2.png"
+            alt="Wave background"
+            fill
+            style={{ objectFit: "contain", }}
+            className="bg-no-repeat absolute z-50 right-0 scale-125  "
+          /> */}
+        </div>
     </section>
   );
 };
