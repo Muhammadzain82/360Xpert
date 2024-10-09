@@ -19,16 +19,16 @@ export default function XlogoBG() {
           rotateX:30,
           rotateY:45,
           rotateZ:-10,
-            scrollTrigger: {
-                trigger: ".background",  
-                start: " bottom 100px",  
-                end: "top  ", 
-                duration:3, 
-                delay:2,
-                // scrub:true,
-                // pin:true,
-                markers: true,          
-                toggleActions: 'play reverse play reverse'
+          scrollTrigger: {
+              trigger: ".background",  
+              start: " bottom 100px",  
+              end: "top  ", 
+              duration:1, 
+              delay:2,
+              // scrub:true,
+            //   pin:true,
+              // markers: true,          
+              toggleActions: 'play reverse play reverse'
             },               
         });
 

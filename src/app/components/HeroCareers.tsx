@@ -1,15 +1,19 @@
+'use client'
 import Image from "next/image";
+import WaveForm from "./WaveForm";
 export default function HeroCareers() {
   return (
     <section className="relative flex flex-col items-center justify-center bg-[#181815] text-white overflow-hidden px-4 sm:px-6 lg:px-8 mt-20">
-      <div className="absolute inset-0 z-0 w-full h-full bg-cover bg-center opacity-50">
-        <Image
+      <div className="absolute  w-full h-full mt-44">
+
+        <WaveForm/>
+        {/* <Image
           src="/Waveform.png"
           alt="Wave background"
           fill
           style={{ objectFit: "contain", objectPosition: "bottom" }}
           className="bg-no-repeat"
-        />
+        /> */}
       </div>
       <div className="text-center max-w-4xl mx-auto">
         <h1 className="font-['Clash_Display'] font-medium text-5xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-[#999]">

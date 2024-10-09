@@ -1,6 +1,8 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
+import {useRouter} from 'next/navigation'
+import Link from "next/link";
 
 const jobs = [
   {
@@ -32,6 +34,8 @@ const jobs = [
 
 export default function JobListings() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  const router = useRouter();
 
   return (
     <div className="relative bg-[#181815] text-white overflow-hidden px-4 sm:px-6 lg:px-8 py-8 sm:py-12 mt-4">
@@ -71,8 +75,8 @@ export default function JobListings() {
                   </span>
                 </div>
               </div>
-              <button className="text-white flex items-center mt-6 font-['Clash_Display'] font-medium text-xl sm:text-base">
-                Apply
+              <button onClick={()=>router.push('/CareersForm')}  className="text-white relative z-[10000] bg-red-900 px-1 flex items-center mt-6 font-['Clash_Display'] font-medium text-xl sm:text-base">
+               Apply
                 <Image
                   src="/arrow-right.png"
                   alt="Apply"

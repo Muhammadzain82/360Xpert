@@ -4,6 +4,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Threejs from "./Threejs";
 
 export default function TextComponent() {
   useEffect(() => {
@@ -43,9 +44,15 @@ export default function TextComponent() {
     });
   }, []);
 
+  // bg-[#181815]
+
   return (
     <div className="bg-[#181815] h-screen flex flex-col sm:flex-col md:flex-row items-center justify-center overflow-hidden">
       {/* Smart */}
+        <div className="absolute w-full h-full  ">
+            <Threejs/>
+        </div>
+      
       <div className="relative sm:mb-8 md:mb-0">
         <div className="absolute inset-0 flex items-center justify-center"></div>
         <h1

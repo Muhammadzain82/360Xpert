@@ -27,7 +27,7 @@ export default function Scroll() {
           .map((_, index) => (
             <span
               key={index}
-              className="text-[4vw] sm:text-2xl md:text-3xl lg:text-4xl font-medium text-transparent bg-clip-text bg-gradient-to-r from-[#FFFFFF] to-[#999999] font-['Clash_Display'] px-4 leading-[40px] sm:leading-[45px] md:leading-[50px] lg:leading-[60px]"
+              className="text-[4vw] sm:text-2xl md:text-3xl lg:text-4xl font-medium text-transparent bg-clip-text bg-gradient-to-r from-[#555353] to-[#363535] font-['Clash_Display'] px-4 leading-[40px] sm:leading-[45px] md:leading-[50px] lg:leading-[60px]"
             >
               What&apos;s holding you back? &nbsp; &nbsp; What&apos;s holding
               you back? &nbsp; &nbsp; What&apos;s holding you back?

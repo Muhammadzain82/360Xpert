@@ -34,7 +34,7 @@ export default function JourneyBanner() {
             />
             <p className="text-[#999999] text-center md:text-right max-w-xs text-sm font-['Clash_Display']">
               Join us as we embark on a path to innovation <br /> and success.
-              Together, we'll <br /> turn your vision into reality, creating
+              Together, we&#39;ll <br /> turn your vision into reality, creating
               <br /> solutions that stand out in the digital world.
             </p>
           </div>

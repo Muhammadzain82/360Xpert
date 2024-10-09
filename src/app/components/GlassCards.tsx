@@ -7,7 +7,7 @@ export default function Component() {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div className="flex justify-center items-center bg-[#181815] overflow-hidden mt-16">
+    <div className="flex justify-center items-center h-[350px] bg-[#181815] overflow-hidden mt-16">
       <div
         className="relative w-[90%] sm:w-[500px] h-[250px] sm:h-[300px]"
         onMouseEnter={() => setIsHovered(true)}
@@ -15,8 +15,8 @@ export default function Component() {
       >
         {/* Left Card */}
         <div
-          className={`absolute left-0 top-0 w-[80%] sm:w-[300px] h-full bg-white bg-opacity-10 border border-white/10 shadow-xl rounded-lg backdrop-blur-lg overflow-hidden transition-transform duration-500 ease-in-out ${
-            isHovered ? "-translate-x-full" : "translate-x-0"
+          className={`absolute left-0 top-0 w-[80%]  sm:w-[300px] h-full bg-white bg-opacity-10 border border-white/10 shadow-xl rounded-lg backdrop-blur-lg overflow-hidden transition-transform duration-500 ease-in-out ${
+            isHovered ? "-translate-x-full rotate-12" : "translate-x-0"
           }`}
         >
           <Image
@@ -25,13 +25,14 @@ export default function Component() {
             layout="fill"
             objectFit="cover"
             quality={100}
+          
           />
         </div>
 
         {/* Right Card */}
         <div
           className={`absolute right-0 top-0 w-[80%] sm:w-[300px] h-full bg-white bg-opacity-10 border border-white/10 shadow-xl rounded-lg backdrop-blur-lg overflow-hidden transition-transform duration-500 ease-in-out ${
-            isHovered ? "translate-x-full" : "translate-x-0"
+            isHovered ? "translate-x-full -rotate-12"  : "translate-x-0 "
           }`}
         >
           <Image
