@@ -17,3 +17,29 @@ body {
   font-style: medium;
   font-display: swap;
 }
+
+::-webkit-scrollbar {
+  width: 6px;
+  background: #0b0a0a; /* Background for the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d10202; /* Color for the scrollbar thumb */
+  border-radius: 100px; /* Rounded corners for the scrollbar thumb */
+}
+
+/* Class to hide scrollbar */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+/* Ensure horizontal scrollbar is hidden while allowing vertical scroll */
+.scroll-container {
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+  overflow-y: auto; /* Allow vertical scrolling */
+}

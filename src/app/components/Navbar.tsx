@@ -11,6 +11,7 @@ export default function Navbar() {
 
   const links = [
     { href: "/Careers", label: "CAREERS" },
+    // { href: "/CareersForm", label: "CareersForm" },
     { href: "/Blogs", label: "BLOGS" },
     { href: "/About", label: "ABOUT US" },
     { href: "/", label: "HOME" },

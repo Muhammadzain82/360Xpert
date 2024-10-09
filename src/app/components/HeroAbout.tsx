@@ -7,6 +7,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import ThreeFibreApp from "./Threejs";
+import WaveForm from "./WaveForm";
 
 export default function Hero() {
   const canvasRef = useRef<HTMLDivElement | null>(null);
@@ -86,7 +87,7 @@ export default function Hero() {
   return (
     <div className=" relative px-4 sm:px-6 lg:px-8">
       <section className="relative flex flex-col items-center justify-center min-h-screen bg-[#181815] text-white overflow-hidden">
-      <div className=" absolute w-[100%] h-[500px] pt-6 ">
+      <div className=" absolute h-[500px] w-full  pt-6 ">
         <ThreeFibreApp/>
       </div>
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8">
@@ -108,17 +109,18 @@ export default function Hero() {
             won&apos;t just stand out - it will excel.
           </p>
         </div>
-        <div className="absolute inset-0 z-0 w-full h-full bg-cover bg-center opacity-50">
-          <Image
+        <div className="absolute inset-0 z-0 w-full h-full mt-60">
+          {/* <Image
             src="/Waveform.png"
             alt="Wave background"
             fill
             style={{ objectFit: "contain", objectPosition: "bottom" }}
             className="bg-no-repeat"
-          />
+          /> */}
+          <WaveForm/>
         </div>
 
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 -mb-8">
+        {/* <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 -mb-8">
           <Image
             id="toggleButton"
             src="/toggle.png"
@@ -128,7 +130,7 @@ export default function Hero() {
             className="cursor-pointer"
             onClick={handleToggle}
           />
-        </div>
+        </div> */}
       </section>
     </div>
   );
