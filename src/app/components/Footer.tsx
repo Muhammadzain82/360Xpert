@@ -7,12 +7,14 @@ export default function Footer() {
       <div className="container mx-auto">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8">
           <div className="mb-8 lg:mb-0">
+            <Link  href={'/'}>
             <Image
               src="/Vector.png"
               alt="360X Solutions Logo"
               width={180}
               height={36}
-            />
+              />
+              </Link>
             <p className="mt-8 text-[13px] leading-[18px] max-w-[300px] text-[#9B9B9B] font-['Clash_Display']">
               Accelerating innovation,
               <br />
@@ -77,17 +79,17 @@ export default function Footer() {
               </div>
             </div>
             <div className="flex flex-col space-y-2 text-[13px] font-['Clash_Display']">
-              <Link href="/about-us" className="hover:text-[#9B9B9B]">
+              <Link href={"/About"} className="hover:text-[#9B9B9B]">
                 About Us
               </Link>
-              <Link href="/careers" className="hover:text-[#9B9B9B]">
+              <Link href={"/Careers"} className="hover:text-[#9B9B9B]">
                 Careers
               </Link>
-              <Link href="/show-case" className="hover:text-[#9B9B9B]">
-                Showcase
+              <Link href={"/Blogs"} className="hover:text-[#9B9B9B]">
+                Blogs
               </Link>
-              <Link href="/contact" className="hover:text-[#9B9B9B]">
-                Contact
+              <Link href={"/"} className="hover:text-[#9B9B9B]">
+                Home
               </Link>
             </div>
           </div>

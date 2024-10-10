@@ -46,7 +46,7 @@ const MyModel = () => {
   useFrame(() => {
     if (modelRef.current) {
       // Automatic rotation
-      modelRef.current.rotation.y += 0.003;
+      modelRef.current.rotation.y += 0.01;
     }
   });
 
