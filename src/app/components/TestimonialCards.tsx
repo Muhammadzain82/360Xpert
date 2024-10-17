@@ -25,7 +25,7 @@ export default function Component() {
         {testimonials.map((testimonial, index) => (
           <div
             key={index}
-            className={`w-[300px] sm:w-[330px] h-[300px] sm:h-[380px] bg-gradient-to-t from-[#333333] to-[#222222] rounded-lg border border-[#3C3C3C] p-4 sm:p-6 flex flex-col justify-center items-center text-center ${
+            className={`w-[300px] sm:w-[390px] h-[300px] sm:h-[380px] bg-gradient-to-t from-[#333333] to-[#222222] rounded-lg border border-[#3C3C3C] p-4 sm:p-6 flex flex-col justify-center items-center text-center ${
               index === 1 ? "z-10 scale-105 sm:scale-110" : "z-0"
             }`}
           >

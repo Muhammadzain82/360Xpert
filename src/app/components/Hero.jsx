@@ -391,7 +391,7 @@ const TextBox = () => {
   };
 
   return (
-    <div className="w-full h-[450px] pt-4 bg-transparent">
+    <div className="w-full h-[450px] pt-1 bg-transparent">
       <div className="absolute px-4 w-full sm:px-6 lg:px-8">
         <section className="relative flex flex-col items-center justify-center min-h-screen text-white overflow-hidden">
           <div></div>
