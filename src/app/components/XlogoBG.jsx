@@ -41,7 +41,7 @@ export default function XlogoBG() {
     return (
         <div className="relative   ">
             {/* Threejs as the background (scrolls with the page) */}
-            <div className="w-full fixed h-[500px]  threejs-background">
+            <div className="w-full fixed h-[500px] mt-3  threejs-background">
                 <Threejs />
             </div>
         
