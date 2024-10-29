@@ -20,7 +20,7 @@ export default function Scroll() {
         className="absolute whitespace-nowrap flex"
         style={{
           transform: `translateX(${position}px)`,
-          transition: "transform 0.02s linear",
+          transition: "transform 0.2s linear",
         }}
       >
         {Array(1000)

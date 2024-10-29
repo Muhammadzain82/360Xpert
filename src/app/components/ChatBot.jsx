@@ -170,19 +170,19 @@ const ChatBot = () => {
     setShowChat((prevShowChat) => !prevShowChat);
 
     if (!showChat && conversation.length === 0) {
-      setConversation([
-        {
-          type: "bot",
-          content: "Greetings! How may I assist you today?",
-          time: new Date().toLocaleTimeString(),
-        },
-      ]);
+      // setConversation([
+      //   {
+      //     type: "bot",
+      //     content: "Greetings! How may I assist you today?",
+      //     time: new Date().toLocaleTimeString(),
+      //   },
+      // ]);
 
       setTimeout(() => {
         setConversation([
           {
             type: "bot",
-            content: "What is your name?",
+            content: "Greetings What is your name?",
             time: new Date().toLocaleTimeString(),
           },
         ]);
