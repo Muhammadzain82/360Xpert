@@ -1,4 +1,7 @@
-import React from "react";
+'use client'
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const testimonials = [
   {
@@ -19,13 +22,22 @@ const testimonials = [
 ];
 
 export default function Component() {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,  // Duration of the animation in milliseconds
+      once: true,      // Animation will only run once when scrolled into view
+    });
+  }, []);
+
   return (
     <div className="flex justify-center h-[500px] items-center bg-[#181815] p-4">
       <div className="flex flex-col sm:flex-row space-y-6 sm:space-y-0 sm:-ml-8">
         {testimonials.map((testimonial, index) => (
           <div
             key={index}
-            className={`w-[300px] sm:w-[390px] h-[300px] sm:h-[380px] bg-gradient-to-t from-[#333333] to-[#222222] rounded-lg border border-[#3C3C3C] p-4 sm:p-6 flex flex-col justify-center items-center text-center transition-transform duration-300 ease-in-out transform hover:scale-105 hover:rotate-1 ${
+            data-aos="fade-up"
+            data-aos-delay={`${index * 100}`} // Delay for a staggered animation effect
+            className={`w-[300px] sm:w-[390px] h-[300px] sm:h-[380px] bg-gradient-to-t from-[#333333] to-[#222222] rounded-lg border border-[#3C3C3C] p-4 sm:p-6 flex flex-col justify-center items-center text-center transition-transform duration-300 ease-in-out transform hover:scale-105 hover:translate-x-2 ${
               index === 1 ? "z-10 scale-105 sm:scale-110" : "z-0"
             }`}
             style={{ cursor: "pointer" }}
