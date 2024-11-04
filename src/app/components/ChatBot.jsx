@@ -182,7 +182,7 @@ const ChatBot = () => {
         setConversation([
           {
             type: "bot",
-            content: "Greetings What is your name?",
+            content: "Greetings What is your name, Please?",
             time: new Date().toLocaleTimeString(),
           },
         ]);
@@ -211,7 +211,7 @@ const ChatBot = () => {
       showChat &&
       step === 3 &&
       conversation.length > 0 &&
-      conversation[conversation.length - 1].content === "Enter any message:"
+      conversation[conversation.length - 1].content === "Enter your inqueries:"
     ) {
       setFormData((prevFormData) => ({
         ...prevFormData,
