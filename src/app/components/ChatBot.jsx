@@ -248,7 +248,7 @@ const ChatBot = () => {
       </div>
       <div
         ref={chatContainerRef}
-        className={`fixed bottom-[75px] right-[60px] bg-[#1B1B19] rounded-lg z-40 overflow-y-auto p-9 shadow-lg transition-all duration-300 max-h-[400px] w-[350px] ${
+        className={`fixed mr-[95px] bottom-[75px] right-[60px] bg-[#1B1B19] rounded-lg z-40 overflow-y-auto p-9 shadow-lg transition-all duration-300 max-h-[400px] w-[350px] ${
           showChat ? "block" : "hidden"
         } ${isSmallScreen ? "w-90vw fixed left-0 bottom-0 mx-auto mb-[91px] rounded-none" : ""}`}
       >
