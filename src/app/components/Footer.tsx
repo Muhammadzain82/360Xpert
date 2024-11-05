@@ -32,7 +32,7 @@ export default function Footer() {
                 href="mailto:info@techxworlds.co"
                 className="text-[13px] hover:text-[#9B9B9B] font-['Clash_Display']"
               >
-                info@techxworlds.co
+                connect@360xpertsolutions.com
               </Link>
             </div>
             <div>
@@ -97,9 +97,9 @@ export default function Footer() {
 
         <div className="border-[#2D2D2D] pt-8 flex flex-col lg:flex-row justify-between items-center font-['Clash_Display']">
           <p className="text-[11px] text-[#9B9B9B] mb-4 lg:mb-0 lg:self-start lg:mr-auto">
-            © 2023 Samurai Systems. All rights reserved.
+            © 2024 360Xpert Solutions. All rights reserved.
           </p>
-          <div className="flex justify-center lg:justify-end space-x-4 text-[11px] text-[#9B9B9B] font-['Clash_Display']">
+          {/* <div className="flex justify-center lg:justify-end space-x-4 text-[11px] text-[#9B9B9B] font-['Clash_Display']">
             <Link href="/privacy-policy" className="hover:underline">
               Privacy Policy
             </Link>
@@ -109,7 +109,7 @@ export default function Footer() {
             >
               Terms & Conditions
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>

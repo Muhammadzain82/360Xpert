@@ -301,7 +301,7 @@ const ChatBot = () => {
                     ? "Enter Your Full Name"
                     : step === 2
                     ? "Enter Your Email"
-                    : "Enter Any Message"
+                    : "Enter your inqueries"
                 }
                 value={
                   step === 1
