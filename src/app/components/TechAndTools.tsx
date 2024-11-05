@@ -22,6 +22,77 @@ const techCategories = [
     video: "/Ai.mp4",
   },
   
+  {
+    name: "Full Stack Development",
+    tools: [
+      { name: "Kafka", logo: "/kafka.png" },
+      { name: "JavaScript", logo: "/js.png" },
+      { name: "SQL Server", logo: "/sqlserver.png" },
+      { name: "ReactJS", logo: "/react.png" },
+      { name: "MongoDB", logo: "/mongodb.png" },
+      { name: "Postgres", logo: "/postgres.png" },
+      { name: "Stripe", logo: "/stripe.png" },
+      { name: "Jest", logo: "/jest.png" },
+      { name: "ExpressJS", logo: "/express.png" },
+      { name: "Django", logo: "/django.png" },
+      { name: "MySQL", logo: "/mysql.png" },
+      { name: "NestJS", logo: "/Group.png" },
+      { name: "NodeJS", logo: "/nodejs.png" },
+      { name: "Python", logo: "/python.png" },
+    ],
+    video: "/Ai.mp4",
+  },
+
+  {
+    name: "Cloud & DevOps",
+    tools: [
+      { name: "Wavefront", logo: "/wavefront.png" },
+      { name: "Docker", logo: "/docker.png" },
+      { name: "Github Actions", logo: "/github.png" },
+      { name: "Fusion Auth", logo: "/fusionauth.png" },
+      { name: "Sonar Cloud", logo: "/sonarcloud.png" },
+      { name: "GCP", logo: "/GCP.png" },
+      { name: "Microsoft Azure", logo: "/microsoftazure.png" },
+      { name: "Jenkins", logo: "/jenkins.png" },
+      { name: "AWS", logo: "/aws.png" },
+      { name: "kubernetes", logo: "/kubernetes.png" },
+      { name: "Splunk", logo: "/splunk.png" },
+      { name: "Firebase", logo: "/firebase.png" },
+      { name: "Heroku", logo: "/heroku.png" },
+      { name: "Digital-Ocean", logo: "/digitalocean.png" },
+      { name: "Azure DevOps", logo: "/devops.png" },
+    ],
+    video: "/Ai.mp4",
+  },
+
+  {
+    name: "Mobile App Development",
+    tools: [
+      { name: "iOS", logo: "/ios.png" },
+      { name: "Android", logo: "/android.png" },
+      { name: "Swift", logo: "/swift.png" },
+      { name: "React Native", logo: "/native.png" },
+      { name: "Flutter", logo: "/flutter.png" },
+      { name: "Kotlin", logo: "/kotlin.png" },
+    ],
+    video: "/Ai.mp4",
+  },
+
+  {
+    name: "UI/UX",
+    tools: [
+      { name: "Material UI", logo: "/materialui.png" },
+      { name: "Balsamiq", logo: "/balsam.png" },
+      { name: "Adobe XD", logo: "/adobe.png" },
+      { name: "Bootstrap", logo: "/bootstrap.png" },
+      { name: "TailwindCSS", logo: "/tailwind.png" },
+      { name: "Figma", logo: "/figma.png" },
+      { name: "CSS3", logo: "/css.png" },
+      { name: "HTML5", logo: "/htnl.png" },
+      { name: "Saas", logo: "/saas.png" },
+    ],
+    video: "/Ai.mp4",
+  },
 ];
 
 export default function TechAndTools() {
