@@ -101,7 +101,7 @@ const ChatBot = () => {
           botResponse = `Enter your email, ${formData.FullName}`;
           break;
         case 3:
-          botResponse = `Enter any inqueries, ${formData.FullName}`;
+          botResponse = `Enter any inquiries, ${formData.FullName}`;
           break;
         case 4:
           botResponse = `Thanks! Your Message Has Been Submitted, ${formData.FullName}`;
@@ -311,6 +311,12 @@ const ChatBot = () => {
                     : formData.Message
                 }
                 onChange={handleChange}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault(); // Prevent adding a new line
+                    handleSubmit(e);    // Trigger form submission
+                  }
+                }}
                 required
                 className="w-full  p-2 bg-white border rounded-sm shadow-md text-black focus:outline-none focus:border-gray-600"
               />
