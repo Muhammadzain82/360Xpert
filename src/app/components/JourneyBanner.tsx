@@ -13,7 +13,7 @@ export default function JourneyBanner() {
   }, []);
 
   return (
-    <div className="w-full flex justify-center py-8 md:py-12">
+    <div className="w-full flex justify-center py-10 md:py-24">
       <div className="p-6 sm:p-10 md:p-14 relative overflow-hidden mx-auto w-full max-w-4xl md:max-w-6xl h-auto md:h-[500px]">
         <div
           className="bg-gradient-to-t from-[#333333] to-[#222222] rounded-lg p-6 sm:p-8 md:p-12 flex flex-col md:flex-row justify-between items-center h-full w-full"
@@ -36,7 +36,7 @@ export default function JourneyBanner() {
               </span>
             </h2>
             <a
-              href="#"
+              href="/CareersForm"
               className="mt-8 md:mt-10 bg-gradient-to-r from-[#D43833] to-[#650300] hover:from-[#650300] hover:to-[#D43833] text-white px-6 sm:px-8 md:px-10 rounded-full inline-block text-base sm:text-lg md:text-xl lg:text-2xl font-['Clash_Display']"
               data-aos="zoom-in"
               data-aos-delay="200"

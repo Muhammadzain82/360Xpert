@@ -44,7 +44,7 @@ export default function Footer() {
               </p>
 
               <div className="flex space-x-4">
-                <Link href="#" aria-label="Facebook">
+                <Link href="https://facebook.com/360Xpertsolutions/" target="_blank" aria-label="Facebook">
                   <Image
                     src="/facebook.png"
                     alt="Facebook"
@@ -52,25 +52,17 @@ export default function Footer() {
                     height={20}
                   />
                 </Link>
-                <Link href="#" aria-label="Twitter">
+                <Link href="https://www.instagram.com/360xpertsolutions?igsh=MXRtdHppcXEya29qcA==" target="_blank" aria-label="instagram">
                   <Image
-                    src="/xrp-(xrp).png"
-                    alt="Twitter"
+                    src="/instagram.png"
+                    alt="instagram"
                     width={20}
                     height={20}
                   />
                 </Link>
-                <Link href="#" aria-label="YouTube">
+                <Link href="https://www.linkedin.com/company/360xpertsolutions/posts/?feedView=all" target="_blank" aria-label="LinkedIn">
                   <Image
-                    src="/youtube.png"
-                    alt="YouTube"
-                    width={20}
-                    height={20}
-                  />
-                </Link>
-                <Link href="#" aria-label="LinkedIn">
-                  <Image
-                    src="/figma.png"
+                    src="/linkdin.png"
                     alt="LinkedIn"
                     width={20}
                     height={20}

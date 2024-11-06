@@ -10,7 +10,7 @@ export default function Component() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setIsInView(entry.isIntersecting),
-      { threshold: 0.1 }
+      { threshold: 0.5 }
     );
 
     if (containerRef.current) {

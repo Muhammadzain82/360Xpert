@@ -38,13 +38,18 @@ export default function Component() {
                 name="lookingFor"
                 value={formData.lookingFor}
                 onChange={handleChange}
-                className="w-full bg-transparent border-b border-gray-600 bg-black text-black py-2 outline-none hover:border-red-500"
+                className="w-full bg-transparent border-b border-gray-600 text-white bg-[#181914] py-2 outline-none hover:border-red-500"
                 aria-label="Looking For"
               >
                 <option value="AI">AI</option>
                 <option value="ML">ML</option>
                 <option value="App Development">App Development</option>
                 <option value="Web Development">Web Development</option>
+                <option value="App Development">DevOps</option>
+                <option value="Web Development">UI/UX</option>
+                <option value="App Development">Prokect Manager</option>
+                <option value="Web Development">Full Stack Development</option>
+                <option value="Web Development">QA</option>
               </select>
             </div>
             <input
@@ -53,7 +58,7 @@ export default function Component() {
               placeholder="First name"
               value={formData.firstName}
               onChange={handleChange}
-              className="bg-transparent border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+              className="bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
               aria-label="First name"
             />
             <input
@@ -62,7 +67,7 @@ export default function Component() {
               placeholder="Last name"
               value={formData.lastName}
               onChange={handleChange}
-              className="bg-transparent border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+              className="bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
               aria-label="Last name"
             />
             <input
@@ -71,7 +76,7 @@ export default function Component() {
               placeholder="Phone Number"
               value={formData.phoneNumber}
               onChange={handleChange}
-              className="bg-transparent border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+              className="bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
               aria-label="Phone Number"
             />
             <input
@@ -80,7 +85,7 @@ export default function Component() {
               placeholder="Email"
               value={formData.email}
               onChange={handleChange}
-              className="bg-transparent border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+              className="bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
               aria-label="Email"
             />
             <div className="col-span-2">
@@ -90,7 +95,7 @@ export default function Component() {
                 placeholder="Company"
                 value={formData.company}
                 onChange={handleChange}
-                className="w-full bg-transparent border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+                className="w-full bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
                 aria-label="Company"
               />
             </div>
@@ -100,7 +105,7 @@ export default function Component() {
                 placeholder="Message"
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full bg-transparent border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+                className="w-full bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
                 rows="3"
                 aria-label="Message"
               ></textarea>
@@ -237,7 +242,7 @@ export default function Component() {
 //                    name="firstName"
 //                    value={formData.firstName}
 //                    onChange={handleChange}
-//                     className="border-b border-gray-600 bg-black text-white p-2 outline-none w-full"
+//                     className="border-b border-gray-600 bg-transparent text-white p-2 outline-none w-full"
 //                   />
 //                 </div>
 //                 <div className="lg:w-1/2">
@@ -250,7 +255,7 @@ export default function Component() {
 //                     name="lastName"
 //                     value={formData.lastName}
 //                     onChange={handleChange}
-//                     className="border-b border-gray-600 bg-black text-white p-2 outline-none w-full"
+//                     className="border-b border-gray-600 bg-transparent text-white p-2 outline-none w-full"
 //                   />
 //                 </div>
 //               </div>
@@ -267,7 +272,7 @@ export default function Component() {
 //                     name="phoneNumber"
 //                     value={formData.phoneNumber}
 //                     onChange={handleChange}
-//                     className="border-b border-gray-600 bg-black text-white p-2 outline-none w-full"
+//                     className="border-b border-gray-600 bg-transparent text-white p-2 outline-none w-full"
 //                     required
 //                   />
 //                 </div>
@@ -281,7 +286,7 @@ export default function Component() {
 //                     name="email"
 //                     value={formData.email}
 //                     onChange={handleChange}
-//                    className="border-b border-gray-600 bg-black text-white p-2 outline-none w-full"
+//                    className="border-b border-gray-600 bg-transparent text-white p-2 outline-none w-full"
 //                    required
 //                   />
 //                 </div>
@@ -297,7 +302,7 @@ export default function Component() {
 //                name="company"
 //                value={formData.company}
 //                onChange={handleChange}
-//                className="border-b border-gray-600 bg-black text-white p-2 outline-none"
+//                className="border-b border-gray-600 bg-transparent text-white p-2 outline-none"
 //               />
 
 //               <label htmlFor="message" className="text-white font-normal text-lg">
@@ -308,16 +313,21 @@ export default function Component() {
 //                name="message"
 //                value={formData.message}
 //                onChange={handleChange}
-//                className="border-b border-gray-600 bg-black text-white p-2 outline-none"
+//                className="border-b border-gray-600 bg-transparent text-white p-2 outline-none"
 //               />
 
 //              {/* Submit Button */}
+//              <div className="col-span-2">
 //               <button
-//                type="submit"
-//                onClick={submit}
-//                className="mt-5 bg-red-600 text-white font-normal text-lg py-2 px-4 rounded hover:bg-white hover:text-red-600 border border-red-600 uppercase">
-//                Get Started →
+//                 type="submit"
+//                 className="bg-red-600 text-white px-8 py-3 rounded hover:bg-red-700 transition duration-300"
+//               >
+//                 GET STARTED →
 //               </button>
+//             </div>
+//             <div className="absolute left-60">
+//              <Image src="/x.png" width={600} height={600}/>
+//             </div>
 //             </form>
 //           </div>
 //       </div>

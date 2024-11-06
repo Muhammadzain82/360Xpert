@@ -101,7 +101,7 @@ const ChatBot = () => {
           botResponse = `Enter your email, ${formData.FullName}`;
           break;
         case 3:
-          botResponse = `Enter any message, ${formData.FullName}`;
+          botResponse = `Enter any inqueries, ${formData.FullName}`;
           break;
         case 4:
           botResponse = `Thanks! Your Message Has Been Submitted, ${formData.FullName}`;
