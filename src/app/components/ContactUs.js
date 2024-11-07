@@ -51,7 +51,7 @@ export default function Component() {
                 name="lookingFor"
                 value={formData.lookingFor}
                 onChange={handleChange}
-                className="w-full bg-transparent border-b border-gray-600 text-white bg-[#181914] py-2 outline-none hover:border-red-500"
+                className="w-full border-b border-gray-600 text-white bg-[#181914] py-2 outline-none hover:border-red-500"
                 aria-label="Looking For"
               >
                 <option value="AI">AI</option>
