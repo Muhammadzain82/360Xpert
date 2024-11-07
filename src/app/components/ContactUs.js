@@ -22,6 +22,18 @@ export default function Component() {
     }))
   }
 
+  const formreset = (e) => {
+    e.preventDefault()  
+    setFormData({
+      lookingFor: '',
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      email: '',
+      company: '',
+      message: ''
+    })
+  }
   const handleSubmit = (e) => {
     e.preventDefault()
     
@@ -29,11 +41,12 @@ export default function Component() {
       'service_j6csyxd', 
       'template_9d2y9k3', 
       e.target, 
-      'cmO2drZIAuccL7NnJ'
+      'cmO2drZIAuccL7NnJ',
     )
     .then((result) => {
       console.log('Email sent:', result.text)
       alert('Message sent successfully!')
+      formreset(e)
     }, (error) => {
       console.error('Failed to send email:', error.text)
       alert('Failed to send message. Please try again.')
