@@ -43,7 +43,7 @@ export default function Component() {
   return (
     <div className="flex items-left justify-left p-4">
       <div className="w-full max-w-5xl p-8 relative flex">
-        <form onSubmit={handleSubmit} className="relative z-10 w-2/3">
+        <form onSubmit={handleSubmit} className="relative z-10 w-5/6">
           <h2 className="text-white text-lg mb-4">Looking For?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="col-span-2">
