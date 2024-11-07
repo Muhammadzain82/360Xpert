@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Image from 'next/image'
+import emailjs from 'emailjs-com'
 
 export default function Component() {
   const [formData, setFormData] = useState({
@@ -23,8 +24,20 @@ export default function Component() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
-    // Here you would typically send the data to your server
+    
+    emailjs.sendForm(
+      'service_j6csyxd', 
+      'template_9d2y9k3', 
+      e.target, 
+      'cmO2drZIAuccL7NnJ'
+    )
+    .then((result) => {
+      console.log('Email sent:', result.text)
+      alert('Message sent successfully!')
+    }, (error) => {
+      console.error('Failed to send email:', error.text)
+      alert('Failed to send message. Please try again.')
+    })
   }
 
   return (
@@ -45,11 +58,11 @@ export default function Component() {
                 <option value="ML">ML</option>
                 <option value="App Development">App Development</option>
                 <option value="Web Development">Web Development</option>
-                <option value="App Development">DevOps</option>
-                <option value="Web Development">UI/UX</option>
-                <option value="App Development">Prokect Manager</option>
-                <option value="Web Development">Full Stack Development</option>
-                <option value="Web Development">QA</option>
+                <option value="DevOps">DevOps</option>
+                <option value="UI/UX">UI/UX</option>
+                <option value="Project Manager">Project Manager</option>
+                <option value="Full Stack Development">Full Stack Development</option>
+                <option value="QA">QA</option>
               </select>
             </div>
             <input
@@ -127,6 +140,7 @@ export default function Component() {
     </div>
   )
 }
+
 
 // 'use client'
 // import { useState } from "react";
