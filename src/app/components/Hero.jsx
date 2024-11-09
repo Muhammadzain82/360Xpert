@@ -328,7 +328,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { Send, Paperclip, Smile, X } from "lucide-react";
 import Head from "next/head";
-import ChatBot from "./chatBot"
+import ChatBot from "./ChatBot"
 
 const TextBox = () => {
   const [isClient, setIsClient] = useState(false);
