@@ -34,6 +34,7 @@ export default function Component() {
       message: ''
     })
   }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     
@@ -147,7 +148,12 @@ export default function Component() {
           </div>
         </form>
         <div className="relative left-52">
-          <Image src="/x.png" width={600} height={600}/>
+          <Image 
+            src="/x.png" 
+            width={600} 
+            height={600} 
+            alt="Decorative image" // Added alt text here
+          />
         </div>
       </div>
     </div>

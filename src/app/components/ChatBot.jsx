@@ -23,7 +23,7 @@ const ChatBot = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 600); // Adjust the breakpoint as needed
+      setIsSmallScreen(window.innerWidth < 600);
     };
 
     handleResize();
@@ -170,14 +170,6 @@ const ChatBot = () => {
     setShowChat((prevShowChat) => !prevShowChat);
 
     if (!showChat && conversation.length === 0) {
-      // setConversation([
-      //   {
-      //     type: "bot",
-      //     content: "Greetings! How may I assist you today?",
-      //     time: new Date().toLocaleTimeString(),
-      //   },
-      // ]);
-
       setTimeout(() => {
         setConversation([
           {
@@ -240,9 +232,11 @@ const ChatBot = () => {
           right: isSmallScreen ? "20px" : "80px",
         }}
       >
-        <img
+        <Image
           src="/chatsupport.png"
           alt="Message"
+          width={70}
+          height={70}
           className="w-48 h-auto md:w-[70px]"
         />
       </div>
@@ -313,8 +307,8 @@ const ChatBot = () => {
                 onChange={handleChange}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault(); // Prevent adding a new line
-                    handleSubmit(e);    // Trigger form submission
+                    e.preventDefault();
+                    handleSubmit(e);
                   }
                 }}
                 required

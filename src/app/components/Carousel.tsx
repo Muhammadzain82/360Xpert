@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
+import Image from "next/image";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -8,7 +9,6 @@ const Carousel = () => {
     AOS.init({
       duration: 2000,
       easing: "ease-in-out",
-      // once: true,
     });
   }, []);
 
@@ -40,10 +40,12 @@ const Carousel = () => {
             data-aos="fade-left"
             className="relative w-full sm:w-72 md:w-80 lg:w-96 h-64 lg:h-96 bg-gray-800 rounded-xl overflow-hidden transition-all duration-300 group hover:w-[37%] lg:group-hover:w-[37%] flex-shrink-0"
           >
-            <img
+            <Image
               src="/pic3.png"
               alt="Project 1"
-              className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-300"
+              layout="fill"
+              objectFit="cover"
+              className="opacity-60 group-hover:opacity-80 transition-opacity duration-300"
             />
             <div className="absolute inset-0 bg-[#181815] bg-opacity-40 flex flex-col justify-end p-6">
               <h2 className="text-lg md:text-xl font-['Clash_Display']">
@@ -61,10 +63,12 @@ const Carousel = () => {
             data-aos="fade-left"
             className="relative w-full sm:w-72 md:w-80 lg:w-48 h-64 lg:h-96 bg-gray-800 rounded-xl overflow-hidden transition-all duration-300 group hover:w-[25%] lg:group-hover:w-[25%] flex-shrink-0"
           >
-            <img
+            <Image
               src="/pic3.png"
               alt="Project 2"
-              className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-300"
+              layout="fill"
+              objectFit="cover"
+              className="opacity-60 group-hover:opacity-80 transition-opacity duration-300"
             />
             <div className="absolute inset-0 bg-[#181815] bg-opacity-40 flex flex-col justify-end p-6">
               <h2 className="text-lg md:text-xl font-['Clash_Display']">
@@ -77,10 +81,12 @@ const Carousel = () => {
             data-aos="fade-left"
             className="relative w-full sm:w-72 md:w-80 lg:w-48 h-64 lg:h-96 bg-gray-800 rounded-xl overflow-hidden transition-all duration-300 group hover:w-[25%] lg:group-hover:w-[25%] flex-shrink-0"
           >
-            <img
+            <Image
               src="/pic3.png"
               alt="Project 3"
-              className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-300"
+              layout="fill"
+              objectFit="cover"
+              className="opacity-60 group-hover:opacity-80 transition-opacity duration-300"
             />
             <div className="absolute inset-0 bg-[#181815] bg-opacity-40 flex flex-col justify-end p-6">
               <h2 className="text-lg md:text-xl font-['Clash_Display']">
