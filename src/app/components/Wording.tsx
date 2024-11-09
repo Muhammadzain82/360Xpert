@@ -27,7 +27,7 @@ const Wording = () => {
         </div>
 
       <a
-        href=""
+        href="/CareersForm"
         className="mt-8 relative bg-gradient-to-r from-[#D43833] to-[#650300] hover:from-[#650300] hover:to-[#D43833] text-white font-normal py-2 px-4 sm:px-6 md:px-8 rounded-full inline-block text-sm sm:text-base md:text-lg lg:text-xl font-['Clash_Display']"
         >
         Start the Conversation
@@ -35,9 +35,9 @@ const Wording = () => {
 
     </div>
 
-    <div className="absolute  w-[100%] " >
+    {/* <div className="absolute  w-[100%] " >
           <WaveForm/>
-      </div>
+      </div> */}
 
 
         </>
