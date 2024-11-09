@@ -6,7 +6,7 @@ import Wording from "./components/Wording";
 import Carousel from "@/app/components/Carousel";
 import Footer from "./components/Footer";
 import TechAndTools from "./components/TechAndTools";
-import ChatBot from "./components/chatBot";
+import ChatBot from "./components/ChatBot";
 
 export default function Home() {
 
