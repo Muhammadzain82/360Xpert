@@ -12,8 +12,6 @@ export default function About() {
       <Navbar />
       <HeroBlogs />
       <GlassCards />
-      <GlassCards />
-      <GlassCards />
       <TechAndTools />
       <TestimonialCards />
       <JourneyBanner />
