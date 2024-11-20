@@ -307,7 +307,7 @@ export default function BlogList() {
                 >
                   <Link
                     // href={`/engineering/${blog.id}/${slugify(blog.attributes.title, { lower: true, strict: true })}`}
-                    href={`https://api.360xpertsolutions.com/api/blogs/${blog.id}`}
+                    href={`/BlogDetail/${blog.id}`}
                     className="text-center"
                   >
                     <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-4xl font-medium text-transparent bg-clip-text bg-gradient-to-r from-white to-[#999999] font-['Clash_Display']">
