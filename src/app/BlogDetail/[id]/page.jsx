@@ -2,8 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import Image from "next/image";
 
-const BlogDetail = ({params}) => {
+const BlogDetail = ({ params }) => {
   const router = useRouter();
   const { id } = params;
 
@@ -56,15 +57,17 @@ const BlogDetail = ({params}) => {
     <div className="container mt-16 px-4">
       <div className="max-w-4xl mx-auto bg-black text-white p-6 rounded-lg shadow-lg">
         <h1 className="text-4xl font-bold mb-6">{blogPost.attributes.title}</h1>
-        
+
         <div className="space-y-6">
           {blogPost.attributes.content.map((content, index) => (
             <div key={index} className="mb-4">
               {content.type === 'image' && content.image && (
                 <div className="relative w-full h-80 mb-4">
-                  <img
+                  <Image
                     src={content.image.url}
                     alt={content.image.alternativeText || 'Blog Image'}
+                    width={800} // Example width
+                    height={450} // Example height
                     className="w-full h-full object-cover rounded-lg shadow-lg"
                   />
                 </div>
