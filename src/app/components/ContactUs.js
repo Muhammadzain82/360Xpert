@@ -149,7 +149,7 @@ export default function Component() {
         </form>
         <div className="relative left-52">
           <Image 
-            src="/x.png" 
+            src="/right.png" 
             width={600} 
             height={600} 
             alt="Decorative image" // Added alt text here

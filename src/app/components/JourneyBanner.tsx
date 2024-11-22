@@ -50,7 +50,7 @@ export default function JourneyBanner() {
             data-aos-delay="300"
           >
             <Image
-              src="/X.png"
+              src="/right.png"
               alt="Journey Arrow"
               width={100}  // Increased width
               height={100} // Increased height
