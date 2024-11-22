@@ -280,7 +280,7 @@ const ChatBot = () => {
               )}
             </div>
            <div className="flex gap-2 ">
-            <div className="flex items-center mt-3  ">
+            <div className="flex items-center   ">
               <input
                 aria-label="Type your message"
                 type={step === 2 ? "email" : "text"}
@@ -318,7 +318,7 @@ const ChatBot = () => {
 
             <button
               type="submit"
-              className="block w-auto mt-4 p-2 bg-red-600 hover:bg-red-700 text-white rounded-md transition duration-200"
+              className="block w-auto mt-1 p-2 bg-red-600 hover:bg-red-700 text-white rounded-md transition duration-200"
             >
               Submit
             </button>

@@ -113,7 +113,7 @@ export default function CardStack() {
                   <div className="flex flex-col items-start">
                     <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 relative -mt-10">
                       <Image
-                        src="/X.png"
+                        src="/right.png"
                         alt="X icon"
                         layout="fill"
                         objectFit="contain"
