@@ -42,7 +42,7 @@ export default function JobListings() {
        
        <div className="absolute inset-0 z-0 w-full h-full bg-cover bg-center opacity-50">
             <Image
-              src="/x.png"
+              src="/right.png"
               alt="Wave background"
               fill
               style={{ objectFit: "contain", objectPosition: "bottom" }}
