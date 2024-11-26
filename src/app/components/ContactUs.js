@@ -256,6 +256,162 @@
 
 // export default ChatBot;
 
+// 'use client'
+// import { useState } from 'react'
+// import Image from 'next/image'
+// import emailjs from 'emailjs-com'
+
+// export default function Component() {
+//   const [formData, setFormData] = useState({
+//     lookingFor: '',
+//     firstName: '',
+//     lastName: '',
+//     phoneNumber: '',
+//     email: '',
+//     company: '',
+//     message: ''
+//   })
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target
+//     setFormData(prevState => ({
+//       ...prevState,
+//       [name]: value
+//     }))
+//   }
+
+//   const formreset = (e) => {
+//     e.preventDefault()  
+//     setFormData({
+//       lookingFor: '',
+//       firstName: '',
+//       lastName: '',
+//       phoneNumber: '',
+//       email: '',
+//       company: '',
+//       message: ''
+//     })
+//   }
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault()
+    
+//     emailjs.sendForm(
+//       'service_j6csyxd', 
+//       'template_9d2y9k3', 
+//       e.target, 
+//       'cmO2drZIAuccL7NnJ',
+//     )
+//     .then((result) => {
+//       console.log('Email sent:', result.text)
+//       alert('Message sent successfully!')
+//       formreset(e)
+//     }, (error) => {
+//       console.error('Failed to send email:', error.text)
+//       alert('Failed to send message. Please try again.')
+//     })
+//   }
+
+//   return (
+//     <div className="flex items-left justify-left p-4">
+//       <div className="w-full max-w-5xl p-8 relative flex">
+//         <form onSubmit={handleSubmit} className="relative z-10 w-5/6">
+//           <h2 className="text-white text-lg mb-4">Looking For?</h2>
+//           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//             <div className="col-span-2">
+//               <select
+//                 name="lookingFor"
+//                 value={formData?.lookingFor?.length > 0 ? "" : formData.lookingFor}
+//                 onChange={handleChange}
+//                 className="w-full border-b border-gray-600 text-white bg-[#181914] py-2 outline-none hover:border-red-500"
+//                 aria-label="Looking For"
+//               >
+//                 <option value="AI">AI</option>
+//                 <option value="ML">ML</option>
+//                 <option value="App Development">App Development</option>
+//                 <option value="Web Development">Web Development</option>
+//                 <option value="DevOps">DevOps</option>
+//                 <option value="UI/UX">UI/UX</option>
+//                 <option value="Project Manager">Project Manager</option>
+//                 <option value="Full Stack Development">Full Stack Development</option>
+//                 <option value="QA">QA</option>
+//               </select>
+//             </div>
+//             <input
+//               type="text"
+//               name="firstName"
+//               placeholder="Full Name"
+//               value={formData.firstName}
+//               onChange={handleChange}
+//               className="bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+//               aria-label="Full Name"
+//             />
+//             <input
+//               type="tel"
+//               name="phoneNumber"
+//               placeholder="Phone Number"
+//               value={formData.phoneNumber}
+//               onChange={handleChange}
+//               className="bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+//               aria-label="Phone Number"
+//             />
+//             <div className="col-span-2">
+//             <input
+//               type="email"
+//               name="email"
+//               placeholder="Email"
+//               value={formData.email}
+//               onChange={handleChange}
+//               className="w-full bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+//               aria-label="Email"
+//             />
+//             </div>
+//             <div className="col-span-2">
+//               <input
+//                 type="text"
+//                 name="company"
+//                 placeholder="Company"
+//                 value={formData.company}
+//                 onChange={handleChange}
+//                 className="w-full bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+//                 aria-label="Company"
+//               />
+//             </div>
+//             <div className="col-span-2">
+//               <input
+//                 type="text"
+//                 name="message"
+//                 placeholder="Message"
+//                 value={formData.message}
+//                 onChange={handleChange}
+//                 className="w-full bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+//                 rows="3"
+//                 aria-label="Message"
+//               />
+//             </div>
+//             <div className="col-span-2">
+//               <button
+//                 type="submit"
+//                 className="bg-red-600 text-white px-8 py-3 rounded hover:bg-red-700 transition duration-300"
+//               >
+//                 GET STARTED →
+//               </button>
+//             </div>
+//           </div>
+//         </form>
+//         <div className="relative left-52">
+//           <Image 
+//             src="/right.png" 
+//             width={600} 
+//             height={600} 
+//             alt="Decorative image" // Added alt text here
+//           />
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
 'use client'
 import { useState } from 'react'
 import Image from 'next/image'
@@ -272,16 +428,26 @@ export default function Component() {
     message: ''
   })
 
+  const [visibleFields, setVisibleFields] = useState(1) // Tracks how many fields are visible
+
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData(prevState => ({
       ...prevState,
       [name]: value
     }))
+
+    // Reveal the next field if current field is filled
+    if (name === 'lookingFor' && value) setVisibleFields(2)
+    if (name === 'firstName' && value) setVisibleFields(3)
+    if (name === 'phoneNumber' && value) setVisibleFields(4)
+    if (name === 'email' && value) setVisibleFields(5)
+    if (name === 'company' && value) setVisibleFields(6)
+    if (name === 'message' && value) setVisibleFields(7)
   }
 
   const formreset = (e) => {
-    e.preventDefault()  
+    e.preventDefault()
     setFormData({
       lookingFor: '',
       firstName: '',
@@ -291,11 +457,12 @@ export default function Component() {
       company: '',
       message: ''
     })
+    setVisibleFields(1) // Reset visibility
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    
+
     emailjs.sendForm(
       'service_j6csyxd', 
       'template_9d2y9k3', 
@@ -318,14 +485,15 @@ export default function Component() {
         <form onSubmit={handleSubmit} className="relative z-10 w-5/6">
           <h2 className="text-white text-lg mb-4">Looking For?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="col-span-2">
-              <select
+            <div className={`col-span-2 transition-opacity duration-500 ${visibleFields >= 1 ? 'opacity-100' : 'opacity-0'}`}>
+              <input
                 name="lookingFor"
                 value={formData.lookingFor}
                 onChange={handleChange}
                 className="w-full border-b border-gray-600 text-white bg-[#181914] py-2 outline-none hover:border-red-500"
                 aria-label="Looking For"
-              >
+              />
+                {/* <option value="">Select a category</option>
                 <option value="AI">AI</option>
                 <option value="ML">ML</option>
                 <option value="App Development">App Development</option>
@@ -334,26 +502,19 @@ export default function Component() {
                 <option value="UI/UX">UI/UX</option>
                 <option value="Project Manager">Project Manager</option>
                 <option value="Full Stack Development">Full Stack Development</option>
-                <option value="QA">QA</option>
-              </select>
+                <option value="QA">QA</option> */}
+              {/* </input> */}
             </div>
             <input
               type="text"
               name="firstName"
-              placeholder="First name"
+              placeholder="Full Name"
               value={formData.firstName}
               onChange={handleChange}
-              className="bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
-              aria-label="First name"
-            />
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Last name"
-              value={formData.lastName}
-              onChange={handleChange}
-              className="bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
-              aria-label="Last name"
+              className={`bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500 transition-opacity duration-500 ${
+                visibleFields >= 2 ? 'opacity-100' : 'opacity-0 pointer-events-none'
+              }`}
+              aria-label="Full Name"
             />
             <input
               type="tel"
@@ -361,19 +522,23 @@ export default function Component() {
               placeholder="Phone Number"
               value={formData.phoneNumber}
               onChange={handleChange}
-              className="bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+              className={`bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500 transition-opacity duration-500 ${
+                visibleFields >= 3 ? 'opacity-100' : 'opacity-0 pointer-events-none'
+              }`}
               aria-label="Phone Number"
             />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              className="bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
-              aria-label="Email"
-            />
-            <div className="col-span-2">
+            <div className={`col-span-2 transition-opacity duration-500 ${visibleFields >= 4 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+                aria-label="Email"
+              />
+            </div>
+            <div className={`col-span-2 transition-opacity duration-500 ${visibleFields >= 5 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
               <input
                 type="text"
                 name="company"
@@ -384,8 +549,9 @@ export default function Component() {
                 aria-label="Company"
               />
             </div>
-            <div className="col-span-2">
-              <textarea
+            <div className={`col-span-2 transition-opacity duration-500 ${visibleFields >= 6 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+              <input
+                type="text"
                 name="message"
                 placeholder="Message"
                 value={formData.message}
@@ -393,9 +559,9 @@ export default function Component() {
                 className="w-full bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
                 rows="3"
                 aria-label="Message"
-              ></textarea>
+              />
             </div>
-            <div className="col-span-2">
+            <div className={`col-span-2 transition-opacity duration-500 ${visibleFields >= 7 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
               <button
                 type="submit"
                 className="bg-red-600 text-white px-8 py-3 rounded hover:bg-red-700 transition duration-300"
@@ -410,7 +576,7 @@ export default function Component() {
             src="/right.png" 
             width={600} 
             height={600} 
-            alt="Decorative image" // Added alt text here
+            alt="Decorative image"
           />
         </div>
       </div>

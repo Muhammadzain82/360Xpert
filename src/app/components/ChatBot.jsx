@@ -334,12 +334,14 @@
 // export default ChatBot;
 
 'use client'
-
 import React, { useState, useEffect, useRef } from "react"
 import { toast, Toaster } from "react-hot-toast"
 import TypingIndicator from "../components/TypingIndicator"
 import Image from "next/image"
-import { Paperclip, Smile, Send, X } from 'lucide-react'
+import { Smile, Send } from 'lucide-react'
+import dynamic from 'next/dynamic'
+
+const EmojiPicker = dynamic(() => import('emoji-picker-react'), { ssr: false })
 
 const ChatBot = () => {
   const [formData, setFormData] = useState({
@@ -356,6 +358,7 @@ const ChatBot = () => {
   const chatContainerRef = useRef(null)
   const [isTyping, setIsTyping] = useState(false)
   const [isSmallScreen, setIsSmallScreen] = useState(false)
+  const [emojiPickerVisible, setEmojiPickerVisible] = useState(false)
 
   useEffect(() => {
     const handleResize = () => {
@@ -379,6 +382,16 @@ const ChatBot = () => {
       const isValidEmail = emailRegex.test(value)
       setValidEmail(isValidEmail)
     }
+  }
+
+  const handleEmojiClick = (emojiObject) => {
+    const currentField =
+      step === 1 ? "FullName" : step === 2 ? "Email" : "Message"
+    setFormData((prevState) => ({
+      ...prevState,
+      [currentField]: prevState[currentField] + emojiObject.emoji,
+    }))
+    setEmojiPickerVisible(false)
   }
 
   const email = async () => {
@@ -534,27 +547,12 @@ const ChatBot = () => {
   }, [])
 
   useEffect(() => {
-    if (
-      showChat &&
-      step === 3 &&
-      conversation.length > 0 &&
-      conversation[conversation.length - 1].content === "Enter your inqueries:"
-    ) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        Message: "",
-      }))
-    }
-  }, [showChat, step, conversation])
-
-  useEffect(() => {
     if (chatContainerRef.current) {
-      const windowHeight = window.innerHeight
-      const maxHeight = isSmallScreen ? '90vh' : '80vh'
-      chatContainerRef.current.style.maxHeight = maxHeight
-      chatContainerRef.current.style.height = `${windowHeight * (isSmallScreen ? 0.9 : 0.8)}px`
+      chatContainerRef.current.style.height = isSmallScreen
+        ? `${window.innerHeight * 0.9}px`
+        : `${window.innerHeight * 0.8}px`
     }
-  }, [isSmallScreen, showChat])
+  }, [isSmallScreen])
 
   return (
     <>
@@ -571,14 +569,14 @@ const ChatBot = () => {
           alt="Message"
           width={70}
           height={70}
-          className="w-48 h-auto md:w-[70px]"
+          className="w-12 md:w-[70px] transition-all"
         />
       </div>
       <div
         ref={chatContainerRef}
-        className={`fixed mr-[95px] bottom-[75px] right-[60px] bg-[#1B1B19] rounded-lg z-40 overflow-y-auto shadow-lg transition-all duration-300 h-[80vh] max-h-[800px] w-[400px] ${
+        className={`fixed bg-[#1B1B19] rounded-lg z-40 shadow-lg transition-all duration-300 overflow-y-auto ${
           showChat ? "block" : "hidden"
-        } ${isSmallScreen ? "w-[90vw] h-[90vh] fixed left-0 bottom-0 mx-auto mb-[91px] rounded-none" : ""}`}
+        } ${isSmallScreen ? "w-[90%] left-0 bottom-0 mx-auto rounded-none" : "w-[400px] bottom-[75px] right-[60px]"}`}
       >
         {showChat && (
           <form onSubmit={handleSubmit} className="flex flex-col h-full">
@@ -654,13 +652,21 @@ const ChatBot = () => {
                     className="w-full p-3 bg-[#2A2A2A] text-white rounded-full focus:outline-none focus:ring-1 focus:ring-gray-600 placeholder-gray-500"
                   />
                   <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
-                    <button type="button" className="text-gray-400 hover:text-gray-300">
+                    {/* <button type="button" className="text-gray-400 hover:text-gray-300">
                       <Paperclip className="w-5 h-5" />
-                    </button>
-                    <button type="button" className="text-gray-400 hover:text-gray-300">
+                    </button> */}
+                    <button 
+                      type="button"
+                      onClick={() => setEmojiPickerVisible(!emojiPickerVisible)} 
+                      className="text-gray-400 hover:text-gray-300">
                       <Smile className="w-5 h-5" />
                     </button>
-                  </div>
+                  </div>  
+                  {emojiPickerVisible && (
+                    <div className="absolute right-0 bottom-12 z-50">
+                      <EmojiPicker onEmojiClick={handleEmojiClick} />
+                    </div>
+                  )}
                 </div>
                 <button
                   type="submit"
