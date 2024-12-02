@@ -403,7 +403,7 @@
 //           <Image 
 //             src="/right.png" 
 //             width={600} 
-//             height={600} 
+//             height={600}  
 //             alt="Decorative image" // Added alt text here
 //           />
 //         </div>
@@ -413,173 +413,703 @@
 // }
 
 'use client'
-import { useState } from 'react'
-import Image from 'next/image'
+import { useState, useEffect } from 'react'
 import emailjs from 'emailjs-com'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Toaster, toast } from 'react-hot-toast'
 
-export default function Component() {
+const formFields = [
+  { name: 'firstName', label: "What's your full name?", type: 'text' },
+  { name: 'phoneNumber', label: "What's your phone number?", type: 'tel' },
+  { name: 'email', label: "What's your email address?", type: 'email' },
+  { name: 'company', label: "What company are you from?", type: 'text' },
+  { name: 'message', label: "Do you have any specific message or requirements?", type: 'text' },
+]
+
+const containerVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.3 }
+  }
+}
+
+const messageVariants = {
+  initial: { 
+    opacity: 0,
+    y: 10,
+    scale: 0.95
+  },
+  animate: { 
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.3,
+      ease: "easeOut"
+    }
+  },
+  exit: { 
+    opacity: 0,
+    scale: 0.95,
+    transition: {
+      duration: 0.2
+    }
+  }
+}
+
+const formVariants = {
+  initial: { opacity: 0, y: 20 },
+  animate: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      duration: 0.1,
+      ease: "easeOut"
+    }
+  }
+}
+
+export default function CompactChatbotForm() {
+  const [messages, setMessages] = useState([])
+  const [currentField, setCurrentField] = useState(0)
   const [formData, setFormData] = useState({
-    lookingFor: '',
     firstName: '',
-    lastName: '',
     phoneNumber: '',
     email: '',
     company: '',
     message: ''
   })
+  const [userInput, setUserInput] = useState('')
+  const [isWaiting, setIsWaiting] = useState(false)
+  
+  useEffect(() => {
+    if (currentField === 0) {
+      setMessages([{ type: 'bot', content: formFields[0].label }])
+    }
+  }, [])
 
-  const [visibleFields, setVisibleFields] = useState(1) // Tracks how many fields are visible
-
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }))
-
-    // Reveal the next field if current field is filled
-    if (name === 'lookingFor' && value) setVisibleFields(2)
-    if (name === 'firstName' && value) setVisibleFields(3)
-    if (name === 'phoneNumber' && value) setVisibleFields(4)
-    if (name === 'email' && value) setVisibleFields(5)
-    if (name === 'company' && value) setVisibleFields(6)
-    if (name === 'message' && value) setVisibleFields(7)
-  }
-
-  const formreset = (e) => {
-    e.preventDefault()
-    setFormData({
-      lookingFor: '',
-      firstName: '',
-      lastName: '',
-      phoneNumber: '',
-      email: '',
-      company: '',
-      message: ''
-    })
-    setVisibleFields(1) // Reset visibility
+  const handleInputChange = (e) => {
+    setUserInput(e.target.value)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    
+    if (userInput.trim() === '') {
+      toast.error('Please fill in the field before submitting.')
+      return
+    }
+    
+    if (currentField < formFields.length) {
+      const field = formFields[currentField]
+      setFormData(prev => ({ ...prev, [field.name]: userInput }))
+      setMessages(prev => [...prev, { type: 'user', content: userInput }])
+      setUserInput('')
+      setIsWaiting(true)
 
-    emailjs.sendForm(
-      'service_j6csyxd', 
-      'template_9d2y9k3', 
-      e.target, 
-      'cmO2drZIAuccL7NnJ',
-    )
-    .then((result) => {
-      console.log('Email sent:', result.text)
-      alert('Message sent successfully!')
-      formreset(e)
-    }, (error) => {
-      console.error('Failed to send email:', error.text)
-      alert('Failed to send message. Please try again.')
-    })
+      setTimeout(() => {
+        setMessages(prev => [...prev, 
+          { type: 'bot', content: currentField === formFields.length - 1 ? "Thank you! I'll submit your information now." : formFields[currentField + 1].label }
+        ])
+        setCurrentField(prev => prev + 1)
+        setIsWaiting(false)
+      }, 1000) // 1 second delay
+    }
+
+    if (currentField === formFields.length - 1) {
+      const allFieldsFilled = Object.values(formData).every(field => field.trim() !== '')
+      if (!allFieldsFilled) {
+        toast.error('Please fill in all fields before submitting.')
+        return
+      }
+
+      emailjs.send(
+        'service_j6csyxd', 
+        'template_9d2y9k3', 
+        formData, 
+        'cmO2drZIAuccL7NnJ'
+      )
+      .then((result) => {
+        console.log('Email sent:', result.text)
+        setMessages(prev => [...prev, { type: 'bot', content: 'Message sent successfully!' }])
+        toast.success('Form submitted successfully!')
+        setFormData({
+          firstName: '',
+          phoneNumber: '',
+          email: '',
+          company: '',
+          message: ''
+        })
+        setCurrentField(0)
+      }, (error) => {
+        console.error('Failed to send email:', error.text)
+        setMessages(prev => [...prev, { type: 'bot', content: 'Failed to send message. Please try again.' }])
+        toast.error('Failed to send message. Please try again.')
+      })
+    }
   }
 
   return (
-    <div className="flex items-left justify-left p-4">
-      <div className="w-full max-w-5xl p-8 relative flex">
-        <form onSubmit={handleSubmit} className="relative z-10 w-5/6">
-          <h2 className="text-white text-lg mb-4">Looking For?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className={`col-span-2 transition-opacity duration-500 ${visibleFields >= 1 ? 'opacity-100' : 'opacity-0'}`}>
-              <input
-                name="lookingFor"
-                value={formData.lookingFor}
-                onChange={handleChange}
-                className="w-full border-b border-gray-600 text-white bg-[#181914] py-2 outline-none hover:border-red-500"
-                aria-label="Looking For"
-              />
-                {/* <option value="">Select a category</option>
-                <option value="AI">AI</option>
-                <option value="ML">ML</option>
-                <option value="App Development">App Development</option>
-                <option value="Web Development">Web Development</option>
-                <option value="DevOps">DevOps</option>
-                <option value="UI/UX">UI/UX</option>
-                <option value="Project Manager">Project Manager</option>
-                <option value="Full Stack Development">Full Stack Development</option>
-                <option value="QA">QA</option> */}
-              {/* </input> */}
-            </div>
-            <input
-              type="text"
-              name="firstName"
-              placeholder="Full Name"
-              value={formData.firstName}
-              onChange={handleChange}
-              className={`bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500 transition-opacity duration-500 ${
-                visibleFields >= 2 ? 'opacity-100' : 'opacity-0 pointer-events-none'
-              }`}
-              aria-label="Full Name"
-            />
-            <input
-              type="tel"
-              name="phoneNumber"
-              placeholder="Phone Number"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              className={`bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500 transition-opacity duration-500 ${
-                visibleFields >= 3 ? 'opacity-100' : 'opacity-0 pointer-events-none'
-              }`}
-              aria-label="Phone Number"
-            />
-            <div className={`col-span-2 transition-opacity duration-500 ${visibleFields >= 4 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
-                aria-label="Email"
-              />
-            </div>
-            <div className={`col-span-2 transition-opacity duration-500 ${visibleFields >= 5 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-              <input
-                type="text"
-                name="company"
-                placeholder="Company"
-                value={formData.company}
-                onChange={handleChange}
-                className="w-full bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
-                aria-label="Company"
-              />
-            </div>
-            <div className={`col-span-2 transition-opacity duration-500 ${visibleFields >= 6 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-              <input
-                type="text"
-                name="message"
-                placeholder="Message"
-                value={formData.message}
-                onChange={handleChange}
-                className="w-full bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
-                rows="3"
-                aria-label="Message"
-              />
-            </div>
-            <div className={`col-span-2 transition-opacity duration-500 ${visibleFields >= 7 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-              <button
-                type="submit"
-                className="bg-red-600 text-white px-8 py-3 rounded hover:bg-red-700 transition duration-300"
+    <motion.div 
+      className="flex flex-col h-[500px] w-[600px] bg-[#181914] text-white p-4 rounded-lg shadow-lg"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.3 }}
+    >
+      <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
+      <div className="flex-grow overflow-auto mb-4 space-y-2">
+        <AnimatePresence initial={false}>
+          {messages.map((message, index) => (
+            <motion.div 
+              key={index} 
+              className={`${message.type === 'user' ? 'text-right' : 'text-left'}`}
+              variants={messageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              layout
+            >
+              <motion.span 
+                className={`inline-block p-2 rounded-lg text-sm ${
+                  message.type === 'user' ? 'bg-red-600' : 'bg-gray-700'
+                }`}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                GET STARTED →
-              </button>
-            </div>
-          </div>
-        </form>
-        <div className="relative left-52">
-          <Image 
-            src="/right.png" 
-            width={600} 
-            height={600} 
-            alt="Decorative image"
+                {message.content}
+              </motion.span>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+      {currentField < formFields.length && !isWaiting && (
+        <motion.form 
+          onSubmit={handleSubmit} 
+          className="flex gap-2"
+          variants={formVariants}
+          initial="initial"
+          animate="animate"
+        >
+          <motion.input
+            type={formFields[currentField]?.type || 'text'}
+            value={userInput}
+            onChange={handleInputChange}
+            className="flex-grow bg-[#181914] border border-gray-600 text-white p-2 text-sm rounded-l outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500 transition-all duration-300"
+            placeholder={formFields[currentField]?.label || ''}
+            whileFocus={{ scale: 1.01 }}
+          />
+          <motion.button
+            type="submit"
+            className="bg-red-600 text-white px-4 py-2 rounded-r hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:outline-none text-sm"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Send
+          </motion.button>
+        </motion.form>
+      )}
+      {isWaiting && (
+        <div className="flex justify-center items-center">
+          <motion.div
+            className="w-4 h-4 bg-red-600 rounded-full"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [1, 0.5, 1],
+            }}
+            transition={{
+              duration: 1,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
           />
         </div>
-      </div>
-    </div>
+      )}
+    </motion.div>
   )
 }
+
+
+
+// 'use client'
+// import { useState } from 'react'
+// import Image from 'next/image'
+// import emailjs from 'emailjs-com'
+
+// export default function Component() {
+//   const [formData, setFormData] = useState({
+//     lookingFor: '',
+//     firstName: '',
+//     lastName: '',
+//     phoneNumber: '',
+//     email: '',
+//     company: '',
+//     message: ''
+//   })
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target
+//     setFormData(prevState => ({
+//       ...prevState,
+//       [name]: value
+//     }))
+//   }
+
+//   const formreset = (e) => {
+//     e.preventDefault()
+//     setFormData({
+//       lookingFor: '',
+//       firstName: '',
+//       lastName: '',
+//       phoneNumber: '',
+//       email: '',
+//       company: '',
+//       message: ''
+//     })
+//   }
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault()
+    
+//     emailjs.sendForm(
+//       'service_j6csyxd', 
+//       'template_9d2y9k3', 
+//       e.target, 
+//       'cmO2drZIAuccL7NnJ',
+//     )
+//     .then((result) => {
+//       console.log('Email sent:', result.text)
+//       alert('Message sent successfully!')
+//       formreset(e)
+//     }, (error) => {
+//       console.error('Failed to send email:', error.text)
+//       alert('Failed to send message. Please try again.')
+//     })
+//   }
+
+//   return (
+//     <div className="flex flex-col h-screen bg-black text-white">
+//       {/* Header */}
+//       <div className="p-4 flex items-center justify-between border-b border-gray-700">
+//         <h1 className="text-lg">Lytica AI Agent</h1>
+//         <div className="flex items-center space-x-2">
+//           <div className="h-3 w-3 bg-green-500 rounded-full"></div>
+//           <span className="text-sm text-gray-400">Ready to help</span>
+//         </div>
+//       </div>
+
+//       {/* Chat Body */}
+//       <div className="flex-1 p-4 space-y-4 overflow-y-auto">
+//         {/* AI Message */}
+//         <div className="flex items-start space-x-3">
+//           <div className="flex-shrink-0 bg-red-600 text-white h-8 w-8 rounded-full flex items-center justify-center">
+//             AI
+//           </div>
+//           <div className="bg-gray-800 text-white p-3 rounded-lg max-w-xs">
+//             Welcome to our site, if you need help simply reply to this message, we are online and ready to help.
+//           </div>
+//         </div>
+
+//         {/* User Message */}
+//         <div className="flex items-end justify-end space-x-3">
+//           <div className="bg-red-600 text-white p-3 rounded-lg max-w-xs text-right">
+//             I need to know the privacy policy of your business in a very short summary.
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Input Section */}
+//       <form onSubmit={handleSubmit} className="p-4 bg-gray-900 flex items-center space-x-4 border-t border-gray-700">
+//         <input
+//           type="text"
+//           name="message"
+//           placeholder="Write Message"
+//           value={formData.message}
+//           onChange={handleChange}
+//           className="flex-1 bg-gray-800 text-white py-2 px-4 rounded-lg outline-none placeholder-gray-500"
+//           aria-label="Message"
+//         />
+//         <button type="submit" className="bg-red-600 text-white p-3 rounded-full">
+//           ⬆
+//         </button>
+//         <button
+//           type="button"
+//           onClick={formreset}
+//           className="bg-red-600 text-white p-3 rounded-full"
+//         >
+//           ✖
+//         </button>
+//       </form>
+//     </div>
+//   )
+// }
+
+
+// 'use client'
+// import { useState } from 'react'
+// import Image from 'next/image'
+// import emailjs from 'emailjs-com'
+
+// export default function Component() {
+//   const [formData, setFormData] = useState({
+//     lookingFor: '',
+//     firstName: '',
+//     lastName: '',
+//     phoneNumber: '',
+//     email: '',
+//     company: '',
+//     message: ''
+//   })
+
+//   const [visibleFields, setVisibleFields] = useState(1) // Tracks how many fields are visible
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target
+//     setFormData(prevState => ({
+//       ...prevState,
+//       [name]: value
+//     }))
+
+//     // Reveal the next field if current field is filled
+//     if (name === 'lookingFor' && value) setVisibleFields(2)
+//     if (name === 'firstName' && value) setVisibleFields(3)
+//     if (name === 'phoneNumber' && value) setVisibleFields(4)
+//     if (name === 'email' && value) setVisibleFields(5)
+//     if (name === 'company' && value) setVisibleFields(6)
+//     if (name === 'message' && value) setVisibleFields(7)
+//   }
+
+//   const formreset = (e) => {
+//     e.preventDefault()
+//     setFormData({
+//       lookingFor: '',
+//       firstName: '',
+//       lastName: '',
+//       phoneNumber: '',
+//       email: '',
+//       company: '',
+//       message: ''
+//     })
+//     setVisibleFields(1) // Reset visibility
+//   }
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault()
+
+//     emailjs.sendForm(
+//       'service_j6csyxd', 
+//       'template_9d2y9k3', 
+//       e.target, 
+//       'cmO2drZIAuccL7NnJ',
+//     )
+//     .then((result) => {
+//       console.log('Email sent:', result.text)
+//       alert('Message sent successfully!')
+//       formreset(e)
+//     }, (error) => {
+//       console.error('Failed to send email:', error.text)
+//       alert('Failed to send message. Please try again.')
+//     })
+//   }
+
+//   return (
+//     <div className="flex items-left justify-left p-4">
+//       <div className="w-full max-w-5xl p-8 relative flex">
+//         <form onSubmit={handleSubmit} className="relative z-10 w-5/6">
+//           <h2 className="text-white text-lg mb-4">Looking For?</h2>
+//           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//             <div className={`col-span-2 transition-opacity duration-500 ${visibleFields >= 1 ? 'opacity-100' : 'opacity-0'}`}>
+//               <input
+//                 name="lookingFor"
+//                 value={formData.lookingFor}
+//                 onChange={handleChange}
+//                 className="w-full border-b border-gray-600 text-white bg-[#181914] py-2 outline-none hover:border-red-500"
+//                 aria-label="Looking For"
+//               />
+//                 {/* <option value="">Select a category</option>
+//                 <option value="AI">AI</option>
+//                 <option value="ML">ML</option>
+//                 <option value="App Development">App Development</option>
+//                 <option value="Web Development">Web Development</option>
+//                 <option value="DevOps">DevOps</option>
+//                 <option value="UI/UX">UI/UX</option>
+//                 <option value="Project Manager">Project Manager</option>
+//                 <option value="Full Stack Development">Full Stack Development</option>
+//                 <option value="QA">QA</option> */}
+//               {/* </input> */}
+//             </div>
+//             <input
+//               type="text"
+//               name="firstName"
+//               placeholder="Full Name"
+//               value={formData.firstName}
+//               onChange={handleChange}
+//               className={`bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500 transition-opacity duration-500 ${
+//                 visibleFields >= 2 ? 'opacity-100' : 'opacity-0 pointer-events-none'
+//               }`}
+//               aria-label="Full Name"
+//             />
+//             <input
+//               type="tel"
+//               name="phoneNumber"
+//               placeholder="Phone Number"
+//               value={formData.phoneNumber}
+//               onChange={handleChange}
+//               className={`bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500 transition-opacity duration-500 ${
+//                 visibleFields >= 3 ? 'opacity-100' : 'opacity-0 pointer-events-none'
+//               }`}
+//               aria-label="Phone Number"
+//             />
+//             <div className={`col-span-2 transition-opacity duration-500 ${visibleFields >= 4 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+//               <input
+//                 type="email"
+//                 name="email"
+//                 placeholder="Email"
+//                 value={formData.email}
+//                 onChange={handleChange}
+//                 className="w-full bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+//                 aria-label="Email"
+//               />
+//             </div>
+//             <div className={`col-span-2 transition-opacity duration-500 ${visibleFields >= 5 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+//               <input
+//                 type="text"
+//                 name="company"
+//                 placeholder="Company"
+//                 value={formData.company}
+//                 onChange={handleChange}
+//                 className="w-full bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+//                 aria-label="Company"
+//               />
+//             </div>
+//             <div className={`col-span-2 transition-opacity duration-500 ${visibleFields >= 6 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+//               <input
+//                 type="text"
+//                 name="message"
+//                 placeholder="Message"
+//                 value={formData.message}
+//                 onChange={handleChange}
+//                 className="w-full bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+//                 rows="3"
+//                 aria-label="Message"
+//               />
+//             </div>
+//             <div className={`col-span-2 transition-opacity duration-500 ${visibleFields >= 7 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+//               <button
+//                 type="submit"
+//                 className="bg-red-600 text-white px-8 py-3 rounded hover:bg-red-700 transition duration-300"
+//               >
+//                 GET STARTED →
+//               </button>
+//             </div>
+//           </div>
+//         </form>
+//         <div className="relative left-52">
+//           <Image 
+//             src="/right.png" 
+//             width={600} 
+//             height={600} 
+//             alt="Decorative image"
+//           />
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
+// 'use client'
+// import { useState } from 'react'
+// import Image from 'next/image'
+// import emailjs from 'emailjs-com'
+
+// export default function Component() {
+//   const [formData, setFormData] = useState({
+//     lookingFor: '',
+//     firstName: '',
+//     lastName: '',
+//     phoneNumber: '',
+//     email: '',
+//     company: '',
+//     message: ''
+//   })
+
+//   const [currentField, setCurrentField] = useState(0) // Tracks the current field index
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target
+//     setFormData(prevState => ({
+//       ...prevState,
+//       [name]: value
+//     }))
+//   }
+
+//   const formreset = (e) => {
+//     e.preventDefault()
+//     setFormData({
+//       lookingFor: '',
+//       firstName: '',
+//       lastName: '',
+//       phoneNumber: '',
+//       email: '',
+//       company: '',
+//       message: ''
+//     })
+//     setCurrentField(0) // Reset field visibility to the first field
+//   }
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault()
+//     emailjs.sendForm(
+//       'service_j6csyxd', 
+//       'template_9d2y9k3', 
+//       e.target, 
+//       'cmO2drZIAuccL7NnJ',
+//     )
+//     .then((result) => {
+//       console.log('Email sent:', result.text)
+//       alert('Message sent successfully!')
+//       formreset(e)
+//     }, (error) => {
+//       console.error('Failed to send email:', error.text)
+//       alert('Failed to send message. Please try again.')
+//     })
+//   }
+
+//   const handleNext = () => {
+//     if (currentField < 6) {
+//       setCurrentField(prev => prev + 1) // Show next field
+//     }
+//   }
+
+//   const handleBack = () => {
+//     if (currentField > 0) {
+//       setCurrentField(prev => prev - 1) // Show previous field
+//     }
+//   }
+
+//   return (
+//     <div className="flex items-left justify-left p-4">
+//       <div className="w-full max-w-5xl p-8 relative flex">
+//         <form onSubmit={handleSubmit} className="relative z-10 w-5/6">
+//           <h2 className="text-white text-lg mb-4">Looking For?</h2>
+//           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+//             {/* Field 1 - Looking For */}
+//             <div className={`col-span-2 transition-all duration-700 transform ${currentField >= 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 pointer-events-none'}`}>
+//               <input
+//                 name="lookingFor"
+//                 value={formData.lookingFor}
+//                 onChange={handleChange}
+//                 className="w-full border-b border-gray-600 text-white bg-[#181914] py-2 outline-none hover:border-red-500"
+//                 aria-label="Looking For"
+//               />
+//             </div>
+
+//             {/* Field 2 - Full Name */}
+//             <div className={`transition-all duration-700 transform ${currentField >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 pointer-events-none'}`}>
+//               <input
+//                 type="text"
+//                 name="firstName"
+//                 placeholder="Full Name"
+//                 value={formData.firstName}
+//                 onChange={handleChange}
+//                 className="bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+//                 aria-label="Full Name"
+//               />
+//             </div>
+
+//             {/* Field 3 - Phone Number */}
+//             <div className={`transition-all duration-700 transform ${currentField >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 pointer-events-none'}`}>
+//               <input
+//                 type="tel"
+//                 name="phoneNumber"
+//                 placeholder="Phone Number"
+//                 value={formData.phoneNumber}
+//                 onChange={handleChange}
+//                 className="bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+//                 aria-label="Phone Number"
+//               />
+//             </div>
+
+//             {/* Field 4 - Email */}
+//             <div className={`col-span-2 transition-all duration-700 transform ${currentField >= 3 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 pointer-events-none'}`}>
+//               <input
+//                 type="email"
+//                 name="email"
+//                 placeholder="Email"
+//                 value={formData.email}
+//                 onChange={handleChange}
+//                 className="w-full bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+//                 aria-label="Email"
+//               />
+//             </div>
+
+//             {/* Field 5 - Company */}
+//             <div className={`col-span-2 transition-all duration-700 transform ${currentField >= 4 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 pointer-events-none'}`}>
+//               <input
+//                 type="text"
+//                 name="company"
+//                 placeholder="Company"
+//                 value={formData.company}
+//                 onChange={handleChange}
+//                 className="w-full bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+//                 aria-label="Company"
+//               />
+//             </div>
+
+//             {/* Field 6 - Message */}
+//             <div className={`col-span-2 transition-all duration-700 transform ${currentField >= 5 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 pointer-events-none'}`}>
+//               <input
+//                 type="text"
+//                 name="message"
+//                 placeholder="Message"
+//                 value={formData.message}
+//                 onChange={handleChange}
+//                 className="w-full bg-[#181914] border-b border-gray-600 text-white py-2 outline-none hover:border-red-500"
+//                 rows="3"
+//                 aria-label="Message"
+//               />
+//             </div>
+
+//             {/* Submit Button */}
+//             <div className={`col-span-2 transition-all duration-700 transform ${currentField >= 6 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 pointer-events-none'}`}>
+//               <button
+//                 type="submit"
+//                 className="bg-red-600 text-white px-8 py-3 rounded hover:bg-red-700 transition duration-300"
+//               >
+//                 GET STARTED →
+//               </button>
+//             </div>
+//           </div>
+
+//           {/* Navigation Buttons */}
+//           <div className="flex justify-between mt-4">
+//             {currentField > 0 && (
+//               <button type="button" onClick={handleBack} className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 transition duration-300">
+//                 Back
+//               </button>
+//             )}
+//             {currentField < 6 && (
+//               <button type="button" onClick={handleNext} className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition duration-300">
+//                 Next
+//               </button>
+//             )}
+//           </div>
+//         </form>
+
+//         {/* Decorative Image */}
+//         <div className="relative left-52">
+//           <Image
+//             src="/right.png"
+//             width={600}
+//             height={600}
+//             alt="Decorative image"
+//           />
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }

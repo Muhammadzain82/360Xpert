@@ -36,7 +36,7 @@ export default function JourneyBanner() {
               </span>
             </h2>
             <a
-              href="/CareersForm"
+              href="/ContactUS"
               className="mt-8 md:mt-10 bg-gradient-to-r from-[#D43833] to-[#650300] hover:from-[#650300] hover:to-[#D43833] text-white px-6 sm:px-8 md:px-10 rounded-full inline-block text-base sm:text-lg md:text-xl lg:text-2xl font-['Clash_Display']"
               data-aos="zoom-in"
               data-aos-delay="200"

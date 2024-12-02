@@ -522,7 +522,7 @@ const ChatBot = () => {
         setConversation([
           {
             type: "bot",
-            content: "Greetings What is your name, Please?",
+            content: "Greetings What is your name, Please!",
             time: new Date().toLocaleTimeString(),
           },
         ])
@@ -569,7 +569,8 @@ const ChatBot = () => {
           alt="Message"
           width={70}
           height={70}
-          className="w-12 md:w-[70px] transition-all"
+          // className="w-12 md:w-[70px] transition-all"
+          className={`w-12 md:w-[70px] transition-all ${showChat ? "hidden":'block'}`}
         />
       </div>
       <div

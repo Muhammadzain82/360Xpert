@@ -10,6 +10,7 @@ export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const links = [
+    { href: "/ContactUS", label: "CONTACT US" },
     { href: "/Careers", label: "CAREERS" },
     // { href: "/CareersForm", label: "CareersForm" },
     { href: "/Blogs", label: "BLOGS" },
