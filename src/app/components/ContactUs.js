@@ -553,7 +553,7 @@ export default function CompactChatbotForm() {
 
   return (
     <motion.div 
-      className="flex flex-col h-[500px] w-[600px] bg-[#181914] text-white p-4 rounded-lg shadow-lg"
+      className="mx-auto flex flex-col h-[500px] w-[600px] bg-[#181914] text-white p-4 rounded-lg shadow-lg"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
