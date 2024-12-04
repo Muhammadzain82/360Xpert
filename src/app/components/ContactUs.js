@@ -413,9 +413,9 @@ import HeroCareers from "./HeroCareers"
 
 export default function CombinedChatInterface() {
   const questions = [
-    "What's your name?",
-    "Great! What's your phone number?",
-    "What's your email address?",
+    "What&apos;s your name?",
+    "Great! What&apos;s your phone number?",
+    "What&apos;s your email address?",
     "Which company do you represent?",
     "Please enter your message.",
   ]
@@ -511,63 +511,62 @@ export default function CombinedChatInterface() {
 
   return (
     <div>
-      <HeroCareers/>
-    <div className="bg-[#181815] text-white min-h-screen flex flex-col md:flex-row items-start p-6 md:p-12 relative">
-      {/* Main Content */}
-      <div className="max-w-3xl w-full z-10">
-        <h1 className="text-4xl font-light mb-2">Let's Apply</h1>
-        <p className="text-gray-400 mb-6">
-          Interested in joining our team? We'd love to hear from you! Reach out for more details about job opportunities. Our team is here to help you every step of the way.
-        </p>
-        <div className="bg-[#181815] p-6 rounded-lg">
-          <div className="chat-container space-y-4 mb-4 overflow-y-auto max-h-96">
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`message flex ${
-                  message.sender === 'user' ? 'justify-end' : 'justify-start'
-                }`}
-              >
+      <HeroCareers />
+      <div className="bg-[#181815] text-white min-h-screen flex flex-col md:flex-row items-start p-6 md:p-12 relative">
+        {/* Main Content */}
+        <div className="max-w-3xl w-full z-10">
+          <h1 className="text-4xl font-light mb-2">Let&apos;s Apply</h1>
+          <p className="text-gray-400 mb-6">
+            Interested in joining our team? We&apos;d love to hear from you! Reach out for more details about job opportunities. Our team is here to help you every step of the way.
+          </p>
+          <div className="bg-[#181815] p-6 rounded-lg">
+            <div className="chat-container space-y-4 mb-4 overflow-y-auto max-h-96">
+              {messages.map((message, index) => (
                 <div
-                  className={`max-w-xs p-3 rounded-lg text-sm ${
-                    message.sender === 'user'
-                      ? 'bg-red-600 text-white'
-                      : 'bg-[#181815] text-gray-300'
-                  }`}
+                  key={index}
+                  className={`message flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
-                  {message.text}
+                  <div
+                    className={`max-w-xs p-3 rounded-lg text-sm ${
+                      message.sender === 'user'
+                        ? 'bg-red-600 text-white'
+                        : 'bg-[#181815] text-gray-300'
+                    }`}
+                  >
+                    {message.text}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-          <div className="flex items-center border-t border-gray-700 pt-4">
-            <input
-              type="text"
-              placeholder="Write Message"
-              className="flex-grow bg-transparent border-none text-white outline-none placeholder-gray-500"
-              onKeyDown={handleUserInput}
-            />
-            <button className="text-red-600 hover:text-red-700 ml-4">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-9.504-5.5c-.948-.548-2.248.136-2.248 1.207v11c0 1.071 1.3 1.755 2.248 1.207l9.504-5.5a1.25 1.25 0 000-2.414z" />
-              </svg>
-            </button>
+              ))}
+            </div>
+            <div className="flex items-center border-t border-gray-700 pt-4">
+              <input
+                type="text"
+                placeholder="Write Message"
+                className="flex-grow bg-transparent border-none text-white outline-none placeholder-gray-500"
+                onKeyDown={handleUserInput}
+              />
+              <button className="text-red-600 hover:text-red-700 ml-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-9.504-5.5c-.948-.548-2.248.136-2.248 1.207v11c0 1.071 1.3 1.755 2.248 1.207l9.504-5.5a1.25 1.25 0 000-2.414z" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
+        {/* Right Image */}
+        <div className="hidden md:block flex-grow items-center justify-end p-8">
+          <Image
+            src="/right.png" // Place your image in the public directory or adjust the path accordingly
+            width={500}
+            height={700}
+            className="rounded-lg transition duration-300"
+            alt="Decorative image"
+          />
+        </div>
       </div>
-      {/* Right Image */}
-      <div className="hidden md:block flex-grow items-center justify-end p-8">
-        <Image
-          src="/right.png" // Place your image in the public directory or adjust the path accordingly
-          width={500}
-          height={700}
-          className="rounded-lg transition duration-300"
-          alt="Decorative image"
-        />
-      </div>
-    </div>
     </div>
   )
 }
+
 
 
