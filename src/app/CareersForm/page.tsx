@@ -1,5 +1,5 @@
 
-import Navbar from "@/app/components/Navbar";
+// import Navbar from "@/app/components/Navbar";
 import ContactUs from "@/app/components/ContactUs";
 import Footer from "../components/Footer";
 
@@ -7,11 +7,11 @@ import Footer from "../components/Footer";
 export default function paged() {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="mt-4">
         <ContactUs />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   )
 }

@@ -1,17 +1,17 @@
-import Navbar from "@/app/components/Navbar";
+// import Navbar from "@/app/components/Navbar";
 import HeroCareers from "@/app/components/HeroCareers";
 import JobListings from "@/app/components/JobListings";
 import WordingCareer from "@/app/components/WordingCareer";
-import Footer from "@/app/components/Footer";
+// import Footer from "@/app/components/Footer";
 
 export default function About() {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <HeroCareers />
       <JobListings />
       <WordingCareer />
-      <Footer />
+      {/* <Footer />   */}
     </div>
   );
 }

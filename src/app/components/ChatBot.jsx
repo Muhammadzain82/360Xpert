@@ -446,13 +446,13 @@ const ChatBot = () => {
           botResponse = "Enter your Full name:"
           break
         case 2:
-          botResponse = `Enter your email, ${formData.FullName}`
+          botResponse = `Hope everything's going well! Please enter your email address. ${formData.FullName}`
           break
         case 3:
-          botResponse = `Enter any inquiries, ${formData.FullName}`
+          botResponse = `Have something to share or ask? Drop it here! ${formData.FullName}`
           break
         case 4:
-          botResponse = `Thanks! Your Message Has Been Submitted, ${formData.FullName}`
+          botResponse = `We’ve got your message, ${formData.FullName}! Thanks for reaching out.,`
           break
       }
 
@@ -522,7 +522,7 @@ const ChatBot = () => {
         setConversation([
           {
             type: "bot",
-            content: "Greetings What is your name, Please!",
+            content: "Greetings! Your name, please?",
             time: new Date().toLocaleTimeString(),
           },
         ])

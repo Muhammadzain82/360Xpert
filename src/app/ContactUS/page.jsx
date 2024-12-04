@@ -271,6 +271,7 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
+import HeroCareers from '../components/HeroCareers';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -371,6 +372,8 @@ const ContactUs = () => {
   };
 
   return (
+    <div>
+      <HeroCareers/>
     <div className="flex items-start justify-center px-4 lg:px-8 py-8">
       <div className="w-full max-w-5xl p-8 relative flex flex-col lg:flex-row gap-8">
         {/* Form Section */}
@@ -528,6 +531,7 @@ const ContactUs = () => {
           <Image src="/right.png" width={600} height={600} alt="Decorative image" />
         </div>
       </div>
+    </div>
     </div>
   );
 };

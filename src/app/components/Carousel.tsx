@@ -41,7 +41,7 @@ const Carousel = () => {
             className="relative w-full sm:w-72 md:w-80 lg:w-96 h-64 lg:h-96 bg-gray-800 rounded-xl overflow-hidden transition-all duration-300 group hover:w-[37%] lg:group-hover:w-[37%] flex-shrink-0"
           >
             <Image
-              src="/pic3.png"
+              src="/image.jpg"
               alt="Project 1"
               layout="fill"
               objectFit="cover"
@@ -49,11 +49,11 @@ const Carousel = () => {
             />
             <div className="absolute inset-0 bg-[#181815] bg-opacity-40 flex flex-col justify-end p-6">
               <h2 className="text-lg md:text-xl font-['Clash_Display']">
-                Break Time
+              Eagle-I
               </h2>
               <p className="text-xs md:text-sm mt-2 font-['Clash_Display']">
-                We equip healthcare providers with AI chatbots that improve
-                patient engagement and streamline administrative tasks.
+              Eagle-I is a comprehensive fleet management solution through 
+              which fleet owners can manage their assets and drivers with ease.
               </p>
             </div>
           </div>
@@ -64,7 +64,7 @@ const Carousel = () => {
             className="relative w-full sm:w-72 md:w-80 lg:w-48 h-64 lg:h-96 bg-gray-800 rounded-xl overflow-hidden transition-all duration-300 group hover:w-[25%] lg:group-hover:w-[25%] flex-shrink-0"
           >
             <Image
-              src="/pic3.png"
+              src="/image3.jpg"
               alt="Project 2"
               layout="fill"
               objectFit="cover"
@@ -72,8 +72,13 @@ const Carousel = () => {
             />
             <div className="absolute inset-0 bg-[#181815] bg-opacity-40 flex flex-col justify-end p-6">
               <h2 className="text-lg md:text-xl font-['Clash_Display']">
-                Invenr
+                Hassana
               </h2>
+              <p className="text-xs md:text-sm mt-2 font-['Clash_Display']">
+              Hassana is the investment manager of the General Organization 
+              for Social Insurance (GOSI), Saudi Arabia’s social 
+              security and pension fund.
+              </p>
             </div>
           </div>
 
@@ -82,7 +87,7 @@ const Carousel = () => {
             className="relative w-full sm:w-72 md:w-80 lg:w-48 h-64 lg:h-96 bg-gray-800 rounded-xl overflow-hidden transition-all duration-300 group hover:w-[25%] lg:group-hover:w-[25%] flex-shrink-0"
           >
             <Image
-              src="/pic3.png"
+              src="/image2.jpg"
               alt="Project 3"
               layout="fill"
               objectFit="cover"
@@ -90,8 +95,15 @@ const Carousel = () => {
             />
             <div className="absolute inset-0 bg-[#181815] bg-opacity-40 flex flex-col justify-end p-6">
               <h2 className="text-lg md:text-xl font-['Clash_Display']">
-                Green Tech
+                The Metro Guide
               </h2>
+              <p className="text-xs md:text-sm mt-2 font-['Clash_Display']">
+              The Metro Guide App is your go-to solution for effortless 
+              navigation through metro systems. Designed for efficiency 
+              and ease, the app offers comprehensive features including 
+              detailed route planning, real-time updates on train 
+              schedules, and fare information.
+              </p>
             </div>
           </div>
         </div>
