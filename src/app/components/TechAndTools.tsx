@@ -40,7 +40,7 @@ const techCategories = [
       { name: "NodeJS", logo: "/nodejs.png" },
       { name: "Python", logo: "/python.png" },
     ],
-    video: "/Ai.mp4",
+    video: "/Full.mp4",
   },
 
   {
@@ -62,7 +62,7 @@ const techCategories = [
       { name: "Digital-Ocean", logo: "/digitalocean.png" },
       { name: "Azure DevOps", logo: "/devops.png" },
     ],
-    video: "/Ai.mp4",
+    video: "/Devops.mp4",
   },
 
   {
@@ -75,7 +75,7 @@ const techCategories = [
       { name: "Flutter", logo: "/flutter.png" },
       { name: "Kotlin", logo: "/kotlin.png" },
     ],
-    video: "/Ai.mp4",
+    video: "/App.mp4",
   },
 
   {
@@ -91,7 +91,7 @@ const techCategories = [
       { name: "HTML5", logo: "/htnl.png" },
       { name: "Saas", logo: "/saas.png" },
     ],
-    video: "/Ai.mp4",
+    video: "/UX.mp4",
   },
 ];
 

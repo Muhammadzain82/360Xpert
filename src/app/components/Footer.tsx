@@ -24,10 +24,10 @@ export default function Footer() {
           </div>
           <div className="flex flex-col lg:flex-row items-start lg:items-center space-y-6 lg:space-y-0 lg:space-x-16 font-['Clash_Display']">
             <div>
-              <p className="font-normal text-[15px]">800 00 975 20 34</p>
+              {/* <p className="font-normal text-[15px]">800 00 975 20 34</p>
               <p className="text-[13px] text-[#9B9B9B] mb-10">
                 +1 201 1800 234 3678
-              </p>
+              </p> */}
               <Link
                 href="mailto:info@techxworlds.co"
                 className="text-[13px] hover:text-[#9B9B9B] font-['Clash_Display']"
@@ -36,12 +36,12 @@ export default function Footer() {
               </Link>
             </div>
             <div>
-              <p className="font-normal text-[15px] font-['Clash_Display']">
+              {/* <p className="font-normal text-[15px] font-['Clash_Display']">
                 Dubai Silicon Oasis, DSO
               </p>
               <p className="text-[13px] text-[#9B9B9B] mb-10 font-['Clash_Display']">
                 Building #12, Dubai, UAE
-              </p>
+              </p> */}
 
               <div className="flex space-x-4">
                 <Link href="https://facebook.com/360Xpertsolutions/" target="_blank" aria-label="Facebook">
@@ -71,6 +71,9 @@ export default function Footer() {
               </div>
             </div>
             <div className="flex flex-col space-y-2 text-[13px] font-['Clash_Display']">
+            <Link href={"/ContactUS"} className="hover:text-[#9B9B9B]">
+                Contact Us
+              </Link>
               <Link href={"/About"} className="hover:text-[#9B9B9B]">
                 About Us
               </Link>

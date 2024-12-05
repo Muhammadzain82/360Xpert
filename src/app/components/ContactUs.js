@@ -413,9 +413,9 @@ import HeroCareers from "./HeroCareers"
 
 export default function CombinedChatInterface() {
   const questions = [
-    "What&apos;s your name?",
-    "Great! What&apos;s your phone number?",
-    "What&apos;s your email address?",
+    "What is your name?",
+    "Great! What's your phone number?",
+    "What is your email address?",
     "Which company do you represent?",
     "Please enter your message.",
   ]

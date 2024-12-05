@@ -16,7 +16,7 @@ export default function HeroCareers() {
           Opportunities With Us
         </h1>
         <p className="text-sm sm:text-base md:text-lg mb-12 text-gray-300 font-['Clash_Display']">
-          We&apos;re always eager to connect with talented individuals.
+          We&apos; always eager to connect with talented individuals.
           <br />
           Share your resume with us and we&apos;ll be in touch!
         </p>

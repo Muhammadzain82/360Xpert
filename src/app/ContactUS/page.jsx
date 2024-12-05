@@ -286,15 +286,6 @@ const ContactUs = () => {
   const [fieldErrors, setFieldErrors] = useState({});
   const [success, setSuccess] = useState(false);
 
-// /*************  ✨ Codeium Command ⭐  *************/
-// /******  998f8201-b1c0-4120-93dc-184e7c145eb2  *******/
-//    * Handles input change event.
-//    * 
-//    * Updates the form data state with the new input value.
-//    * If there was an error for the field, it also clears the error.
-//    * 
-//    * @param {React.ChangeEvent<HTMLInputElement>} e - The input change event.
-//    */
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
