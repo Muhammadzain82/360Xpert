@@ -4,7 +4,7 @@ import XlogoBG from "./components/XlogoBG";
 import Scroll from "./components/Scroll";
 import Wording from "./components/Wording";
 import Carousel from "@/app/components/Carousel";
-// import Footer from "./components/Footer";
+import Footer from "./components/Footer";
 import TechAndTools from "./components/TechAndTools";
 import ChatBot from "./components/ChatBot";
 
@@ -22,7 +22,7 @@ export default function Home() {
       <Wording />
       <Scroll />
       <Carousel />
-      {/* <Footer />  */}
+      <Footer /> 
        </div>
     </div>
   );

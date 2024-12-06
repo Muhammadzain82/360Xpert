@@ -272,6 +272,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import HeroCareers from '../components/HeroCareers';
+import Footer from '../components/Footer';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -285,7 +286,7 @@ const ContactUs = () => {
   const [file, setFile] = useState(null);
   const [fieldErrors, setFieldErrors] = useState({});
   const [success, setSuccess] = useState(false);
-
+  // const fileInputRef = use Ref(null)
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -300,6 +301,7 @@ const ContactUs = () => {
       if (fieldErrors.file) {
         setFieldErrors((prev) => ({ ...prev, file: '' }));
       }
+
     }
   };
 
@@ -357,6 +359,8 @@ const ContactUs = () => {
 
       setSuccess(true);
       formReset();
+      setFile(null);
+
     } catch (err) {
       console.error('Failed to submit form to Strapi:', err);
     }
@@ -496,8 +500,8 @@ const ContactUs = () => {
                 <div className="w-full sm:w-auto">
                   <input
                     type="file"
-                    id="cv"
-                    name="cv"
+                    id="CV"
+                    name="CV"
                     onChange={handleFileChange}
                     className="text-sm text-white file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-red-600 file:text-white hover:file:bg-red-700"
                   />
@@ -523,6 +527,7 @@ const ContactUs = () => {
         </div>
       </div>
     </div>
+    <Footer/>
     </div>
   );
 };

@@ -405,11 +405,11 @@
 //   )
 // }
 
-'use client'
-import { useState } from "react"
-import Image from 'next/image'
-import emailjs from 'emailjs-com'
-import HeroCareers from "./HeroCareers"
+'use client';
+import { useState } from "react";
+import Image from "next/image";
+import HeroCareers from "./HeroCareers";
+import Footer from "../components/Footer";
 
 export default function CombinedChatInterface() {
   const questions = [
@@ -418,96 +418,92 @@ export default function CombinedChatInterface() {
     "What is your email address?",
     "Which company do you represent?",
     "Please enter your message.",
-  ]
+  ];
 
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [messages, setMessages] = useState([
     {
       text: questions[0],
-      sender: 'system',
+      sender: "system",
       timestamp: new Date(),
     },
-  ])
+  ]);
   const [formData, setFormData] = useState({
-    fullName: '',
-    phoneNumber: '',
-    email: '',
-    company: '',
-    message: '',
-  })
+    fullName: "",
+    phoneNumber: "",
+    email: "",
+    company: "",
+    message: "",
+  });
 
-  const handleSendMessage = (userInput) => {
-    const currentKey = Object.keys(formData)[currentQuestionIndex]
+  const handleSendMessage = async (userInput) => {
+    const currentKey = Object.keys(formData)[currentQuestionIndex];
 
     setMessages((prev) => [
       ...prev,
       {
         text: userInput,
-        sender: 'user',
+        sender: "user",
         timestamp: new Date(),
       },
-    ])
+    ]);
 
     setFormData((prev) => ({
       ...prev,
       [currentKey]: userInput,
-    }))
+    }));
 
     if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex((prev) => prev + 1)
+      setCurrentQuestionIndex((prev) => prev + 1);
       setMessages((prev) => [
         ...prev,
         {
           text: questions[currentQuestionIndex + 1],
-          sender: 'system',
+          sender: "system",
           timestamp: new Date(),
         },
-      ])
+      ]);
     } else {
-      emailjs
-        .send(
-          'service_j6csyxd',
-          'template_9d2y9k3',
+      try {
+        const response = await fetch("https://api.360xpertsolutions.com/api/careers-forms", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ data: formData }),
+        });
+
+        if (response.ok) {
+          setMessages((prev) => [
+            ...prev,
+            {
+              text: "Thank you for your message! We will get back to you soon.",
+              sender: "system",
+              timestamp: new Date(),
+            },
+          ]);
+        } else {
+          throw new Error("Failed to submit the form data.");
+        }
+      } catch (error) {
+        setMessages((prev) => [
+          ...prev,
           {
-            fullName: formData.fullName,
-            phoneNumber: formData.phoneNumber,
-            email: formData.email,
-            company: formData.company,
-            message: formData.message,
+            text: "Sorry, there was an error sending your message. Please try again.",
+            sender: "system",
+            timestamp: new Date(),
           },
-          'cmO2drZIAuccL7NnJ'
-        )
-        .then(
-          (result) => {
-            setMessages((prev) => [
-              ...prev,
-              {
-                text: 'Thank you for your message! We will get back to you soon.',
-                sender: 'system',
-                timestamp: new Date(),
-              },
-            ])
-          },
-          (error) => {
-            setMessages((prev) => [
-              ...prev,
-              {
-                text: 'Sorry, there was an error sending your message. Please try again.',
-                sender: 'system',
-                timestamp: new Date(),
-              },
-            ])
-          }
-        )
+        ]);
+      }
     }
-  }
+  };
 
   const handleUserInput = (e) => {
-    if (e.key === 'Enter' && e.target.value.trim() !== '') {
-      handleSendMessage(e.target.value.trim())
-      e.target.value = '' // Clear input field
+    if (e.key === "Enter" && e.target.value.trim() !== "") {
+      handleSendMessage(e.target.value.trim());
+      e.target.value = ""; // Clear input field
     }
-  }
+  };
 
   return (
     <div>
@@ -524,13 +520,15 @@ export default function CombinedChatInterface() {
               {messages.map((message, index) => (
                 <div
                   key={index}
-                  className={`message flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                  className={`message flex ${
+                    message.sender === "user" ? "justify-end" : "justify-start"
+                  } animate-slide-in`}
                 >
                   <div
-                    className={`max-w-xs p-3 rounded-lg text-sm ${
-                      message.sender === 'user'
-                        ? 'bg-red-600 text-white'
-                        : 'bg-[#181815] text-gray-300'
+                    className={`max-w-xs p-3 rounded-lg text-sm transition-transform transform ${
+                      message.sender === "user"
+                        ? "bg-red-600 text-white"
+                        : "bg-[#181815] text-gray-300"
                     }`}
                   >
                     {message.text}
@@ -546,9 +544,7 @@ export default function CombinedChatInterface() {
                 onKeyDown={handleUserInput}
               />
               <button className="text-red-600 hover:text-red-700 ml-4">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-9.504-5.5c-.948-.548-2.248.136-2.248 1.207v11c0 1.071 1.3 1.755 2.248 1.207l9.504-5.5a1.25 1.25 0 000-2.414z" />
-                </svg>
+                <Image src="/red.png" width={30} height={30} alt="Send" />
               </button>
             </div>
           </div>
@@ -564,9 +560,7 @@ export default function CombinedChatInterface() {
           />
         </div>
       </div>
+      <Footer />
     </div>
-  )
+  );
 }
-
-
-

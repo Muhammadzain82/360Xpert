@@ -43,3 +43,17 @@ body {
   overflow-x: hidden; /* Hide horizontal scrollbar */
   overflow-y: auto; /* Allow vertical scrolling */
 }
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out;
+}
