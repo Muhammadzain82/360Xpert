@@ -333,167 +333,837 @@
 
 // export default ChatBot;
 
-'use client';
-import React, { useState, useEffect, useRef } from "react";
-import { toast, Toaster } from "react-hot-toast";
-import TypingIndicator from "../components/TypingIndicator";
-import Image from "next/image";
-import { Smile, Send } from 'lucide-react';
-import dynamic from 'next/dynamic';
+// 'use client';
+// import React, { useState, useEffect, useRef } from "react";
+// import { toast, Toaster } from "react-hot-toast";
+// import TypingIndicator from "../components/TypingIndicator";
+// import Image from "next/image";
+// import { Smile, Send } from 'lucide-react';
+// import dynamic from 'next/dynamic';
 
-const EmojiPicker = dynamic(() => import('emoji-picker-react'), { ssr: false });
+// const EmojiPicker = dynamic(() => import('emoji-picker-react'), { ssr: false });
+
+// const ChatBot = () => {
+//   const [formData, setFormData] = useState({
+//     FullName: "",
+//     Email: "",
+//     Message: "",
+//   });
+
+//   const [step, setStep] = useState(1);
+//   const [showChat, setShowChat] = useState(false);
+//   const [conversation, setConversation] = useState([]);
+//   const conversationBoxRef = useRef(null);
+//   const [validEmail, setValidEmail] = useState(true);
+//   const chatContainerRef = useRef(null);
+//   const [isTyping, setIsTyping] = useState(false);
+//   const [isSmallScreen, setIsSmallScreen] = useState(false);
+//   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
+
+//   useEffect(() => {
+//     const handleResize = () => {
+//       setIsSmallScreen(window.innerWidth < 600);
+//     };
+
+//     handleResize();
+
+//     window.addEventListener("resize", handleResize);
+//     return () => {
+//       window.removeEventListener("resize", handleResize);
+//     };
+//   }, []);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({ ...formData, [name]: value });
+
+//     if (name === "Email") {
+//       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//       setValidEmail(emailRegex.test(value));
+//     }
+//   };
+
+//   const submitToStrapi = async () => {
+//     try {
+//       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/chatbots`, {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({ data: formData }),
+//       });
+
+//       if (!response.ok) throw new Error("Failed to submit the form");
+
+//       toast.success("Form successfully submitted!");
+
+//       setFormData({
+//         FullName: "",
+//         Email: "",
+//         Message: "",
+//       });
+//     } catch (error) {
+//       toast.error("Error submitting the form: " + error.message);
+//     }
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     const currentInput =
+//       step === 1
+//         ? formData.FullName
+//         : step === 2
+//         ? formData.Email
+//         : formData.Message;
+
+//     if (step === 2 && !validEmail) {
+//       toast.error("Please enter a valid email address.");
+//       return;
+//     }
+
+//     try {
+//       const nextStep = step + 1;
+
+//       let botResponse = "";
+//       switch (nextStep) {
+//         case 1:
+//           botResponse = "Enter your Full name:";
+//           break;
+//         case 2:
+//           botResponse = `Hope everything's going well! Please enter your email address. ${formData.FullName}`;
+//           break;
+//         case 3:
+//           botResponse = `Have something to share or ask? Drop it here! ${formData.FullName}`;
+//           break;
+//         case 4:
+//           botResponse = `We’ve got your message, ${formData.FullName}! Thanks for reaching out.`;
+//           break;
+//       }
+
+//       if (step <= 3) {
+//         setConversation((prev) => [
+//           ...prev,
+//           { type: "user", content: currentInput, time: new Date().toLocaleTimeString() },
+//         ]);
+//       }
+
+//       setStep(nextStep);
+
+//       if (nextStep === 4) {
+//         setConversation((prev) => [
+//           ...prev,
+//           { type: "bot", content: botResponse, time: new Date().toLocaleTimeString() },
+//         ]);
+
+//         await submitToStrapi();
+//         setIsTyping(false);
+//         return;
+//       }
+
+//       if (botResponse && nextStep < 4) {
+//         setIsTyping(true);
+
+//         setTimeout(() => {
+//           setConversation((prev) => [
+//             ...prev,
+//             { type: "bot", content: botResponse, time: new Date().toLocaleTimeString() },
+//           ]);
+//           setIsTyping(false);
+//         }, 1500);
+//       }
+//     } catch (error) {
+//       toast.error(error.message);
+//     }
+//   };
+
+//   const handleChatToggle = () => {
+//     setShowChat((prev) => !prev);
+
+//     if (!showChat && conversation.length === 0) {
+//       setTimeout(() => {
+//         setConversation([{ type: "bot", content: "Greetings! Your name, please?", time: new Date().toLocaleTimeString() }]);
+//         setStep(1);
+//       }, 2000);
+//     }
+//   };
+
+//   return (
+//     <>
+//       <div className="fixed z-50 bottom-7 right-16 text-right cursor-pointer" onClick={handleChatToggle}>
+//         <Image src="/chatsupport.png" alt="Message" width={70} height={70} className={`w-12 md:w-[70px] transition-all ${showChat ? "hidden" : "block"}`} />
+//       </div>
+//       <div ref={chatContainerRef} className={`fixed bg-[#1B1B19] rounded-lg z-40 shadow-lg transition-all duration-300 overflow-y-auto ${showChat ? "block" : "hidden"} ${isSmallScreen ? "w-[90%] left-0 bottom-0 mx-auto rounded-none" : "w-[400px] bottom-[75px] right-[60px]"}`}>
+//         {showChat && (
+//           <form onSubmit={handleSubmit} className="flex flex-col h-full">
+//             <div className="flex items-center gap-2 p-4 border-b border-gray-800">
+//               <div className="w-2 h-2 bg-green-500 rounded-full" />
+//               <div>
+//                 <h2 className="text-white text-lg font-medium">Lytica AI Agent</h2>
+//                 <p className="text-gray-400 text-sm">Ready to help</p>
+//               </div>
+//             </div>
+//             <div className="flex-1 p-4 overflow-y-auto" ref={conversationBoxRef}>
+//               {conversation.map(
+//                 (msg, index) =>
+//                   msg.content && (
+//                     <div key={index} className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"} mb-4`}>
+//                       {msg.type === "bot" && <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-white mr-2">AI</div>}
+//                       <div className={`p-3 rounded-2xl max-w-[70%] ${msg.type === "user" ? "bg-red-600 text-white" : "bg-[#2A2A2A] text-gray-200"}`}>
+//                         <p className="break-words">{msg.content}</p>
+//                         <span className="text-xs text-gray-400 mt-1 block">{msg.time}</span>
+//                       </div>
+//                     </div>
+//                   )
+//               )}
+//               {isTyping && <div className="flex items-center gap-2 text-gray-400"><TypingIndicator /></div>}
+//             </div>
+//             <div className="p-4 border-t border-gray-800">
+//               <div className="flex gap-2">
+//                 <div className="flex-1 relative">
+//                   <input type={step === 2 ? "email" : "text"} id={step === 1 ? "FullName" : step === 2 ? "Email" : "Message"} name={step === 1 ? "FullName" : step === 2 ? "Email" : "Message"} placeholder="Write Message" value={step === 1 ? formData.FullName : step === 2 ? formData.Email : formData.Message} onChange={handleChange} onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSubmit(e); } }} required className="w-full p-3 bg-[#2A2A2A] text-white rounded-full focus:outline-none focus:ring-1 focus:ring-gray-600 placeholder-gray-500" />
+//                   <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+//                     <button type="button" onClick={() => setEmojiPickerVisible(!emojiPickerVisible)} className="text-gray-400 hover:text-gray-300"><Smile className="w-5 h-5" /></button>
+//                   </div>
+//                   {emojiPickerVisible && <div className="absolute right-0 bottom-12 z-50"><EmojiPicker onEmojiClick={handleEmojiClick} /></div>}
+//                 </div>
+//                 <button type="submit" className="p-3 bg-red-600 hover:bg-red-700 text-white rounded-full transition-colors duration-200" aria-label="Send message"><Send className="w-5 h-5" /></button>
+//               </div>
+//             </div>
+//           </form>
+//         )}
+//       </div>
+//       <Toaster position="bottom-center" reverseOrder={false} />
+//     </>
+//   );
+// };
+
+// export default ChatBot;
+
+// 'use client'
+// import React, { useState, useEffect, useRef } from "react"
+// import { toast, Toaster } from "react-hot-toast"
+// import TypingIndicator from "../components/TypingIndicator"
+// import Image from "next/image"
+// import { Smile, Send } from 'lucide-react'
+// import dynamic from 'next/dynamic'
+
+// const EmojiPicker = dynamic(() => import('emoji-picker-react'), { ssr: false })
+
+// const ChatBot = () => {
+//   const [formData, setFormData] = useState({
+//     FullName: "",
+//     Email: "",
+//     Message: "",
+//   })
+
+//   const [step, setStep] = useState(1)
+//   const [showChat, setShowChat] = useState(false)
+//   const [conversation, setConversation] = useState([])
+//   const conversationBoxRef = useRef(null)
+//   const [validEmail, setValidEmail] = useState(true)
+//   const chatContainerRef = useRef(null)
+//   const [isTyping, setIsTyping] = useState(false)
+//   const [isSmallScreen, setIsSmallScreen] = useState(false)
+//   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false)
+
+//   useEffect(() => {
+//     const handleResize = () => {
+//       setIsSmallScreen(window.innerWidth < 600)
+//     }
+
+//     handleResize()
+
+//     window.addEventListener("resize", handleResize)
+//     return () => {
+//       window.removeEventListener("resize", handleResize)
+//     }
+//   }, [])
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target
+//     setFormData({ ...formData, [name]: value })
+
+//     if (name === "Email") {
+//       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+//       const isValidEmail = emailRegex.test(value)
+//       setValidEmail(isValidEmail)
+//     }
+//   }
+
+//   const handleEmojiClick = (emojiObject) => {
+//     const currentField =
+//       step === 1 ? "FullName" : step === 2 ? "Email" : "Message"
+//     setFormData((prevState) => ({
+//       ...prevState,
+//       [currentField]: prevState[currentField] + emojiObject.emoji,
+//     }))
+//     setEmojiPickerVisible(false)
+//   }
+
+//   const email = async () => {
+//     try {
+//       const response = await fetch("https://api.360xpertsolutions.com/api/chatbots", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({ ...formData, email: formData.Email }),
+//       })
+//       // if (!response.ok) throw new Error("Failed to send email")
+
+//       toast.success("Email successfully sent!")
+//     } catch (error) {
+//       toast.error(error.message)
+//     }
+//   }
+
+//   const submitToStrapi = async () => {
+//     try {
+//       const response = await fetch("https://api.360xpertsolutions.com/api/chatbots", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({
+//           data: {
+//             FullName: formData.FullName,
+//             Email: formData.Email,
+//             Message: formData.Message,
+//           },
+//         }),
+//       })
+
+//       if (!response.ok) throw new Error("Failed to submit data to Strapi")
+
+//       toast.success("Form data successfully submitted to Strapi!")
+//     } catch (error) {
+//       toast.error(error.message)
+//     }
+//   }
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault()
+
+//     const currentInput =
+//       step === 1
+//         ? formData.FullName
+//         : step === 2
+//         ? formData.Email
+//         : formData.Message
+
+//     if (step === 2) {
+//       const emailRegex = /^[^\s@]+@[^\s@]+\.(com)$/
+//       const isValidEmail = emailRegex.test(formData.Email)
+//       if (!isValidEmail) {
+//         toast.error("Please enter a valid email address.")
+//         return
+//       }
+//     }
+
+//     try {
+//       const nextStep = step + 1
+
+//       let botResponse = ""
+//       switch (nextStep) {
+//         case 1:
+//           botResponse = "Enter your Full name:"
+//           break
+//         case 2:
+//           botResponse = `Hope everything's going well! Please enter your email address. ${formData.FullName}`
+//           break
+//         case 3:
+//           botResponse = `Have something to share or ask? Drop it here! ${formData.FullName}`
+//           break
+//         case 4:
+//           botResponse = `We’ve got your message, ${formData.FullName}! Thanks for reaching out.,`
+//           break
+//       }
+
+//       if (step <= 3) {
+//         setConversation((prevConversation) => [
+//           ...prevConversation,
+//           {
+//             type: "user",
+//             content: currentInput,
+//             time: new Date().toLocaleTimeString(),
+//           },
+//         ])
+//       }
+
+//       setStep(nextStep)
+
+//       if (nextStep === 4) {
+//         setConversation((prevConversation) => [
+//           ...prevConversation,
+//           {
+//             type: "bot",
+//             content: botResponse,
+//             time: new Date().toLocaleTimeString(),
+//           },
+//         ])
+
+//         await email()
+//         setIsTyping(false)
+//         return
+//       }
+
+//       if (botResponse && nextStep < 4) {
+//         setIsTyping(true)
+
+//         setTimeout(() => {
+//           setConversation((prevConversation) => [
+//             ...prevConversation,
+//             {
+//               type: "bot",
+//               time: new Date().toLocaleTimeString(),
+//             },
+//           ])
+//         }, 1000)
+
+//         setTimeout(() => {
+//           setConversation((prevConversation) => [
+//             ...prevConversation.slice(0, -1),
+//             {
+//               type: "bot",
+//               content: botResponse,
+//               time: new Date().toLocaleTimeString(),
+//             },
+//           ])
+//           setIsTyping(false)
+//         }, 1500)
+//       }
+//     } catch (error) {
+//       toast.error(error.message)
+//     }
+//   }
+
+//   const handleChatToggle = () => {
+//     setShowChat((prevShowChat) => !prevShowChat)
+
+//     if (!showChat && conversation.length === 0) {
+//       setTimeout(() => {
+//         setConversation([
+//           {
+//             type: "bot",
+//             content: "Greetings! Your name, please?",
+//             time: new Date().toLocaleTimeString(),
+//           },
+//         ])
+//         setStep(1)
+//       }, 2000)
+//     }
+//   }
+
+//   useEffect(() => {
+//     const handleClickOutside = (event) => {
+//       if (
+//         chatContainerRef.current &&
+//         !chatContainerRef.current.contains(event.target)
+//       ) {
+//         setShowChat(false)
+//       }
+//     }
+//     document.addEventListener("mousedown", handleClickOutside)
+//     return () => {
+//       document.removeEventListener("mousedown", handleClickOutside)
+//     }
+//   }, [])
+
+//   useEffect(() => {
+//     if (chatContainerRef.current) {
+//       chatContainerRef.current.style.height = isSmallScreen
+//         ? `${window.innerHeight * 0.9}px`
+//         : `${window.innerHeight * 0.8}px`
+//     }
+//   }, [isSmallScreen])
+
+//   return (
+//     <>
+//       <div
+//         className="fixed z-50 bottom-7 right-16 text-right cursor-pointer"
+//         onClick={handleChatToggle}
+//         style={{
+//           bottom: isSmallScreen ? "20px" : "100px",
+//           right: isSmallScreen ? "20px" : "80px",
+//         }}
+//       >
+//         <Image
+//           src="/chatsupport.png"
+//           alt="Message"
+//           width={70}
+//           height={70}
+//           // className="w-12 md:w-[70px] transition-all"
+//           className={`w-12 md:w-[70px] transition-all ${showChat ? "hidden":'block'}`}
+//         />
+//       </div>
+//       <div
+//         ref={chatContainerRef}
+//         className={`fixed bg-[#1B1B19] rounded-lg z-40 shadow-lg transition-all duration-300 overflow-y-auto ${
+//           showChat ? "block" : "hidden"
+//         } ${isSmallScreen ? "w-[90%] left-0 bottom-0 mx-auto rounded-none" : "w-[400px] bottom-[75px] right-[60px]"}`}
+//       >
+//         {showChat && (
+//           <form onSubmit={handleSubmit} className="flex flex-col h-full">
+//             {/* Header */}
+//             <div className="flex items-center gap-2 p-4 border-b border-gray-800">
+//               <div className="w-2 h-2 bg-green-500 rounded-full" />
+//               <div>
+//                 <h2 className="text-white text-lg font-medium">Lytica AI Agent</h2>
+//                 <p className="text-gray-400 text-sm">Ready to help</p>
+//               </div>
+//             </div>
+
+//             {/* Chat Messages */}
+//             <div className="flex-1 p-4 overflow-y-auto" ref={conversationBoxRef}>
+//               {conversation.map(
+//                 (msg, index) =>
+//                   msg.content && (
+//                     <div
+//                       key={index}
+//                       className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"} mb-4`}
+//                     >
+//                       {msg.type === "bot" && (
+//                         <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-white mr-2">
+//                           AI
+//                         </div>
+//                       )}
+//                       <div
+//                         className={`p-3 rounded-2xl max-w-[70%] ${
+//                           msg.type === "user"
+//                             ? "bg-red-600 text-white"
+//                             : "bg-[#2A2A2A] text-gray-200"
+//                         }`}
+//                       >
+//                         <p className="break-words">{msg.content}</p>
+//                         <span className="text-xs text-gray-400 mt-1 block">
+//                           {msg.time}
+//                         </span>
+//                       </div>
+//                     </div>
+//                   )
+//               )}
+//               {isTyping && (
+//                 <div className="flex items-center gap-2 text-gray-400">
+//                   <TypingIndicator />
+//                 </div>
+//               )}
+//             </div>
+
+//             {/* Input Area */}
+//             <div className="p-4 border-t border-gray-800">
+//               <div className="flex gap-2">
+//                 <div className="flex-1 relative">
+//                   <input
+//                     type={step === 2 ? "email" : "text"}
+//                     id={step === 1 ? "FullName" : step === 2 ? "Email" : "Message"}
+//                     name={step === 1 ? "FullName" : step === 2 ? "Email" : "Message"}
+//                     placeholder="Write Message"
+//                     value={
+//                       step === 1
+//                         ? formData.FullName
+//                         : step === 2
+//                         ? formData.Email
+//                         : formData.Message
+//                     }
+//                     onChange={handleChange}
+//                     onKeyDown={(e) => {
+//                       if (e.key === "Enter" && !e.shiftKey) {
+//                         e.preventDefault()
+//                         handleSubmit(e)
+//                       }
+//                     }}
+//                     required
+//                     className="w-full p-3 bg-[#2A2A2A] text-white rounded-full focus:outline-none focus:ring-1 focus:ring-gray-600 placeholder-gray-500"
+//                   />
+//                   <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+//                     {/* <button type="button" className="text-gray-400 hover:text-gray-300">
+//                       <Paperclip className="w-5 h-5" />
+//                     </button> */}
+//                     <button 
+//                       type="button"
+//                       onClick={() => setEmojiPickerVisible(!emojiPickerVisible)} 
+//                       className="text-gray-400 hover:text-gray-300">
+//                       <Smile className="w-5 h-5" />
+//                     </button>
+//                   </div>  
+//                   {emojiPickerVisible && (
+//                     <div className="absolute right-0 bottom-12 z-50">
+//                       <EmojiPicker onEmojiClick={handleEmojiClick} />
+//                     </div>
+//                   )}
+//                 </div>
+//                 <button
+//                   type="submit"
+//                   className="p-3 bg-red-600 hover:bg-red-700 text-white rounded-full transition-colors duration-200"
+//                   aria-label="Send message"
+//                 >
+//                   <Send className="w-5 h-5" />
+//                 </button>
+//               </div>
+//             </div>
+//           </form>
+//         )}
+//       </div>
+//       {/* <button
+//         onClick={() => setShowChat(false)}
+//         className={`fixed bottom-[75px] right-[60px] z-50 p-4 rounded-full bg-red-600 hover:bg-red-700 transition-all duration-300 ${
+//           showChat ? "block" : "hidden"
+//         }`}
+//       >
+//         <X className="w-6 h-6 text-white" />
+//       </button> */}
+//       <Toaster position="bottom-center" reverseOrder={false} />
+//     </>
+//   )
+// }
+// export default ChatBot
+
+'use client'
+import React, { useState, useEffect, useRef } from "react"
+import { toast, Toaster } from "react-hot-toast"
+import TypingIndicator from "../components/TypingIndicator"
+import Image from "next/image"
+import { Smile, Send } from 'lucide-react'
+import dynamic from 'next/dynamic'
+
+const EmojiPicker = dynamic(() => import('emoji-picker-react'), { ssr: false })
 
 const ChatBot = () => {
   const [formData, setFormData] = useState({
     FullName: "",
     Email: "",
     Message: "",
-  });
+  })
 
-  const [step, setStep] = useState(1);
-  const [showChat, setShowChat] = useState(false);
-  const [conversation, setConversation] = useState([]);
-  const conversationBoxRef = useRef(null);
-  const [validEmail, setValidEmail] = useState(true);
-  const chatContainerRef = useRef(null);
-  const [isTyping, setIsTyping] = useState(false);
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
+  const [step, setStep] = useState(1)
+  const [showChat, setShowChat] = useState(false)
+  const [conversation, setConversation] = useState([])
+  const conversationBoxRef = useRef(null)
+  const [validEmail, setValidEmail] = useState(true)
+  const chatContainerRef = useRef(null)
+  const [isTyping, setIsTyping] = useState(false)
+  const [isSmallScreen, setIsSmallScreen] = useState(false)
+  const [emojiPickerVisible, setEmojiPickerVisible] = useState(false)
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 600);
-    };
+      setIsSmallScreen(window.innerWidth < 600)
+    }
 
-    handleResize();
+    handleResize()
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize)
     return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [])
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
 
     if (name === "Email") {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      setValidEmail(emailRegex.test(value));
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      const isValidEmail = emailRegex.test(value)
+      setValidEmail(isValidEmail)
     }
-  };
+  }
+
+  const handleEmojiClick = (emojiObject) => {
+    const currentField =
+      step === 1 ? "FullName" : step === 2 ? "Email" : "Message"
+    setFormData((prevState) => ({
+      ...prevState,
+      [currentField]: prevState[currentField] + emojiObject.emoji,
+    }))
+    setEmojiPickerVisible(false)
+  }
 
   const submitToStrapi = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/chatbots`, {
+      const response = await fetch("https://api.360xpertsolutions.com/api/chatbots", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ data: formData }),
-      });
+        body: JSON.stringify({
+          data: {
+            FullName: formData.FullName,
+            Email: formData.Email,
+            Message: formData.Message,
+          },
+        }),
+      })
 
-      if (!response.ok) throw new Error("Failed to submit the form");
+      if (!response.ok) throw new Error("Failed to submit data to Strapi")
 
-      toast.success("Form successfully submitted!");
-
-      setFormData({
-        FullName: "",
-        Email: "",
-        Message: "",
-      });
+      toast.success("Form data successfully submitted to Strapi!")
     } catch (error) {
-      toast.error("Error submitting the form: " + error.message);
+      toast.error(error.message)
     }
-  };
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     const currentInput =
       step === 1
         ? formData.FullName
         : step === 2
         ? formData.Email
-        : formData.Message;
+        : formData.Message
 
-    if (step === 2 && !validEmail) {
-      toast.error("Please enter a valid email address.");
-      return;
+    if (step === 2) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.(com)$/
+      const isValidEmail = emailRegex.test(formData.Email)
+      if (!isValidEmail) {
+        toast.error("Please enter a valid email address.")
+        return
+      }
     }
 
     try {
-      const nextStep = step + 1;
+      const nextStep = step + 1
 
-      let botResponse = "";
+      let botResponse = ""
       switch (nextStep) {
         case 1:
-          botResponse = "Enter your Full name:";
-          break;
+          botResponse = "Enter your Full name:"
+          break
         case 2:
-          botResponse = `Hope everything's going well! Please enter your email address. ${formData.FullName}`;
-          break;
+          botResponse = `Hope everything's going well! Please enter your email address. ${formData.FullName}`
+          break
         case 3:
-          botResponse = `Have something to share or ask? Drop it here! ${formData.FullName}`;
-          break;
+          botResponse = `Have something to share or ask? Drop it here! ${formData.FullName}`
+          break
         case 4:
-          botResponse = `We’ve got your message, ${formData.FullName}! Thanks for reaching out.`;
-          break;
+          botResponse = `We’ve got your message, ${formData.FullName}! Thanks for reaching out.`
+          break
       }
 
       if (step <= 3) {
-        setConversation((prev) => [
-          ...prev,
-          { type: "user", content: currentInput, time: new Date().toLocaleTimeString() },
-        ]);
+        setConversation((prevConversation) => [
+          ...prevConversation,
+          {
+            type: "user",
+            content: currentInput,
+            time: new Date().toLocaleTimeString(),
+          },
+        ])
       }
 
-      setStep(nextStep);
+      setStep(nextStep)
 
       if (nextStep === 4) {
-        setConversation((prev) => [
-          ...prev,
-          { type: "bot", content: botResponse, time: new Date().toLocaleTimeString() },
-        ]);
+        setConversation((prevConversation) => [
+          ...prevConversation,
+          {
+            type: "bot",
+            content: botResponse,
+            time: new Date().toLocaleTimeString(),
+          },
+        ])
 
-        await submitToStrapi();
-        setIsTyping(false);
-        return;
+        await submitToStrapi()
+        setIsTyping(false)
+        return
       }
 
       if (botResponse && nextStep < 4) {
-        setIsTyping(true);
+        setIsTyping(true)
 
         setTimeout(() => {
-          setConversation((prev) => [
-            ...prev,
-            { type: "bot", content: botResponse, time: new Date().toLocaleTimeString() },
-          ]);
-          setIsTyping(false);
-        }, 1500);
+          setConversation((prevConversation) => [
+            ...prevConversation,
+            {
+              type: "bot",
+              time: new Date().toLocaleTimeString(),
+            },
+          ])
+        }, 1000)
+
+        setTimeout(() => {
+          setConversation((prevConversation) => [
+            ...prevConversation.slice(0, -1),
+            {
+              type: "bot",
+              content: botResponse,
+              time: new Date().toLocaleTimeString(),
+            },
+          ])
+          setIsTyping(false)
+        }, 1500)
       }
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message)
     }
-  };
+  }
 
   const handleChatToggle = () => {
-    setShowChat((prev) => !prev);
+    setShowChat((prevShowChat) => !prevShowChat)
 
     if (!showChat && conversation.length === 0) {
       setTimeout(() => {
-        setConversation([{ type: "bot", content: "Greetings! Your name, please?", time: new Date().toLocaleTimeString() }]);
-        setStep(1);
-      }, 2000);
+        setConversation([
+          {
+            type: "bot",
+            content: "Greetings! Your name, please?",
+            time: new Date().toLocaleTimeString(),
+          },
+        ])
+        setStep(1)
+      }, 2000)
     }
-  };
+  }
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        chatContainerRef.current &&
+        !chatContainerRef.current.contains(event.target)
+      ) {
+        setShowChat(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.style.height = isSmallScreen
+        ? `${window.innerHeight * 0.9}px`
+        : `${window.innerHeight * 0.8}px`
+    }
+  }, [isSmallScreen])
 
   return (
     <>
-      <div className="fixed z-50 bottom-7 right-16 text-right cursor-pointer" onClick={handleChatToggle}>
-        <Image src="/chatsupport.png" alt="Message" width={70} height={70} className={`w-12 md:w-[70px] transition-all ${showChat ? "hidden" : "block"}`} />
+      <div
+        className="fixed z-50 bottom-7 right-16 text-right cursor-pointer"
+        onClick={handleChatToggle}
+        style={{
+          bottom: isSmallScreen ? "20px" : "100px",
+          right: isSmallScreen ? "20px" : "80px",
+        }}
+      >
+        <Image
+          src="/chatsupport.png"
+          alt="Message"
+          width={70}
+          height={70}
+          className={`w-12 md:w-[70px] transition-all ${showChat ? "hidden" : 'block'}`}
+        />
       </div>
-      <div ref={chatContainerRef} className={`fixed bg-[#1B1B19] rounded-lg z-40 shadow-lg transition-all duration-300 overflow-y-auto ${showChat ? "block" : "hidden"} ${isSmallScreen ? "w-[90%] left-0 bottom-0 mx-auto rounded-none" : "w-[400px] bottom-[75px] right-[60px]"}`}>
+      <div
+        ref={chatContainerRef}
+        className={`fixed bg-[#1B1B19] rounded-lg z-40 shadow-lg transition-all duration-300 overflow-y-auto ${
+          showChat ? "block" : "hidden"
+        } ${isSmallScreen ? "w-[90%] left-0 bottom-0 mx-auto rounded-none" : "w-[400px] bottom-[75px] right-[60px]"}`}
+      >
         {showChat && (
           <form onSubmit={handleSubmit} className="flex flex-col h-full">
             <div className="flex items-center gap-2 p-4 border-b border-gray-800">
@@ -507,35 +1177,90 @@ const ChatBot = () => {
               {conversation.map(
                 (msg, index) =>
                   msg.content && (
-                    <div key={index} className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"} mb-4`}>
-                      {msg.type === "bot" && <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-white mr-2">AI</div>}
-                      <div className={`p-3 rounded-2xl max-w-[70%] ${msg.type === "user" ? "bg-red-600 text-white" : "bg-[#2A2A2A] text-gray-200"}`}>
+                    <div
+                      key={index}
+                      className={`flex ${msg.type === "user" ? "justify-end" : "justify-start"} mb-4`}
+                    >
+                      {msg.type === "bot" && (
+                        <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-white mr-2">
+                          AI
+                        </div>
+                      )}
+                      <div
+                        className={`p-3 rounded-2xl max-w-[70%] ${
+                          msg.type === "user"
+                            ? "bg-red-600 text-white"
+                            : "bg-[#2A2A2A] text-gray-200"
+                        }`}
+                      >
                         <p className="break-words">{msg.content}</p>
-                        <span className="text-xs text-gray-400 mt-1 block">{msg.time}</span>
+                        <span className="text-xs text-gray-400 mt-1 block">
+                          {msg.time}
+                        </span>
                       </div>
                     </div>
                   )
               )}
-              {isTyping && <div className="flex items-center gap-2 text-gray-400"><TypingIndicator /></div>}
-            </div>
-            <div className="p-4 border-t border-gray-800">
-              <div className="flex gap-2">
-                <div className="flex-1 relative">
-                  <input type={step === 2 ? "email" : "text"} id={step === 1 ? "FullName" : step === 2 ? "Email" : "Message"} name={step === 1 ? "FullName" : step === 2 ? "Email" : "Message"} placeholder="Write Message" value={step === 1 ? formData.FullName : step === 2 ? formData.Email : formData.Message} onChange={handleChange} onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSubmit(e); } }} required className="w-full p-3 bg-[#2A2A2A] text-white rounded-full focus:outline-none focus:ring-1 focus:ring-gray-600 placeholder-gray-500" />
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
-                    <button type="button" onClick={() => setEmojiPickerVisible(!emojiPickerVisible)} className="text-gray-400 hover:text-gray-300"><Smile className="w-5 h-5" /></button>
-                  </div>
-                  {emojiPickerVisible && <div className="absolute right-0 bottom-12 z-50"><EmojiPicker onEmojiClick={handleEmojiClick} /></div>}
+              {isTyping && (
+                <div className="flex items-center gap-2">
+                  <TypingIndicator />
+                  <span className="text-xs text-gray-400">Typing...</span>
                 </div>
-                <button type="submit" className="p-3 bg-red-600 hover:bg-red-700 text-white rounded-full transition-colors duration-200" aria-label="Send message"><Send className="w-5 h-5" /></button>
-              </div>
+              )}
+            </div>
+            <div className="flex items-center border-t border-gray-800 p-2 relative">
+              {emojiPickerVisible && (
+                <div className="absolute bottom-[100%] left-0 z-50">
+                  <EmojiPicker onEmojiClick={handleEmojiClick} />
+                </div>
+              )}
+              <button
+                type="button"
+                className="p-2 rounded-md bg-[#333] hover:bg-[#444] text-gray-200"
+                onClick={() => setEmojiPickerVisible((prev) => !prev)}
+              >
+                <Smile />
+              </button>
+              <input
+                type={step === 2 ? "email" : "text"}
+                name={
+                  step === 1
+                    ? "FullName"
+                    : step === 2
+                    ? "Email"
+                    : "Message"
+                }
+                value={
+                  step === 1
+                    ? formData.FullName
+                    : step === 2
+                    ? formData.Email
+                    : formData.Message
+                }
+                onChange={handleChange}
+                placeholder={`${
+                  step === 1
+                    ? "Enter your Full name"
+                    : step === 2
+                    ? "Enter your email address"
+                    : "Enter your message"
+                }`}
+                className="flex-1 px-4 py-2 bg-transparent text-gray-200 placeholder-gray-400 focus:outline-none"
+              />
+              <button
+                type="submit"
+                className="p-2 rounded-md bg-red-600 hover:bg-red-700 text-white ml-2"
+              >
+                <Send />
+              </button>
             </div>
           </form>
         )}
       </div>
-      <Toaster position="bottom-center" reverseOrder={false} />
+      <Toaster />
     </>
-  );
-};
+  )
+}
 
-export default ChatBot;
+export default ChatBot
+

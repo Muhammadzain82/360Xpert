@@ -2,7 +2,7 @@
 import HeroCareers from "@/app/components/HeroCareers";
 import JobListings from "@/app/components/JobListings";
 import WordingCareer from "@/app/components/WordingCareer";
-// import Footer from "@/app/components/Footer";
+import Footer from "@/app/components/Footer";
 
 export default function About() {
   return (
@@ -11,7 +11,7 @@ export default function About() {
       <HeroCareers />
       <JobListings />
       <WordingCareer />
-      {/* <Footer />   */}
+      <Footer />  
     </div>
   );
 }

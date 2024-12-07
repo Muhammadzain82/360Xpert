@@ -4,7 +4,7 @@ import GlassCards from "@/app/components/GlassCards";
 import TechAndTools from "@/app/components/TechAndTools";
 import TestimonialCards from "../components/TestimonialCards";
 import JourneyBanner from "@/app/components/JourneyBanner";
-// import Footer from "@/app/components/Footer";
+import Footer from "@/app/components/Footer";
 
 export default function About() {
   return (
@@ -15,7 +15,7 @@ export default function About() {
       <TechAndTools />
       <TestimonialCards />
       <JourneyBanner />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
