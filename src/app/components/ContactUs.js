@@ -537,16 +537,28 @@ export default function CombinedChatInterface() {
               ))}
             </div>
             <div className="flex items-center border-t border-gray-700 pt-4">
-              <input
-                type="text"
-                placeholder="Write Message"
-                className="flex-grow bg-transparent border-none text-white outline-none placeholder-gray-500"
-                onKeyDown={handleUserInput}
-              />
-              <button className="text-red-600 hover:text-red-700 ml-4">
-                <Image src="/red.png" width={30} height={30} alt="Send" />
-              </button>
-            </div>
+  <input
+    type="text"
+    placeholder="Write Message"
+    className="flex-grow bg-transparent border-none text-white outline-none placeholder-gray-500"
+    onKeyDown={handleUserInput}
+    id="user-input" // Add an ID to reference this input field
+  />
+  <button
+    className="text-red-600 hover:text-red-700 ml-4"
+    onClick={() => {
+      const inputField = document.getElementById("user-input");
+      const userInput = inputField.value.trim();
+      if (userInput !== "") {
+        handleSendMessage(userInput);
+        inputField.value = ""; // Clear input field
+      }
+    }}
+  >
+    <Image src="/red.png" width={30} height={30} alt="Send" />
+  </button>
+</div>
+
           </div>
         </div>
         {/* Right Image */}
