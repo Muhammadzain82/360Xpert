@@ -55,7 +55,7 @@ const BlogDetail = ({ params }) => {
 
   return (
     <div className="container mt-16 px-4">
-      <div className="max-w-4xl mx-auto bg-black text-white p-6 rounded-lg shadow-lg">
+      <div className="max-w-4xl mx-auto bg-[#181815] text-white p-6 rounded-lg shadow-lg">
         <h1 className="text-4xl font-bold mb-6">{blogPost.attributes.title}</h1>
 
         <div className="space-y-6">

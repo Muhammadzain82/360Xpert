@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,7 +10,7 @@ const techCategories = [
   {
     name: "Artificial Intelligence",
     tools: [
-      { name: "Scikit-learn", logo: "/Scikit.png" },
+      { name: "Scikit", logo: "/Scikit.png" },
       { name: "OpenAI", logo: "/gpt.png" },
       { name: "PyTorch", logo: "/pytorch.png" },
       { name: "Pandas", logo: "/pandas.png" },
@@ -192,13 +191,13 @@ export default function TechAndTools() {
                     }}
                   >
                     <div
-                      className="bg-[#1E1E1E] rounded-tr-[40px] sm:rounded-tr-[80px] md:rounded-tr-[150px] overflow-hidden shadow-2xl w-full max-w-[85%] mx-auto"
+                      className="bg-[#1E1E1E] rounded-tr-[40px] md:rounded-tr-[80px] lg:rounded-tr-[150px] overflow-hidden shadow-2xl w-full max-w-[85%] mx-auto"
                       data-aos="fade-up"
                     >
-                      <div className="flex flex-col md:flex-row h-full border border-[#3C3C3C]">
-                        <div className="p-4 md:p-8 md:w-1/2">
+                      <div className="flex flex-col lg:flex-row h-full border border-[#3C3C3C]">
+                        <div className="p-4 lg:p-8 lg:w-1/2">
                           <h2
-                            className="text-2xl md:text-4xl mb-4 md:mb-8 mt-4 md:mt-6 font-medium text-transparent bg-clip-text bg-gradient-to-r from-white to-[#999]"
+                            className="text-2xl lg:text-4xl mb-4 lg:mb-8 mt-4 lg:mt-6 font-medium text-transparent bg-clip-text bg-gradient-to-r from-white to-[#999]"
                             data-aos="fade-left"
                           >
                             {category.name}
@@ -206,10 +205,10 @@ export default function TechAndTools() {
                           {renderTools(category)}
                         </div>
                         <div
-                          className="md:w-1/2 relative flex items-center justify-center"
+                          className="lg:w-1/2 relative flex items-center justify-center"
                           data-aos="fade-right"
                         >
-                          <div className="w-full h-full relative overflow-hidden rounded-tr-[40px] sm:rounded-tr-[80px] md:rounded-tr-[150px]">
+                          <div className="w-full h-full relative overflow-hidden rounded-tr-[40px] sm:rounded-tr-[80px] lg:rounded-tr-[150px]">
                             {category.video.endsWith(".mp4") ? (
                               <video
                                 className="object-cover w-full h-full"
