@@ -256,12 +256,12 @@
 // export default Carousel;
 
 "use client";
-
 import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from "next/image";
+
 const Carousel = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [isAOSInitialized, setIsAOSInitialized] = useState(false);
@@ -311,7 +311,7 @@ const Carousel = () => {
               index={0}
               hoveredCard={hoveredCard}
               setHoveredCard={setHoveredCard}
-              image="/image3.jpg?height=400&width=300"
+              image="/image3.jpg"
               title="Break Time"
               description="We equip healthcare providers with AI chatbots that improve patient engagement and streamline administrative tasks."
             />
@@ -320,7 +320,7 @@ const Carousel = () => {
               index={1}
               hoveredCard={hoveredCard}
               setHoveredCard={setHoveredCard}
-              image="/image2.jpg?height=400&width=300"
+              image="/image2.jpg"
               title="Invenr"
               description="Our innovative solutions help businesses streamline their inventory management processes."
             />
@@ -329,7 +329,7 @@ const Carousel = () => {
               index={2}
               hoveredCard={hoveredCard}
               setHoveredCard={setHoveredCard}
-              image="/image.jpg?height=400&width=300"
+              image="/image.jpg"
               title="Green Tech"
               description="We develop sustainable technology solutions to help businesses reduce their environmental impact."
             />
@@ -381,6 +381,8 @@ const CardItem: React.FC<CardItemProps> = ({ index, hoveredCard, setHoveredCard,
       <Image
         src={image}
         alt={`Project ${index + 1}`}
+        width={300} // Specify a width
+        height={400} // Specify a height
         className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-300"
       />
       <AnimatePresence>
@@ -406,4 +408,5 @@ const CardItem: React.FC<CardItemProps> = ({ index, hoveredCard, setHoveredCard,
 };
 
 export default Carousel;
+
 
