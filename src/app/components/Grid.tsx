@@ -114,14 +114,19 @@ const Grid = () => {
     setHoverStates((prevState) => ({ ...prevState, [icon]: false }));
   };
 
+  const handleClick = (icon: IconId) => {
+    console.log(`Icon clicked: ${icon}`);
+    // Add any additional logic for the click event here
+  };
+
   return (
     <div className="container relative z-40 mx-auto  mt-16 px-6">
-      <h1 className="w-[80%] mx-auto text-center text-5xl font-medium mb-2 font-['Clash_Display'] bg-clip-text text-transparent bg-gradient-to-r from-white to-[#999]">
-        Mastering Advanced <span className="text-red-600">Expertise</span>
-      </h1>
-      <p className="text-xs mb-16 text-center text-white font-['Clash_Display']">
-        Becoming an Expert Through Advanced Skills and Knowledge
-      </p>
+    <h1 className="w-[80%] mx-auto text-center text-5xl font-medium mb-2 font-['Clash_Display'] bg-clip-text text-transparent bg-gradient-to-r from-white to-[#999]">
+      Mastering Advanced <span className="text-red-600">Expertise</span>
+    </h1>
+    <p className="text-xs mb-16 text-center text-white font-['Clash_Display']">
+      Becoming an Expert Through Advanced Skills and Knowledge
+    </p>
       <div className="flex flex-wrap justify-center mx-auto md:w-[90%] xl:shadow-small-blue">
         {[
           { id: "dms", activeSrc: "/active-dms.png", inactiveSrc: "/inactive-dms.png" },
@@ -133,15 +138,15 @@ const Grid = () => {
           { id: "bussma", activeSrc: "/active-bussma.png", inactiveSrc: "/inactive-bussma.png" },
           { id: "bykea", activeSrc: "/active-bykea.png", inactiveSrc: "/inactive-bykea.png" },
         ].map((item, index) => (
-          <a
+          <div
             key={index}
-            href=""
             className={`block w-1/2 py-6 px-2 text-center border-[#3C3C3C]
               ${index % 4 !== 0 ? "border-l" : ""}
               ${index < 4 ? "border-b" : ""}
               lg:w-1/4`}
             onMouseEnter={() => handleMouseEnter(item.id as IconId)}
             onMouseLeave={() => handleMouseLeave(item.id as IconId)}
+            onClick={() => handleClick(item.id as IconId)}
           >
             {/* Active image for small devices */}
             <div className="block sm:hidden">
@@ -163,7 +168,7 @@ const Grid = () => {
                 height={100}
               />
             </div>
-          </a>
+          </div>
         ))}
       </div>
     </div>

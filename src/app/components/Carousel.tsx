@@ -261,7 +261,7 @@ import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { motion, AnimatePresence } from 'framer-motion';
-
+import Image from "next/image";
 const Carousel = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [isAOSInitialized, setIsAOSInitialized] = useState(false);
@@ -378,7 +378,7 @@ const CardItem: React.FC<CardItemProps> = ({ index, hoveredCard, setHoveredCard,
       style={{ width: getWidth() }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
     >
-      <img
+      <Image
         src={image}
         alt={`Project ${index + 1}`}
         className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-300"

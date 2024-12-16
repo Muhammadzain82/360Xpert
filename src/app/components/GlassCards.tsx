@@ -177,23 +177,11 @@
 //   );
 // }
 
-
-
-
 "use client";
-// Indicates this component should be rendered on the client side (in a Next.js application).
-
 import React, { useState, useEffect } from "react";
-// Importing React and hooks: useState for managing state and useEffect for side effects like fetching data.
-
 import Image from "next/image";
-// Importing Next.js's Image component for optimized image rendering.
-
 import Link from "next/link";
-// Importing Next.js's Link component for client-side navigation.
-
 import slugify from "slugify";
-// Importing slugify library to create URL-friendly slugs from blog titles.
 
 interface Blog {
   id: string;

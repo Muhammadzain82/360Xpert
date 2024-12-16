@@ -392,6 +392,7 @@ const ContactUs = () => {
                   <input
                     type="text"
                     name="Name"
+                    autoComplete="off"
                     placeholder="Full Name"
                     value={formData.Name}
                     onChange={handleChange}
@@ -409,6 +410,7 @@ const ContactUs = () => {
                   <input
                     type="Email"
                     name="Email"
+                    autoComplete="off"
                     placeholder="Email"
                     value={formData.Email}
                     onChange={handleChange}
@@ -426,6 +428,7 @@ const ContactUs = () => {
                   <input
                     type="text"
                     name="Experience"
+                    autoComplete="off"
                     placeholder="Years of experience"
                     value={formData.Experience}
                     onChange={handleChange}
@@ -443,6 +446,7 @@ const ContactUs = () => {
                   <input
                     type="text"
                     name="Skills"
+                    autoComplete="off"
                     placeholder="Your key skills"
                     value={formData.Skills}
                     onChange={handleChange}
@@ -460,7 +464,8 @@ const ContactUs = () => {
                   <input
                     type="text"
                     name="SalaryBudget"
-                    placeholder="Expected salary range"
+                    autoComplete="off"
+                    placeholder="Expected salary"
                     value={formData.SalaryBudget}
                     onChange={handleChange}
                     className={`bg-[#181914] border-b text-white py-2 outline-none ${
@@ -479,6 +484,7 @@ const ContactUs = () => {
                   <input
                     type="text"
                     name="AboutYourself"
+                    autoComplete="off"
                     placeholder="Tell us about yourself"
                     value={formData.AboutYourself}
                     onChange={handleChange}
