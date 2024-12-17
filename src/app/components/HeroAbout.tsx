@@ -117,7 +117,7 @@ export default function Hero() {
             style={{ objectFit: "contain", objectPosition: "bottom" }}
             className="bg-no-repeat"
           /> */}
-          <WaveForm/>
+          {/* <WaveForm/> */}
         </div>
 
         {/* <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 -mb-8">
