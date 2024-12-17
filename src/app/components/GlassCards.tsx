@@ -247,20 +247,22 @@ export default function BlogList() {
           const contentImages = blog.attributes.content.filter((content) => content.type === "image");
           const leftImage = contentImages[0]?.image;
           const rightImage = contentImages[1]?.image || contentImages[0]?.image;
-
+  
           return (
             <div
               key={blog.id}
               id={blog.id}
-              className={`flex justify-center items-center h-[350px] bg-[#181815] overflow-hidden mt-16 transition-opacity duration-700 ${
+              className={`flex justify-center items-center min-h-[350px] bg-[#181815] overflow-hidden mt-16 transition-opacity duration-700 ${
                 isInView[blog.id] ? "opacity-100" : "opacity-0"
               }`}
             >
-              <div className="relative w-[90%] sm:w-[500px] h-[250px] sm:h-[300px]">
+              <div className="relative w-full sm:w-[90%] md:w-[500px] h-[300px] sm:h-[300px]">
                 {leftImage && (
                   <div
-                    className={`absolute left-0 top-0 w-[80%] sm:w-[300px] h-full bg-white bg-opacity-10 border border-white/10 shadow-xl rounded-lg backdrop-blur-lg overflow-hidden transition-transform duration-700 ease-in-out ${
-                      isInView[blog.id] ? "-translate-x-[90%] rotate-12" : "translate-x-0"
+                    className={`absolute left-0 top-0 w-full sm:w-[80%] md:w-[300px] h-full bg-white bg-opacity-10 border border-white/10 shadow-xl rounded-lg backdrop-blur-lg overflow-hidden transition-transform duration-700 ease-in-out ${
+                      isInView[blog.id] 
+                        ? "sm:-translate-x-[90%] sm:rotate-12" 
+                        : "translate-x-0"
                     }`}
                   >
                     <Image
@@ -272,11 +274,13 @@ export default function BlogList() {
                     />
                   </div>
                 )}
-
+  
                 {rightImage && (
                   <div
-                    className={`absolute right-0 top-0 w-[80%] sm:w-[300px] h-full bg-white bg-opacity-10 border border-white/10 shadow-xl rounded-lg backdrop-blur-lg overflow-hidden transition-transform duration-700 ease-in-out ${
-                      isInView[blog.id] ? "translate-x-[90%] -rotate-12" : "translate-x-0"
+                    className={`absolute right-0 top-0 w-full sm:w-[80%] md:w-[300px] h-full bg-white bg-opacity-10 border border-white/10 shadow-xl rounded-lg backdrop-blur-lg overflow-hidden transition-transform duration-700 ease-in-out ${
+                      isInView[blog.id] 
+                        ? "sm:translate-x-[90%] sm:-rotate-12" 
+                        : "translate-x-0"
                     }`}
                   >
                     <Image
@@ -288,17 +292,16 @@ export default function BlogList() {
                     />
                   </div>
                 )}
-
+  
                 <div
-                  className="absolute inset-0 flex flex-col items-center justify-center z-10 opacity-0 transition-opacity duration-500 ease-in-out"
+                  className="absolute inset-0 flex flex-col items-center justify-center z-10 opacity-0 transition-opacity duration-500 ease-in-out px-4"
                   style={{ opacity: isInView[blog.id] ? 1 : 0 }}
                 >
                   <Link
-                    // href={`/engineering/${blog.id}/${slugify(blog.attributes.title, { lower: true, strict: true })}`}
                     href={`/BlogDetail/${blog.id}`}
                     className="text-center"
                   >
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-4xl font-medium text-transparent bg-clip-text bg-gradient-to-r from-white to-[#999999] font-['Clash_Display']">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-medium text-transparent bg-clip-text bg-gradient-to-r from-white to-[#999999] font-['Clash_Display']">
                       {blog.attributes.title}
                     </h1>
                   </Link>
@@ -311,5 +314,8 @@ export default function BlogList() {
         <div className="text-center text-white">No blogs available or data is loading...</div>
       )}
     </div>
-  );
+  );  
 }
+
+
+
