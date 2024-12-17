@@ -713,6 +713,7 @@ export default function CombinedChatInterface() {
             <div className="flex items-center border-t border-gray-700 pt-4">
               <input
                 type="text"
+                autoComplete="off"
                 placeholder="Write Message"
                 className="flex-grow bg-transparent border-none text-white outline-none placeholder-gray-500"
                 onKeyDown={handleUserInput}

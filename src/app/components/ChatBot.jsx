@@ -1237,6 +1237,7 @@ const ChatBot = () => {
                     ? formData.Email
                     : formData.Message
                 }
+                autoComplete="off"
                 onChange={handleChange}
                 placeholder={`${
                   step === 1
