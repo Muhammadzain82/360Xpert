@@ -21,6 +21,7 @@
     "@react-three/drei": "^9.112.0",
     "@react-three/fiber": "^8.17.6",
     "@types/three": "^0.168.0",
+    "@vercel/speed-insights": "^1.1.0",
     "aos": "^2.3.4",
     "axios": "^1.7.7",
     "emailjs-com": "^3.2.0",
