@@ -6,7 +6,7 @@ export default function HeroBlogs() {
   return (
     <section className="relative flex flex-col items-center justify-center bg-[#181815] text-white px-4 sm:px-6 lg:px-8 mt-20 overflow-hidden">
       <div className="absolute w-full h-full mt-32 ">
-        <WaveForm/>
+        {/* <WaveForm/> */}
       </div>
       <div className="text-center max-w-4xl mx-auto">
         <h1 className="font-['Clash_Display'] font-medium text-5xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-[#999]">

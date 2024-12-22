@@ -1,6 +1,26 @@
-import React from "react";
+'use client'
+
+import React, { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+
+const cards = [
+  {
+    title: "Our Vision",
+    description: "Making advanced IT solutions accessible to firms at the avant-garde and in performance-rich businesses."
+  },
+  {
+    title: "Our Mission",
+    description: "To empower businesses through innovative technology solutions that drive growth and success in the digital age."
+  }
+]
 
 export default function VisionSection() {
+  const [activeCard, setActiveCard] = useState(0)
+
+  const toggleCard = () => {
+    setActiveCard((prev) => (prev === 0 ? 1 : 0))
+  }
+
   return (
     <section className="bg-[#181815] text-white py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -19,17 +39,43 @@ export default function VisionSection() {
         </div>
 
         <div className="flex items-center justify-center w-[50%] mx-auto">
-          <div className=" items-center w-full max-w-sm p-6 bg-gradient-to-t from-[#333333] to-[#222222] rounded-lg border border-[#3C3C3C] h-[100%]">
-            <h3 className="font-['Clash_Display'] text-lg sm:text-xl font-normal text-white mb-3 text-center">
-              Our Vision
-            </h3>
-            <p className="font-['Clash_Display'] text-sm text-gray-200 leading-relaxed text-center">
-              Making advanced IT solutions accessible to firms at the
-              avant-garde and in performance-rich businesses.
-            </p>
+          <div 
+            className="relative w-full max-w-sm cursor-pointer"
+            onClick={toggleCard}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeCard}
+                initial={{ 
+                  y: 20,
+                  opacity: 0,
+                }}
+                animate={{ 
+                  y: 0,
+                  opacity: 1,
+                }}
+                exit={{ 
+                  y: -20,
+                  opacity: 0,
+                }}
+                transition={{
+                  duration: 0.3,
+                  ease: "easeInOut"
+                }}
+                className="w-full p-6 bg-gradient-to-t from-[#333333] to-[#222222] rounded-lg border border-[#3C3C3C]"
+              >
+                <h3 className="font-['Clash_Display'] text-lg sm:text-xl font-normal text-white mb-3 text-center">
+                  {cards[activeCard].title}
+                </h3>
+                <p className="font-['Clash_Display'] text-sm text-gray-200 leading-relaxed text-center">
+                  {cards[activeCard].description}
+                </p>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>
     </section>
-  );
+  )
 }
+

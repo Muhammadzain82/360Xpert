@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -9,31 +8,31 @@ const cards = [
     id: 1,
     title: "Deployment",
     description:
-      "Experience the smooth deployment of your software solutio with precision. We minimize downtime and ensure a seamless transition, delivering a fully functional and optimized product ready to positively impact your business.",
+      "Experience the smooth deployment of your software solution with precision. We minimize downtime and ensure a seamless transition, delivering a fully functional and optimized product ready to positively impact your business.",
   },
   {
     id: 2,
     title: "Testing",
     description:
-      "At 360XpertSolutions, we ensure top-notch quality through rigourous testing. We thoroughly check every line of code for functionality, security, and performance with unit, integration, and acceptance tests, delivering a reliable, error-free solution.",
+      "At 360XpertSolutions, we ensure top-notch quality through rigorous testing. We thoroughly check every line of code for functionality, security, and performance with unit, integration, and acceptance tests, delivering a reliable, error-free solution.",
   },
   {
     id: 3,
     title: "Maintenance",
     description:
-      "Our committment continues after deployment. In the Maintainance phase. we proactively monitor and update your software to keep it performing at its best. We adapt to changing needs and technological advancements, ensuring your satisfaction and support at all times.",
+      "Our commitment continues after deployment. In the Maintenance phase, we proactively monitor and update your software to keep it performing at its best. We adapt to changing needs and technological advancements, ensuring your satisfaction and support at all times.",
   },
   {
     id: 4,
     title: "Development",
     description:
-      "Our skilled developers bring your vision to life using agile methodologies. We break the projects into sprints for steady progress, maintaining high quality and transparency. You stay involved throughout ensuring the final product align with your goals.",
+      "Our skilled developers bring your vision to life using agile methodologies. We break the projects into sprints for steady progress, maintaining high quality and transparency. You stay involved throughout ensuring the final product aligns with your goals.",
   },
   {
     id: 5,
     title: "System Design",
     description:
-      "Our experts design a scable system tailored to your needs, using advanced technologies to create a blueprint that ensures current functionality and future growth.",
+      "Our experts design a scalable system tailored to your needs, using advanced technologies to create a blueprint that ensures current functionality and future growth.",
   },
   {
     id: 6,
@@ -45,45 +44,47 @@ const cards = [
 
 export default function CardStack() {
   const [activeCards, setActiveCards] = useState(cards);
-  const [swiping, setSwiping] = useState<number | null>(null);
+  const [animating, setAnimating] = useState(false);
   const [swipedCards, setSwipedCards] = useState<typeof cards>([]);
 
   useEffect(() => {
     if (activeCards.length === 0) {
       setActiveCards(cards);
+      setSwipedCards([]);
     }
   }, [activeCards]);
 
-  const handleSwipe = (id: number) => {
-    setSwiping(id);
+  const handleSwipe = () => {
+    if (animating) return;
+    setAnimating(true);
     setTimeout(() => {
       setActiveCards((prev) => {
-        const swipedCard = prev.find((card) => card.id === id);
-        const newCards = prev.filter((card) => card.id !== id);
-        if (swipedCard) {
-          setSwipedCards((prevSwiped) => [...prevSwiped, swipedCard]);
-        }
+        const swipedCard = prev[prev.length - 1];
+        const newCards = prev.slice(0, -1);
+        setSwipedCards((prevSwiped) => [...prevSwiped, swipedCard]);
         return newCards.length === 0 ? cards : newCards;
       });
-      setSwiping(null);
+      setAnimating(false);
     }, 300);
   };
 
   const handleBringBack = () => {
-    if (swipedCards.length > 0) {
+    if (swipedCards.length > 0 && !animating) {
+      setAnimating(true);
       const lastSwipedCard = swipedCards[swipedCards.length - 1];
       setActiveCards((prev) => [lastSwipedCard, ...prev]);
       setSwipedCards((prev) => prev.slice(0, -1));
+      setTimeout(() => setAnimating(false), 300);
     }
   };
 
   return (
     <div
       id="card-component"
-      className={`flex w-full h-full max-w-6xl mt-52 px-4 sm:px-6 lg:px-8 mx-auto overflow-x-hidden `}
+      className="flex w-full h-full max-w-6xl mt-52 px-4 sm:px-6 lg:px-8 mx-auto overflow-x-hidden"
     >
       <div className="w-full">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium mb-8  text-white font-['Clash_Display'] px-2 ml-6 sm:px-0">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium mb-8 text-white font-['Clash_Display'] px-2 ml-6 sm:px-0">
           Our Proven <span className="text-red-600">Process</span>
         </h2>
         <div data-aos="fade-right" className="relative h-[450px] sm:h-[200px] md:h-[400px] w-[90%]">
@@ -96,8 +97,8 @@ export default function CardStack() {
                 }`}
                 initial={{ opacity: 0, x: 50 }}
                 animate={{
-                  opacity: swiping === card.id ? 0 : 1,
-                  x: swiping === card.id ? "120%" : `${index * 2}%`,
+                  opacity: 1,
+                  x: `${index * 2}%`,
                   scale: index === activeCards.length - 1 ? 1 : 0.95,
                 }}
                 exit={{ opacity: 0, x: "120%" }}
@@ -105,9 +106,7 @@ export default function CardStack() {
                   duration: 0.6,
                   ease: [0.42, 0, 0.58, 1],
                 }}
-                onClick={
-                  index === activeCards.length - 1 ? handleBringBack : undefined
-                }
+                onClick={index === activeCards.length - 1 ? handleSwipe : undefined}
               >
                 <div className="relative z-10 flex flex-col justify-center h-full">
                   <div className="flex flex-col items-start">
@@ -131,11 +130,11 @@ export default function CardStack() {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleSwipe(card.id);
+                        handleSwipe();
                       }}
-                      className="absolute bottom-4 right-4 bg-[#3C3C3C] rounded-full border border-inherit p-2 shadow-lg hover:bg-[#3C3C3C] transition-colors"
+                      className="absolute bottom-4 right-4 bg-[#3C3C3C] rounded-full border border-inherit p-2 shadow-lg hover:bg-[#4C4C4C] transition-colors"
                       aria-label="Next card"
-                      disabled={swiping !== null}
+                      disabled={animating}
                     >
                       <div className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 relative">
                         <Image
@@ -156,3 +155,4 @@ export default function CardStack() {
     </div>
   );
 }
+

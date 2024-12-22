@@ -578,11 +578,539 @@
 // }
 
 
-'use client';
-import { useState } from "react";
+// 'use client';
+// import { useState } from "react";
+// import Image from "next/image";
+// import HeroCareers from "./HeroCareers";
+// import Footer from "../components/Footer";
+
+// export default function CombinedChatInterface() {
+//   const questions = [
+//     "What is your name?",
+//     "Great! What's your phone number?",
+//     "What is your email address?",
+//     "Which company do you represent?",
+//     "Please enter your message.",
+//   ];
+
+//   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+//   const [message, setMessages] = useState([
+//     {
+//       text: questions[0],
+//       sender: "system",
+//       timestamp: new Date(),
+//     },
+//   ]);
+//   const [formData, setFormData] = useState({
+//     fullName: "",
+//     phoneNumber: "",
+//     email: "",
+//     company: "",
+//     message: "",
+//   });
+
+//   const handleSendMessage = async (userInput) => {
+//     const currentKey = Object.keys(formData)[currentQuestionIndex];
+
+//     setMessages((prev) => [
+//       ...prev,
+//       {
+//         text: userInput,
+//         sender: "user",
+//         timestamp: new Date(),
+//       },
+//     ]);
+
+//     const updatedFormData = { ...formData, [currentKey]: userInput };
+//     setFormData(updatedFormData);
+
+//     if (currentQuestionIndex < questions.length - 1) {
+//       setCurrentQuestionIndex((prev) => prev + 1);
+//       setMessages((prev) => [
+//         ...prev,
+//         {
+//           text: questions[currentQuestionIndex + 1],
+//           sender: "system",
+//           timestamp: new Date(),
+//         },
+//       ]);
+//     } else {
+      
+//       try {
+//         console.log("Payload being sent:", updatedFormData);
+//         const response = await fetch("https://api.360xpertsolutions.com/api/careers-forms", {
+//           method: "POST",
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//           body: JSON.stringify({ data: updatedFormData }),
+//         });
+
+//         if (response.ok) {
+//           setMessages((prev) => [
+//             ...prev,
+//             {
+//               text: "Thank you for your message! We will get back to you soon.",
+//               sender: "system",
+//               timestamp: new Date(),
+//             },
+//           ]);
+//         } else {
+//           throw new Error("Failed to submit the form data.");
+//         }
+//       } catch (error) {
+//         console.error("Error:", error);
+//         setMessages((prev) => [
+//           ...prev,
+//           {
+//             text: "Sorry, there was an error sending your message. Please try again.",
+//             sender: "system",
+//             timestamp: new Date(),
+//           },
+//         ]);
+//       }
+//     }
+//   };
+
+//   const handleUserInput = (e) => {
+//     if (e.key === "Enter" && e.target.value.trim() !== "") {
+//       handleSendMessage(e.target.value.trim());
+//       e.target.value = ""; // Clear input field
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <HeroCareers />
+//       <div className="bg-[#181815] text-white min-h-screen flex flex-col md:flex-row items-start p-6 md:p-12 relative">
+//         {/* Main Content */}
+//         <div className="max-w-3xl w-full z-10">
+//           <h1 className="text-4xl font-light mb-2">Let&apos;s Apply</h1>
+//           <p className="text-gray-400 mb-6">
+//             Interested in joining our team? We&apos;d love to hear from you! Reach out for more details about job opportunities. Our team is here to help you every step of the way.
+//           </p>
+//           <div className="bg-[#181815] p-6 rounded-lg">
+//             <div className="chat-container space-y-4 mb-4 overflow-y-auto max-h-96">
+//               {message.map((message, index) => (
+//                 <div
+//                   key={index}
+//                   className={`message flex ${
+//                     message.sender === "user" ? "justify-end" : "justify-start"
+//                   } animate-slide-in`}
+//                 >
+//                   <div
+//                     className={`max-w-xs p-3 rounded-lg text-sm transition-transform transform ${
+//                       message.sender === "user"
+//                         ? "bg-red-600 text-white"
+//                         : "bg-[#181815] text-gray-300"
+//                     }`}
+//                   >
+//                     {message.text}
+//                   </div>
+//                 </div>
+//               ))}
+//             </div>
+//             <div className="flex items-center border-t border-gray-700 pt-4">
+//               <input
+//                 type="text"
+//                 autoComplete="off"
+//                 placeholder="Write Message"
+//                 className="flex-grow bg-transparent border-none text-white outline-none placeholder-gray-500"
+//                 onKeyDown={handleUserInput}
+//                 id="user-input" // Add an ID to reference this input field
+//               />
+//               <button
+//                 className="text-red-600 hover:text-red-700 ml-4"
+//                 onClick={() => {
+//                   const inputField = document.getElementById("user-input");
+//                   const userInput = inputField.value.trim();
+//                   if (userInput !== "") {
+//                     handleSendMessage(userInput);
+//                     inputField.value = ""; // Clear input field
+//                   }
+//                 }}
+//               >
+//                 <Image src="/red.png" width={50} height={50} alt="Send" />
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//         {/* Right Image */}
+//         <div className="hidden md:block flex-grow items-center justify-end p-8">
+//           <Image
+//             src="/right.png" // Place your image in the public directory or adjust the path accordingly
+//             width={500}
+//             height={700} 
+//             className="rounded-lg transition duration-300"
+//             alt="Decorative image"
+//           />
+//         </div>
+//       </div>
+//       <Footer />
+//     </div>
+//   );
+// }
+
+// 'use client';
+// import { useState } from "react";
+// import Image from "next/image";
+// import HeroCareers from "./HeroCareers";
+// import Footer from "../components/Footer";
+
+// export default function CombinedChatInterface() {
+//   const questions = [
+//     "What is your name?",
+//     "Great! What's your phone number?",
+//     "What is your email address?",
+//     "Which company do you represent?",
+//     "Please enter your message.",
+//   ];
+
+//   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+//   const [messages, setMessages] = useState([
+//     {
+//       text: questions[0],
+//       sender: "system",
+//       timestamp: new Date(),
+//     },
+//   ]);
+//   const [formData, setFormData] = useState({
+//     fullName: "",
+//     phoneNumber: "",
+//     email: "",
+//     company: "",
+//     message: "",
+//   });
+
+//   const handleSendMessage = async (userInput) => {
+//     const currentKey = Object.keys(formData)[currentQuestionIndex];
+
+//     setMessages((prev) => [
+//       ...prev,
+//       {
+//         text: userInput,
+//         sender: "user",
+//         timestamp: new Date(),
+//       },
+//     ]);
+
+//     const updatedFormData = { ...formData, [currentKey]: userInput };
+//     setFormData(updatedFormData);
+
+//     if (currentQuestionIndex < questions.length - 1) {
+//       setCurrentQuestionIndex((prev) => prev + 1);
+//       setMessages((prev) => [
+//         ...prev,
+//         {
+//           text: questions[currentQuestionIndex + 1],
+//           sender: "system",
+//           timestamp: new Date(),
+//         },
+//       ]);
+//     } else {
+//       try {
+//         const response = await fetch("https://api.360xpertsolutions.com/api/careers-forms", {
+//           method: "POST",
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//           body: JSON.stringify({ data: updatedFormData }),
+//         });
+
+//         if (response.ok) {
+//           setMessages((prev) => [
+//             ...prev,
+//             {
+//               text: "Thank you for your message! We will get back to you soon.",
+//               sender: "system",
+//               timestamp: new Date(),
+//             },
+//           ]);
+//         } else {
+//           throw new Error("Failed to submit the form data.");
+//         }
+//       } catch (error) {
+//         console.error("Error:", error);
+//         setMessages((prev) => [
+//           ...prev,
+//           {
+//             text: "Sorry, there was an error sending your message. Please try again.",
+//             sender: "system",
+//             timestamp: new Date(),
+//           },
+//         ]);
+//       }
+//     }
+//   };
+
+//   const handleUserInput = (e) => {
+//     if (e.key === "Enter" && e.target.value.trim() !== "") {
+//       handleSendMessage(e.target.value.trim());
+//       e.target.value = "";
+//     }
+//   };
+
+//   return (
+//     <div className="relative">
+//       <HeroCareers />
+//       <div className="bg-[#181815] text-white relative">
+//         {/* Background Decorative Element */}
+//         <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1/3 h-[80%] hidden lg:block">
+//           <div className="relative w-full h-full">
+//             <Image
+//               src="/right.png"
+//               layout="fill"
+//               objectFit="contain"
+//               alt="Decorative image"
+//             />
+//           </div>
+//         </div>
+
+//         <div className="container mx-auto px-4 py-8 sm:py-12 relative z-10">
+//           <div className="max-w-3xl mx-auto lg:mx-0">
+//             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light mb-4">Let&apos;s Apply</h1>
+//             <p className="text-gray-400 mb-6 sm:mb-8 max-w-2xl text-sm sm:text-base">
+//               Interested in joining our team? We&apos;d love to hear from you! Reach out for more details about job opportunities.
+//             </p>
+
+//             <div className="space-y-4 sm:space-y-6">
+//               <div className="chat-container space-y-3 sm:space-y-4 mb-4 sm:mb-6 max-h-[50vh] overflow-y-auto">
+//                 {messages.map((message, index) => (
+//                   <div
+//                     key={index}
+//                     className={`message flex ${
+//                       message.sender === "user" ? "justify-end" : "justify-start"
+//                     }`}
+//                   >
+//                     <div
+//                       className={`relative p-3 sm:p-4 text-sm sm:text-base max-w-[80%] ${
+//                         message.sender === "user"
+//                           ? "bg-red-600 text-white"
+//                           : "bg-[#232320] text-gray-300"
+//                       } ${
+//                         message.sender === "user"
+//                           ? "chat-bubble-right rounded-tl-lg rounded-tr-lg rounded-bl-lg"
+//                           : "chat-bubble-left rounded-tl-lg rounded-tr-lg rounded-br-lg"
+//                       }`}
+//                     >
+//                       {message.text}
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+
+//               <div className="flex items-center space-x-2 sm:space-x-4 border-t border-gray-800 pt-4 sm:pt-6">
+//                 <input
+//                   type="text"
+//                   autoComplete="off"
+//                   placeholder="Write Message"
+//                   className="flex-grow bg-transparent text-white placeholder-gray-500 focus:outline-none text-sm sm:text-base"
+//                   onKeyDown={handleUserInput}
+//                   id="user-input"
+//                 />
+//                 <button
+//                   className="text-red-600 hover:text-red-700 transition-colors"
+//                   onClick={() => {
+//                     const inputField = document.getElementById("user-input");
+//                     const userInput = inputField.value.trim();
+//                     if (userInput !== "") {
+//                       handleSendMessage(userInput);
+//                       inputField.value = "";
+//                     }
+//                   }}
+//                 >
+//                   <Image src="/red.png" width={40} height={40} alt="Send" className="w-8 h-8 sm:w-10 sm:h-10" />
+//                 </button>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//       <Footer />
+//     </div>
+//   );
+// }
+
+// 'use client'
+// import { useState } from "react"
+// import Image from "next/image"
+// import HeroCareers from "./HeroCareers"
+// import Footer from "../components/Footer"
+
+// export default function CombinedChatInterface() {
+//   const questions = [
+//     "What is your name?",
+//     "Great! What's your phone number?",
+//     "What is your email address?",
+//     "Which company do you represent?",
+//     "Please enter your message.",
+//   ]
+
+//   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+//   const [messages, setMessages] = useState([
+//     {
+//       text: questions[0],
+//       sender: "system",
+//       timestamp: new Date(),
+//     },
+//   ])
+//   const [formData, setFormData] = useState({
+//     fullName: "",
+//     phoneNumber: "",
+//     email: "",
+//     company: "",
+//     message: "",
+//   })
+
+//   const handleSendMessage = async (userInput) => {
+//     const currentKey = Object.keys(formData)[currentQuestionIndex]
+
+//     setMessages((prev) => [
+//       ...prev,
+//       {
+//         text: userInput,
+//         sender: "user",
+//         timestamp: new Date(),
+//       },
+//     ])
+
+//     const updatedFormData = { ...formData, [currentKey]: userInput }
+//     setFormData(updatedFormData)
+
+//     if (currentQuestionIndex < questions.length - 1) {
+//       setCurrentQuestionIndex((prev) => prev + 1)
+//       setMessages((prev) => [
+//         ...prev,
+//         {
+//           text: questions[currentQuestionIndex + 1],
+//           sender: "system",
+//           timestamp: new Date(),
+//         },
+//       ])
+//     } else {
+//       try {
+//         const response = await fetch("https://api.360xpertsolutions.com/api/careers-forms", {
+//           method: "POST",
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//           body: JSON.stringify({ data: updatedFormData }),
+//         })
+
+//         if (response.ok) {
+//           setMessages((prev) => [
+//             ...prev,
+//             {
+//               text: "Thank you for your message! We will get back to you soon.",
+//               sender: "system",
+//               timestamp: new Date(),
+//             },
+//           ])
+//         } else {
+//           throw new Error("Failed to submit the form data.")
+//         }
+//       } catch (error) {
+//         console.error("Error:", error)
+//         setMessages((prev) => [
+//           ...prev,
+//           {
+//             text: "Sorry, there was an error sending your message. Please try again.",
+//             sender: "system",
+//             timestamp: new Date(),
+//           },
+//         ])
+//       }
+//     }
+//   }
+
+//   return (
+//     <div className="relative">
+//       <HeroCareers />
+//       <div className="min-h-screen bg-[#181815] text-white relative overflow-hidden">
+//         {/* Large Red Arrow Background */}
+//         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2/3 h-full">
+//           <div className="relative w-full h-full">
+        
+//           </div>
+//         </div>
+
+//         <div className="container mx-auto px-4 py-8 sm:py-12 relative z-10">
+//           <div className="max-w-3xl mx-auto lg:mx-0">
+//             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light mb-4">Let&apos;s Apply</h1>
+//             <p className="text-gray-400 mb-6 sm:mb-8 max-w-2xl text-sm sm:text-base">
+//               Interested in joining our team? We&apos;d love to hear from you! Reach out for more details about job opportunities.
+//             </p>
+
+//             <div className="space-y-4 sm:space-y-6">
+//               <div className="chat-container space-y-3 sm:space-y-4 mb-4 sm:mb-6 max-h-[50vh] overflow-y-auto">
+//                 {messages.map((message, index) => (
+//                   <div
+//                     key={index}
+//                     className={`message flex ${
+//                       message.sender === "user" ? "justify-end" : "justify-start"
+//                     }`}
+//                   >
+//                     <div
+//                       className={`relative p-3 sm:p-4 text-sm sm:text-base max-w-[80%] ${
+//                         message.sender === "user"
+//                           ? "bg-red-600 text-white"
+//                           : "bg-[#232320] text-gray-300"
+//                       } ${
+//                         message.sender === "user"
+//                           ? "chat-bubble-right rounded-tl-lg rounded-tr-lg rounded-bl-lg"
+//                           : "chat-bubble-left rounded-tl-lg rounded-tr-lg rounded-br-lg"
+//                       }`}
+//                     >
+//                       {message.text}
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+
+//               <div className="flex items-center space-x-2 sm:space-x-4 border-t border-gray-800 pt-4 sm:pt-6">
+//                 <input
+//                   type="text"
+//                   autoComplete="off"
+//                   placeholder="Write Message"
+//                   className="flex-grow bg-transparent text-white placeholder-gray-500 focus:outline-none text-sm sm:text-base"
+//                   onKeyDown={(e) => {
+//                     if (e.key === "Enter" && e.currentTarget.value.trim() !== "") {
+//                       handleSendMessage(e.currentTarget.value.trim())
+//                       e.currentTarget.value = ""
+//                     }
+//                   }}
+//                   id="user-input"
+//                 />
+//                 <button
+//                   className="text-red-600 hover:text-red-700 transition-colors"
+//                   onClick={() => {
+//                     const inputField = document.getElementById("user-input")
+//                     const userInput = inputField.value.trim()
+//                     if (userInput !== "") {
+//                       handleSendMessage(userInput)
+//                       inputField.value = ""
+//                     }
+//                   }}
+//                 >
+//                   <Image src="/red.png" width={40} height={40} alt="Send" className="w-8 h-8 sm:w-10 sm:h-10" />
+//                 </button>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//       <Footer />
+//     </div>
+//   )
+// }
+
+'use client'
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { X } from 'lucide-react'; // Import the X icon
 import HeroCareers from "./HeroCareers";
-import Footer from "../components/Footer";
+import Footer from "./Footer";
 
 export default function CombinedChatInterface() {
   const questions = [
@@ -590,11 +1118,12 @@ export default function CombinedChatInterface() {
     "Great! What's your phone number?",
     "What is your email address?",
     "Which company do you represent?",
-    "Please enter your message.",
+    "How many experience do you have.",
+    "Why should we hire you.",
   ];
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [message, setMessages] = useState([
+  const [messages, setMessages] = useState([
     {
       text: questions[0],
       sender: "system",
@@ -606,8 +1135,17 @@ export default function CombinedChatInterface() {
     phoneNumber: "",
     email: "",
     company: "",
-    message: "",
+    yearsOfExperience: "",
+    whyHireYou: "",
   });
+
+  const chatContainerRef = useRef(null);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const handleSendMessage = async (userInput) => {
     const currentKey = Object.keys(formData)[currentQuestionIndex];
@@ -635,10 +1173,8 @@ export default function CombinedChatInterface() {
         },
       ]);
     } else {
-      
       try {
-        console.log("Payload being sent:", updatedFormData);
-        const response = await fetch("https://api.360xpertsolutions.com/api/careers-forms", {
+        const response = await fetch("https://api.360xpertsolutions.com/api/careers", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -672,81 +1208,310 @@ export default function CombinedChatInterface() {
     }
   };
 
-  const handleUserInput = (e) => {
-    if (e.key === "Enter" && e.target.value.trim() !== "") {
-      handleSendMessage(e.target.value.trim());
-      e.target.value = ""; // Clear input field
-    }
-  };
-
   return (
-    <div>
+    <div className="relative">
       <HeroCareers />
-      <div className="bg-[#181815] text-white min-h-screen flex flex-col md:flex-row items-start p-6 md:p-12 relative">
-        {/* Main Content */}
-        <div className="max-w-3xl w-full z-10">
-          <h1 className="text-4xl font-light mb-2">Let&apos;s Apply</h1>
-          <p className="text-gray-400 mb-6">
-            Interested in joining our team? We&apos;d love to hear from you! Reach out for more details about job opportunities. Our team is here to help you every step of the way.
-          </p>
-          <div className="bg-[#181815] p-6 rounded-lg">
-            <div className="chat-container space-y-4 mb-4 overflow-y-auto max-h-96">
-              {message.map((message, index) => (
-                <div
-                  key={index}
-                  className={`message flex ${
-                    message.sender === "user" ? "justify-end" : "justify-start"
-                  } animate-slide-in`}
-                >
-                  <div
-                    className={`max-w-xs p-3 rounded-lg text-sm transition-transform transform ${
-                      message.sender === "user"
-                        ? "bg-red-600 text-white"
-                        : "bg-[#181815] text-gray-300"
-                    }`}
-                  >
-                    {message.text}
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="flex items-center border-t border-gray-700 pt-4">
-              <input
-                type="text"
-                autoComplete="off"
-                placeholder="Write Message"
-                className="flex-grow bg-transparent border-none text-white outline-none placeholder-gray-500"
-                onKeyDown={handleUserInput}
-                id="user-input" // Add an ID to reference this input field
-              />
-              <button
-                className="text-red-600 hover:text-red-700 ml-4"
-                onClick={() => {
-                  const inputField = document.getElementById("user-input");
-                  const userInput = inputField.value.trim();
-                  if (userInput !== "") {
-                    handleSendMessage(userInput);
-                    inputField.value = ""; // Clear input field
-                  }
-                }}
-              >
-                <Image src="/red.png" width={50} height={50} alt="Send" />
-              </button>
-            </div>
+      <div className="min-h-screen bg-[#181815] text-white relative overflow-hidden">
+        {/* Large Red Arrow Background */}
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2/3 h-full">
+          <div className="relative w-full h-full">
           </div>
         </div>
-        {/* Right Image */}
-        <div className="hidden md:block flex-grow items-center justify-end p-8">
-          <Image
-            src="/right.png" // Place your image in the public directory or adjust the path accordingly
-            width={500}
-            height={700}
-            className="rounded-lg transition duration-300"
-            alt="Decorative image"
-          />
+
+        <div className="container mx-auto px-4 py-8 sm:py-12 relative z-10">
+          <div className="max-w-3xl mx-auto lg:mx-0">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light mb-4">Let&apos;s Apply</h1>
+            <p className="text-gray-400 mb-6 sm:mb-8 max-w-2xl text-sm sm:text-base">
+              Interested in joining our team? We&apos;d love to hear from you! Reach out for more details about job opportunities.
+            </p>
+
+            <div className="space-y-4 sm:space-y-6">
+              <div 
+                ref={chatContainerRef}
+                className="chat-container space-y-3 sm:space-y-4 mb-4 sm:mb-6 max-h-[50vh] overflow-y-auto"
+              >
+                <AnimatePresence>
+                  {messages.map((message, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.8 }}
+                      className={`message flex ${
+                        message.sender === "user" ? "justify-end" : "justify-start"
+                      }`}
+                    >
+                      {message.sender === "system" && (
+                        <div className="flex items-start mr-2">
+                          <div className="flex items-center justify-center">
+                            <Image
+                            src="/side.png"
+                            width={50}
+                            height={50}
+                            alt="Send"
+                            // className="w-8 h-8 sm:w-10 sm:h-10"
+                          />
+                          </div>
+                        </div>
+                      )}
+                      <div
+                        className={`relative p-3 sm:p-4 text-sm sm:text-base max-w-[80%] ${
+                          message.sender === "user"
+                            ? "bg-red-600 text-white"
+                            : "bg-[#232320] text-gray-300"
+                        } ${
+                          message.sender === "user"
+                            ? "chat-bubble-right rounded-tl-lg rounded-tr-lg rounded-bl-lg"
+                            : "chat-bubble-left rounded-bl-lg rounded-tr-lg rounded-br-lg"
+                        }`}
+                      >
+                        {message.text}
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
+
+              <div className="flex items-center space-x-2 sm:space-x-4 border-b  border-red-800 pt-4 sm:pt-6 sticky bottom-0 bg-[#181815] z-10">
+                <input
+                  type="text"
+                  autoComplete="off"
+                  placeholder="Write Message"
+                  className="flex-grow bg-transparent text-white placeholder-gray-500 focus:outline-none text-sm sm:text-base"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && e.currentTarget.value.trim() !== "") {
+                      handleSendMessage(e.currentTarget.value.trim());
+                      e.currentTarget.value = "";
+                    }
+                  }}
+                  id="user-input"
+                />
+                <button
+                  className="text-red-600 hover:text-red-700 transition-colors"
+                  onClick={() => {
+                    const inputField = document.getElementById("user-input");
+                    const userInput = inputField.value.trim();
+                    if (userInput !== "") {
+                      handleSendMessage(userInput);
+                      inputField.value = "";
+                    }
+                  }}
+                >
+                  <Image src="/red.png" width={40} height={40} alt="Send" className="w-8 h-8 sm:w-10 sm:h-10" />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <Footer />
     </div>
   );
 }
+
+// 'use client';
+// import { useState, useRef, useEffect } from "react";
+// import Image from "next/image";
+// import { motion, AnimatePresence } from "framer-motion";
+// import HeroCareers from "./HeroCareers";
+// import Footer from "./Footer";
+
+// export default function CombinedChatInterface() {
+//   const questions = [
+//     "What is your name?",
+//     "Great! What's your phone number?",
+//     "What is your email address?",
+//     "Which company do you represent?",
+//     "How many years of experience do you have?",
+//     "Why should we hire you?",
+//   ];
+
+//   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+//   const [messages, setMessages] = useState([
+//     {
+//       text: questions[0],
+//       sender: "system",
+//       timestamp: new Date(),
+//     },
+//   ]);
+//   const [formData, setFormData] = useState({
+//     fullName: "",
+//     phoneNumber: "",
+//     email: "",
+//     company: "",
+//     yearsOfExperience: "",
+//     whyHireYou: "",
+//   });
+
+//   const chatContainerRef = useRef(null);
+
+//   useEffect(() => {
+//     if (chatContainerRef.current) {
+//       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+//     }
+//   }, [messages]);
+
+//   const handleSendMessage = async (userInput) => {
+//     const currentKey = Object.keys(formData)[currentQuestionIndex];
+
+//     setMessages((prev) => [
+//       ...prev,
+//       {
+//         text: userInput,
+//         sender: "user",
+//         timestamp: new Date(),
+//       },
+//     ]);
+
+//     const updatedFormData = { ...formData, [currentKey]: userInput };
+//     setFormData(updatedFormData);
+
+//     if (currentQuestionIndex < questions.length - 1) {
+//       setCurrentQuestionIndex((prev) => prev + 1);
+//       setMessages((prev) => [
+//         ...prev,
+//         {
+//           text: questions[currentQuestionIndex + 1],
+//           sender: "system",
+//           timestamp: new Date(),
+//         },
+//       ]);
+//     } else {
+//       await submitForm(updatedFormData);
+//     }
+//   };
+
+//   const submitForm = async (formData) => {
+//     try {
+//       const response = await fetch("https://api.360xpertsolutions.com/api/careers", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify(formData),
+//       });
+
+//       if (response.ok) {
+//         setMessages((prev) => [
+//           ...prev,
+//           {
+//             text: "Thank you for your application! We will get back to you soon.",
+//             sender: "system",
+//             timestamp: new Date(),
+//           },
+//         ]);
+//       } else {
+//         throw new Error("Failed to submit the form data.");
+//       }
+//     } catch (error) {
+//       console.error("Error:", error);
+//       setMessages((prev) => [
+//         ...prev,
+//         {
+//           text: "Sorry, there was an error sending your application. Please try again.",
+//           sender: "system",
+//           timestamp: new Date(),
+//         },
+//       ]);
+//     }
+//   };
+
+//   return (
+//     <div className="relative">
+//       <HeroCareers />
+//       <div className="min-h-screen bg-[#181815] text-white relative overflow-hidden">
+//         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2/3 h-full">
+//           <div className="relative w-full h-full"></div>
+//         </div>
+
+//         <div className="container mx-auto px-4 py-8 sm:py-12 relative z-10">
+//           <div className="max-w-3xl mx-auto lg:mx-0">
+//             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light mb-4">
+//               Let&apos;s Apply
+//             </h1>
+//             <p className="text-gray-400 mb-6 sm:mb-8 max-w-2xl text-sm sm:text-base">
+//               Interested in joining our team? We&apos;d love to hear from you! Reach out for more details about job opportunities.
+//             </p>
+
+//             <div className="space-y-4 sm:space-y-6">
+//               <div
+//                 ref={chatContainerRef}
+//                 className="chat-container space-y-3 sm:space-y-4 mb-4 sm:mb-6 max-h-[50vh] overflow-y-auto"
+//               >
+//                 <AnimatePresence>
+//                   {messages.map((message, index) => (
+//                     <motion.div
+//                       key={index}
+//                       initial={{ opacity: 0, y: 20 }}
+//                       animate={{ opacity: 1, y: 0 }}
+//                       exit={{ opacity: 0, y: -20 }}
+//                       transition={{ duration: 0.8 }}
+//                       className={`message flex ${
+//                         message.sender === "user" ? "justify-end" : "justify-start"
+//                       }`}
+//                     >
+//                       <div
+//                         className={`relative p-3 sm:p-4 text-sm sm:text-base max-w-[80%] ${
+//                           message.sender === "user"
+//                             ? "bg-red-600 text-white"
+//                             : "bg-[#232320] text-gray-300"
+//                         } ${
+//                           message.sender === "user"
+//                             ? "chat-bubble-right rounded-tl-lg rounded-tr-lg rounded-bl-lg"
+//                             : "chat-bubble-left rounded-bl-lg rounded-tr-lg rounded-br-lg"
+//                         }`}
+//                       >
+//                         {message.text}
+//                       </div>
+//                     </motion.div>
+//                   ))}
+//                 </AnimatePresence>
+//               </div>
+
+//               <div className="flex items-center space-x-2 sm:space-x-4 border-t border-gray-800 pt-4 sm:pt-6 sticky bottom-0 bg-[#181815] z-10">
+//                 <input
+//                   type="text"
+//                   autoComplete="off"
+//                   placeholder="Write Message"
+//                   className="flex-grow bg-transparent text-white placeholder-gray-500 focus:outline-none text-sm sm:text-base"
+//                   onKeyDown={(e) => {
+//                     if (e.key === "Enter" && e.currentTarget.value.trim() !== "") {
+//                       handleSendMessage(e.currentTarget.value.trim());
+//                       e.currentTarget.value = "";
+//                     }
+//                   }}
+//                   id="user-input"
+//                 />
+//                 <button
+//                   className="text-red-600 hover:text-red-700 transition-colors"
+//                   onClick={() => {
+//                     const inputField = document.getElementById("user-input");
+//                     const userInput = inputField.value.trim();
+//                     if (userInput !== "") {
+//                       handleSendMessage(userInput);
+//                       inputField.value = "";
+//                     }
+//                   }}
+//                 >
+//                   <Image
+//                     src="/red.png"
+//                     width={40}
+//                     height={40}
+//                     alt="Send"
+//                     className="w-8 h-8 sm:w-10 sm:h-10"
+//                   />
+//                 </button>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//       <Footer />
+//     </div>
+//   );
+// }
+
+
+
+
