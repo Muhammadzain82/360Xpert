@@ -1026,12 +1026,13 @@ export default function ContactForm() {
 
     if (currentQuestionIndex === questions.length - 1) {
       try {
-        const response = await fetch('https://api.360xpertsolutions.com/api/cvs', {
+        const payload = { ...formData, [currentField]: userInput };
+        const response = await fetch('https://api.360xpertsolutions.com/api/contacts', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ data: formData }),
+          body: JSON.stringify({ data: payload }),
         });
 
         if (!response.ok) throw new Error('Failed to submit form');
