@@ -4,11 +4,12 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isHovered, setIsHovered] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+   const path = usePathname()
   const links = [
     { href: "/ContactUS", label: "CONTACT US" },
     { href: "/Careers", label: "CAREERS" },
@@ -30,6 +31,7 @@ export default function Navbar() {
     };
   }, [isSidebarOpen]);
 
+  
   return (
     <nav className="bg-[#181815] shadow-md top-0 left-0 right-0 z-50">
       <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
@@ -66,23 +68,27 @@ export default function Navbar() {
                 }`}
               >
                 <div className="flex flex-row-reverse space-x-4 space-x-reverse">
-                  {links.map((link, index) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className={`text-xs sm:text-sm text-gray-100 hover:text-red-600 whitespace-nowrap transition-all duration-300 ease-in-out ${
-                        isHovered
-                          ? "translate-x-0 opacity-100"
-                          : "translate-x-full opacity-0"
-                      }`}
-                      style={{
-                        transitionDelay: `${index * 50}ms`,
-                      }}
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
+                {links.map((link, index) => {
+  const isActive = path === link.href; // Check if the link is the active one
+
+  return (
+    <Link
+      key={link.href}
+      href={link.href}
+      className={`text-xs sm:text-sm text-gray-100 hover:text-red-600 whitespace-nowrap transition-all duration-300 ease-in-out ${
+        isHovered
+          ? "translate-x-0 opacity-100"
+          : "translate-x-full opacity-0"
+      } ${isActive ? 'text-red-600' : ''}`} // Apply active link styling
+      style={{
+        transitionDelay: `${index * 50}ms`,
+      }}
+    >
+      {link.label}
+    </Link>
+  );
+})}
+
               </div>
             </div>
             <button
@@ -131,6 +137,7 @@ export default function Navbar() {
             ))}
           </div>
         </div>
+      </div>
       </div>
     </nav>
   );

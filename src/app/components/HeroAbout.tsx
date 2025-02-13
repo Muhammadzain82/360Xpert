@@ -108,6 +108,9 @@ export default function Hero() {
             visibility and impact. With our expertise, your online presence
             won&apos;t just stand out - it will excel.
           </p>
+          <div className="flex justify-center">
+            <Image src="/Mouse.png" alt="" width={30} height={30}/>
+          </div>
         </div>
         <div className="absolute inset-0 z-0 w-full h-full mt-60">
           {/* <Image
