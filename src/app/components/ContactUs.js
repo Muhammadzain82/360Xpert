@@ -1311,6 +1311,220 @@
 //   );
 // }
 
+// 'use client'
+// import { useState, useRef, useEffect } from 'react'
+// import Image from 'next/image'
+// import HeroCareers from '../components/HeroCareers'
+// import Footer from '../components/Footer'
+
+// export default function ContactForm() {
+//   const questions = [
+//     { field: 'fullName', text: "What's your full name?" },
+//     { field: 'phoneNumber', text: "What's your phone number?" },
+//     { field: 'email', text: "What's your email address?" },
+//     { field: 'company', text: "What company are you currently associated with?" },
+//     { field: 'yearsOfExperience', text: "How many years of experience do you have?" },
+//     { field: 'whyHireYou', text: "Why should we hire you?" }
+//   ]
+
+//   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+//   const [messages, setMessages] = useState([
+//     {
+//       text: questions[0].text,
+//       sender: 'system',
+//       timestamp: new Date()
+//     }
+//   ])
+
+//   const [formData, setFormData] = useState({
+//     fullName: '',
+//     phoneNumber: '',
+//     email: '',
+//     company: '',
+//     yearsOfExperience: '',
+//     whyHireYou: '',
+//   })
+
+//   const [fieldErrors, setFieldErrors] = useState({})
+//   const [success, setSuccess] = useState(false)
+//   const chatContainerRef = useRef(null)
+
+//   useEffect(() => {
+//     if (chatContainerRef.current) {
+//       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
+//     }
+//   }, [messages])
+
+//   const validateField = (field, value) => {
+//     if (!value) return `${field} is required.`
+//     if (field === 'email' && !/\S+@\S+\.\S+/.test(value)) return 'Please enter a valid email.'
+//     if (field === 'phoneNumber' && !/^\+?\d{10,15}$/.test(value)) return 'Please enter a valid phone number.'
+//     return ''
+//   }
+
+//   const handleSendMessage = async (userInput) => {
+//     const currentQuestion = questions[currentQuestionIndex]
+//     const currentField = currentQuestion.field
+
+//     setMessages(prev => [...prev, {
+//       text: userInput,
+//       sender: 'user',
+//       timestamp: new Date()
+//     }])
+
+//     const error = validateField(currentField, userInput)
+//     if (error) {
+//       setFieldErrors(prev => ({ ...prev, [currentField]: error }))
+//       setMessages(prev => [...prev, {
+//         text: error,
+//         sender: 'system',
+//         timestamp: new Date()
+//       }])
+//       return
+//     }
+
+//     const updatedFormData = { ...formData, [currentField]: userInput }
+//     setFormData(updatedFormData)
+
+//     if (currentQuestionIndex === questions.length - 1) {
+//       try {
+//         const response = await fetch('https://api.360xpertsolutions.com/api/forms', {
+//           method: 'POST',
+//           headers: {
+//             'Content-Type': 'application/json'
+//           },
+//           body: JSON.stringify({ data: updatedFormData }),
+//         });
+
+//         if (!response.ok) throw new Error('Failed to submit form');
+
+//         setSuccess(true);
+//         setMessages(prev => [...prev, {
+//           text: "Thank you for your submission! We'll get back to you soon.",
+//           sender: 'system',
+//           timestamp: new Date()
+//         }]);
+//       } catch (error) {
+//         console.error('Submission error:', error);
+//         setMessages(prev => [...prev, {
+//           text: "Sorry, there was an error submitting your application. Please try again.",
+//           sender: 'system',
+//           timestamp: new Date()
+//         }]);
+//       }
+//     } else {
+//       setCurrentQuestionIndex(prev => prev + 1);
+//       setTimeout(() => {
+//         setMessages(prev => [...prev, {
+//           text: questions[currentQuestionIndex + 1].text,
+//           sender: 'system',
+//           timestamp: new Date()
+//         }]);
+//       }, 500);
+//     }
+//   }
+
+//   return (
+//     <div className="relative">
+//       <HeroCareers />
+//       <div className="min-h-screen bg-[#181815] text-white relative overflow-hidden">
+//         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2/3 h-full">
+//           <div className="relative w-full h-full">
+//           </div>
+//         </div>
+
+//         <div className="container mx-auto px-4 py-8 sm:py-12 relative z-10">
+//           <div className="max-w-3xl mx-auto lg:mx-0">
+//             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light mb-4">Let&apos;s Meet</h1>
+//             <p className="text-gray-400 mb-6 sm:mb-8 max-w-2xl text-sm sm:text-base">
+//               Interested in joining our team? We&apos;d love to hear from you! Let&apos;s start with a few questions.
+//             </p>
+
+//             <div className="space-y-4 sm:space-y-6">
+//               <div
+//                 ref={chatContainerRef}
+//                 className="chat-container space-y-3 sm:space-y-4 mb-4 sm:mb-6 max-h-[50vh] overflow-y-auto"
+//                 style={{
+//                   scrollBehavior: 'smooth'
+//                 }}
+//               >
+//                 {messages.map((message, index) => (
+//                   <div
+//                     key={index}
+//                     className={`message flex ${
+//                       message.sender === 'user' ? 'justify-end' : 'justify-start'
+//                     } transition-all duration-500 ease-in-out`}
+//                   >
+//                     {message.sender === 'system' && (
+//                       <div className="flex items-start mr-2">
+//                         <div className="flex items-center justify-center">
+//                           <Image
+//                             src="/side.png"
+//                             width={50}
+//                             height={50}
+//                             alt="Send"
+//                           />
+//                         </div>
+//                       </div>
+//                     )}
+//                     <div
+//                       className={`relative p-3 sm:p-4 text-sm sm:text-base max-w-[80%] ${
+//                         message.sender === 'user'
+//                           ? 'bg-red-600 text-white'
+//                           : 'bg-[#232320] text-gray-300'
+//                       } ${
+//                         message.sender === 'user'
+//                           ? 'rounded-tl-lg rounded-tr-lg rounded-bl-lg'
+//                           : 'rounded-bl-lg rounded-tr-lg rounded-br-lg'
+//                       }`}
+//                     >
+//                       {message.text}
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+
+//               <div className="flex items-center space-x-2 sm:space-x-4 border-b border-red-800 pt-4 sm:pt-6 sticky bottom-0 bg-[#181815]">
+//                 <input
+//                   type="text"
+//                   autoComplete="off"
+//                   placeholder="Type your answer..."
+//                   className="flex-grow bg-transparent text-white pt-1 placeholder-gray-500 focus:outline-none text-sm sm:text-base"
+//                   onKeyDown={(e) => {
+//                     if (e.key === 'Enter' && e.currentTarget.value.trim() !== '') {
+//                       handleSendMessage(e.currentTarget.value.trim())
+//                       e.currentTarget.value = ''
+//                     }
+//                   }}
+//                 />
+//                 <button
+//                   className="text-red-600 hover:text-red-700  transition-colors"
+//                   onClick={() => {
+//                     const input = document.querySelector('input[type="text"]')
+//                     if (input && input.value.trim() !== '') {
+//                       handleSendMessage(input.value.trim())
+//                       input.value = ''
+//                     }
+//                   }}
+//                 >
+//                   <Image 
+//                     src="/red.png" 
+//                     width={40} 
+//                     height={40} 
+//                     alt="Send" 
+//                     className="w-8 h-8 sm:w-10 sm:h-10" 
+//                   />
+//                 </button>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//       <Footer />
+//     </div>
+//   )
+// }
+
 'use client'
 import { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
@@ -1324,15 +1538,17 @@ export default function ContactForm() {
     { field: 'email', text: "What's your email address?" },
     { field: 'company', text: "What company are you currently associated with?" },
     { field: 'yearsOfExperience', text: "How many years of experience do you have?" },
-    { field: 'WhyHireYou', text: "Why should we hire you?" }
+    { field: 'whyHireYou', text: "Why should we hire you?" }
   ]
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-  const [messages, setMessages] = useState([{
-    text: questions[0].text,
-    sender: 'system',
-    timestamp: new Date()
-  }])
+  const [messages, setMessages] = useState([
+    {
+      text: questions[0].text,
+      sender: 'system',
+      timestamp: new Date()
+    }
+  ])
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -1340,7 +1556,7 @@ export default function ContactForm() {
     email: '',
     company: '',
     yearsOfExperience: '',
-    WhyHireYou: '',
+    whyHireYou: '',
   })
 
   const [fieldErrors, setFieldErrors] = useState({})
@@ -1381,49 +1597,44 @@ export default function ContactForm() {
       return
     }
 
-    setFormData(prev => ({ ...prev, [currentField]: userInput }))
+    const updatedFormData = { ...formData, [currentField]: userInput }
+    setFormData(updatedFormData)
 
     if (currentQuestionIndex === questions.length - 1) {
       try {
-        // Log the payload before sending the request
-        const payload = { ...formData, [currentField]: userInput }
-        console.log("Payload to send:", payload)
-
-        const response = await fetch('https://api.360xpertsolutions.com/api/careers', {
+        const response = await fetch('https://api.360xpertsolutions.com/api/forms', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ data: payload }),
-        })
+          body: JSON.stringify({ data: updatedFormData }),
+        });
 
-        if (!response.ok) {
-          throw new Error('Failed to submit form')
-        }
+        if (!response.ok) throw new Error('Failed to submit form');
 
-        setSuccess(true)
+        setSuccess(true);
         setMessages(prev => [...prev, {
           text: "Thank you for your submission! We'll get back to you soon.",
           sender: 'system',
           timestamp: new Date()
-        }])
+        }]);
       } catch (error) {
-        console.error('Submission error:', error)
+        console.error('Submission error:', error);
         setMessages(prev => [...prev, {
           text: "Sorry, there was an error submitting your application. Please try again.",
           sender: 'system',
           timestamp: new Date()
-        }])
+        }]);
       }
     } else {
-      setCurrentQuestionIndex(prev => prev + 1)
+      setCurrentQuestionIndex(prev => prev + 1);
       setTimeout(() => {
         setMessages(prev => [...prev, {
           text: questions[currentQuestionIndex + 1].text,
           sender: 'system',
           timestamp: new Date()
-        }])
-      }, 500)
+        }]);
+      }, 500);
     }
   }
 
@@ -1438,7 +1649,7 @@ export default function ContactForm() {
 
         <div className="container mx-auto px-4 py-8 sm:py-12 relative z-10">
           <div className="max-w-3xl mx-auto lg:mx-0">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light mb-4">Let&apos;s Apply</h1>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light mb-4">Let&apos;s Meet</h1>
             <p className="text-gray-400 mb-6 sm:mb-8 max-w-2xl text-sm sm:text-base">
               Interested in joining our team? We&apos;d love to hear from you! Let&apos;s start with a few questions.
             </p>
@@ -1501,7 +1712,7 @@ export default function ContactForm() {
                   }}
                 />
                 <button
-                  className="text-red-600 hover:text-red-700 transition-colors"
+                  className="text-red-600 hover:text-red-700  transition-colors"
                   onClick={() => {
                     const input = document.querySelector('input[type="text"]')
                     if (input && input.value.trim() !== '') {
@@ -1510,12 +1721,12 @@ export default function ContactForm() {
                     }
                   }}
                 >
-                  <Image
-                    src="/red.png"
-                    width={40}
-                    height={40}
-                    alt="Send"
-                    className="w-8 h-8 sm:w-10 sm:h-10"
+                  <Image 
+                    src="/red.png" 
+                    width={40} 
+                    height={40} 
+                    alt="Send" 
+                    className="w-8 h-8 sm:w-10 sm:h-10" 
                   />
                 </button>
               </div>
@@ -1527,3 +1738,8 @@ export default function ContactForm() {
     </div>
   )
 }
+
+
+
+
+

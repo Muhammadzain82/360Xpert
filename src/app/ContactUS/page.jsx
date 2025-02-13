@@ -1074,7 +1074,7 @@ export default function ContactForm() {
 
         <div className="container mx-auto px-4 py-8 sm:py-12 relative z-10">
           <div className="max-w-3xl mx-auto lg:mx-0">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light mb-4">Let&apos;s Apply</h1>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light mb-4">Let&apos;s Meet</h1>
             <p className="text-gray-400 mb-6 sm:mb-8 max-w-2xl text-sm sm:text-base">
               Interested in joining our team? We&apos;d love to hear from you! Let&apos;s start with a few questions.
             </p>
