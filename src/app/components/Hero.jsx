@@ -413,7 +413,7 @@ const TextBox = () => {
               <span className="text-white font-semibold">360XpertSolutions</span>, we craft innovative digital solutions that amplify your brand&apos;s visibility and impact. With our expertise, your online presence won&apos;t just stand out - it will excel.
             </p>
             <div className="flex justify-center mt-">
-              <Image src="/Mouse.png " width={20} height={20}/>
+              <Image src="/Mouse.png" alt="" width={20} height={20}/>
             </div>
           </div>
 
